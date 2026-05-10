@@ -1,0 +1,81 @@
+Issue ID,URL,Title,State,Description,Author,Author Username,Assignee,Assignee Username,Confidential,Locked,Due Date,Created At (UTC),Updated At (UTC),Closed At (UTC),Milestone,Weight,Labels,Time Estimate,Time Spent
+1,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/1,Implementation of the Box Class,Open,"Contained within squares: They are located inside grid squares.
+
+Movable logic: They can be moved as long as the next position is empty or is the goal/target.
+
+Visual feedback: The box changes color when positioned on top of the goal.","HE, JIAXU",230226,"HE, JIAXU",230226,No,No,2026-05-24,2026-05-10 18:17:34,2026-05-10 18:22:15,,Demo Sokoban,,Feature,0,0
+2,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/2,Implement Level class,Open,"We need a Level class or something similar that contains all the squares:
+
+- A level is considered complete when all the boxes are in a goal.","CUÑARRO ALFONSÍN, MATEO",230245,"CUÑARRO ALFONSÍN, MATEO",230245,No,No,2026-05-24,2026-05-10 18:22:38,2026-05-10 18:25:14,,Demo Sokoban,,Feature,0,0
+3,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/3,Level Score Class,Open,"Class that counts the level score (the number of character moves).
+
+Tracks the total number of steps or moves made by the player within a single level.","HE, JIAXU",230226,"HE, JIAXU",230226,No,No,2026-05-24,2026-05-10 18:23:09,2026-05-10 18:24:20,,Demo Sokoban,,Feature,0,0
+4,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/4,Playable Character (Warehouse man),Open,"We need to implement the class that represents the Warehouse man the requirements of this Character are:
+    - Can only move horizontally or vertically
+    - Is contained in a square
+    - Can move boxes","COSOR STRIMBEANU, DENIS ANDREI",230069,"COSOR STRIMBEANU, DENIS ANDREI",230069,No,No,,2026-05-10 18:23:48,2026-05-10 18:39:07,,Demo Sokoban,,"Feature,to-do",0,0
+5,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/5,Implement square class,Open,"- The class must represent a single board cell.
+- Each square must store its row and column position.
+- A square can contain elements such as walls, boxes, goals or the player.
+- The class must allow checking whether the square is occupied.","BENÍTEZ MAIDANA, LUCAS DANIEL",230223,"BENÍTEZ MAIDANA, LUCAS DANIEL",230223,No,No,2026-05-24,2026-05-10 18:24:12,2026-05-10 18:24:12,,Demo Sokoban,,"Feature,to-do",0,0
+6,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/6,Total Game Score Class,Open,"Class for the total game score that records and sums all scores from previous levels.
+
+Persistent Registry: It maintains a record of all completed levels.
+
+Summation: It calculates the cumulative total of all moves/points.
+
+Final Display: The total is displayed to the player upon completing the game.","HE, JIAXU",230226,"HE, JIAXU",230226,No,No,2026-05-24,2026-05-10 18:25:24,2026-05-10 18:25:24,,Demo Sokoban,,Feature,0,0
+7,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/7,Implement Wall Class,Open,"- A wall must be placed inside a square of the board.
+- The player and boxes cannot move through walls.
+- Consecutive walls should be visually connected as a single structure in the graphical interface.","BENÍTEZ MAIDANA, LUCAS DANIEL",230223,"BENÍTEZ MAIDANA, LUCAS DANIEL",230223,No,No,2026-05-24,2026-05-10 18:27:51,2026-05-10 18:34:17,,Demo Sokoban,,"Feature,to-do",0,0
+8,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/8,Implementation of Goal,Open,The implementacion of the class that handles the Goals for the boxes.,"COSOR STRIMBEANU, DENIS ANDREI",230069,"COSOR STRIMBEANU, DENIS ANDREI",230069,No,No,,2026-05-10 18:27:51,2026-05-10 18:39:34,,Demo Sokoban,,"Feature,to-do",0,0
+9,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/9,"Implement ""LevelFileReader"" class",Open,"Program a class that reads the different levels from 1 to n from a text file, generating each level in the process. If there are no more levels, the game ends.
+
+- You must check if each level in the text file is valid:
+
+- The first line is the level name.
+
+- The next line contains two numbers, representing the number of rows and columns, respectively.
+
+The following n lines (equal to the number of rows) contain the level, which is composed of:
+
++: Wall
+
+*: Goal
+
+#: Box
+
+W : Main Character
+
+The following conditions must be met:
+
+- There must be at least one box and one goal.
+
+- There must be only one character.
+
+- There must be the same number of goals as boxes.
+
+- If the above conditions are not met, display a custom error message.","CUÑARRO ALFONSÍN, MATEO",230245,"CUÑARRO ALFONSÍN, MATEO",230245,No,No,2026-05-24,2026-05-10 18:28:38,2026-05-10 18:38:06,,Demo Sokoban,,Feature,0,0
+10,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/10,Implementation of LevelRecorder,Open,Implementation of the class LevelRecorder that records the moves made by the player in the current level and allows the loading of an old save.,"COSOR STRIMBEANU, DENIS ANDREI",230069,"COSOR STRIMBEANU, DENIS ANDREI",230069,No,No,,2026-05-10 18:31:33,2026-05-10 18:38:46,,Demo Sokoban,,"Feature,to-do",0,0
+11,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/11,Implement Level Interface Information Panel,Open,"- The interface must display the current level number.
+- The interface must display the level name.
+- The interface must display the current level score.
+- The interface must display the total game score.
+- The displayed information must update dynamically during gameplay.","BENÍTEZ MAIDANA, LUCAS DANIEL",230223,"BENÍTEZ MAIDANA, LUCAS DANIEL",230223,No,No,2026-05-24,2026-05-10 18:31:37,2026-05-10 18:31:37,,,,"Feature,to-do",0,0
+12,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/12,"Implement ""CurrentGameState"" class",Open,"
+Program the game class to contain the current state with: 
+- the current level 
+- the move log 
+- the level score and the game score.","CUÑARRO ALFONSÍN, MATEO",230245,"CUÑARRO ALFONSÍN, MATEO",230245,No,No,2026-05-24,2026-05-10 18:32:09,2026-05-10 18:39:20,,Demo Sokoban,,Feature,0,0
+13,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/13,Main Menu Interface,Open,"Main Menu Interface:
+
+- Start a new game or continue a current game
+
+- Redo a previous move
+
+- Save the game
+
+- Close the application","CUÑARRO ALFONSÍN, MATEO",230245,"CUÑARRO ALFONSÍN, MATEO",230245,No,No,2026-05-24,2026-05-10 18:35:03,2026-05-10 18:35:03,,Demo Sokoban,,Feature,0,0
+14,https://costa.ls.fi.upm.es/gitlab/230069/sokobanprogramming/-/issues/14,Implement Save Slot Manager,Open,"Develop a class responsible for saving the current game state and managing multiple save slots.
+- The class must save the current game state.
+- The game state must include the current level, player position, box positions, level score and total score.","BENÍTEZ MAIDANA, LUCAS DANIEL",230223,"BENÍTEZ MAIDANA, LUCAS DANIEL",230223,No,No,2026-05-24,2026-05-10 18:35:50,2026-05-10 18:35:50,,,,"Feature,to-do",0,0
