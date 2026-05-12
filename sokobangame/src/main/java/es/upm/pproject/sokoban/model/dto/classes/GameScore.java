@@ -2,6 +2,7 @@ package es.upm.pproject.sokoban.model.dto.classes;
 import es.upm.pproject.sokoban.model.dto.interfaces.*;
 
 public class GameScore implements IGameScore{
+
     private int total;
     
     public int getTotal() {
@@ -10,5 +11,12 @@ public class GameScore implements IGameScore{
 
     public void setTotal(int total) {
         this.total = total;
+    }
+    public int totalScores(IScore[] arrayScores){
+        for(IScore score : arrayScores){
+            total=+score.getPuntuacion();
+        }
+        setTotal(total);
+        return total;
     }
 }
