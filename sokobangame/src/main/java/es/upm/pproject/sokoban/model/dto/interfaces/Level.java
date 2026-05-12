@@ -17,6 +17,7 @@ public interface Level {
     public int setFilas();
     public int setColumnas();
     public Score setPuntuacion();
+    public void incrementar();
     
 
 
