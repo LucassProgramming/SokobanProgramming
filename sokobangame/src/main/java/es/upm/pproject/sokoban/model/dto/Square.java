@@ -1,4 +1,4 @@
-public class Casilla {
+public class Square {
 
     private int lado;
 }
