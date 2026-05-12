@@ -1,6 +1,5 @@
 package es.upm.pproject.sokoban.model.dto;
 
-public class Square {
-
-    private int lado;
+public class BoxManager {
+    
 }

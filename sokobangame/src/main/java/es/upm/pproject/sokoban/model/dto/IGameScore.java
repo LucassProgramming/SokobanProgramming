@@ -1,6 +1,6 @@
 package es.upm.pproject.sokoban.model.dto;
 
-public class IGameScore {
+public class GameScore {
 
     int total;
     

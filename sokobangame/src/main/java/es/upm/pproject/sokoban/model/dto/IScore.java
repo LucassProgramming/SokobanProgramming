@@ -1,14 +1,8 @@
 package es.upm.pproject.sokoban.model.dto;
 
-public class IScore {
+public interface IScore {
 
-    int score;
-
-    public int getScore() {
-        return score;
-    }
+    public int getPuntuacion();
     
-    public void setScore(int score) {
-        this.score = score;
-    }
+    public void setSPuntuacion(int puntuacion);
 }
