@@ -9,6 +9,7 @@ public class CharacterManager {
         this.level = level;
         this.personaje = character;
     }
+    
 
     public void moverPersonaje(Direccion direccion){
         Square [][] capaSup = level.getCapaSup();
@@ -26,7 +27,7 @@ public class CharacterManager {
             return;
         } else if(casillaSup instanceof Box){
            boolean movido = BoxManager.moverCaja(level,direccion);
-           if(movido){ personaje.setX(coorX + incX); personaje.setY(coorY + incY);}
-        } else {personaje.setX(coorX + incX); personaje.setY(coorY + incY);}
+           if(movido){ personaje.setX(coorX + incX); personaje.setY(coorY + incY); level.incrementar()}
+        } else {personaje.setX(coorX + incX); personaje.setY(coorY + incY); level.incrementar()}
     }
 }
