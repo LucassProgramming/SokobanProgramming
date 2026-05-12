@@ -3,7 +3,7 @@ import es.upm.pproject.sokoban.model.dto.interfaces.*;
 
 public class BoxManager implements IBoxManager{
 
-    public void moveBox(int x, int y){
+    public static boolean moveBox(Level level,int x, int y){
     
     }
 }

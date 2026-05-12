@@ -26,8 +26,8 @@ public class CharacterManager {
         if(casillaInf instanceof Wall){
             return;
         } else if(casillaSup instanceof Box){
-           boolean movido = BoxManager.moverBox(level,direccion);
-           if(movido){ personaje.setX(coorX + incX); personaje.setY(coorY + incY); level.incrementar()}
-        } else {personaje.setX(coorX + incX); personaje.setY(coorY + incY); level.incrementar()}
+           boolean movido = BoxManager.moveBox(level,incX,incY);
+           if(movido){ personaje.setX(coorX + incX); personaje.setY(coorY + incY); level.incrementar();}
+        } else {personaje.setX(coorX + incX); personaje.setY(coorY + incY); level.incrementar();}
     }
 }

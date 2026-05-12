@@ -3,7 +3,7 @@ package es.upm.pproject.sokoban.model.dto.interfaces;
 import es.upm.pproject.sokoban.model.dto.classes.Score;
 import es.upm.pproject.sokoban.model.dto.classes.Square;
 
-public interface Level {
+public interface ILevel {
     
     public Square[][] getCapaInf();
     public Square[][] getCapaSup();

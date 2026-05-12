@@ -2,8 +2,8 @@ package es.upm.pproject.sokoban.model.dto.classes;
 
 public class Square {
 
-    private final int x;
-    private final int y;
+    private int x;
+    private int y;
 
     public Square(int x, int y) {
         this.x = x;
@@ -14,5 +14,11 @@ public class Square {
     }
     public int getY() {
         return y;
+    }
+    public void setX(int x){
+        this.x = x;
+    }
+    public void setY(int y){
+        this.y = y;
     }
 }
