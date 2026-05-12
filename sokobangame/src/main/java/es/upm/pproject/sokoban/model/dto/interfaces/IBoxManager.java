@@ -1,4 +1,4 @@
-package es.upm.pproject.sokoban.model.dto;
+package es.upm.pproject.sokoban.model.dto.interfaces;
 
 public interface IBoxManager {
     
