@@ -18,7 +18,7 @@ public interface ILevel {
     public void setColumnas();
     public void setPuntuacion();
     public void incrementar();
-    
+    public void move();
 
 
 }

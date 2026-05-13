@@ -53,5 +53,5 @@ public class Level implements ILevel {
     public void incrementar(){
         
     }
-
+    public void move(){}
 }
