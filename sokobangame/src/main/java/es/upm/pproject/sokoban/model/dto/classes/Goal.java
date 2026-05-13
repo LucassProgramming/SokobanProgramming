@@ -19,3 +19,4 @@ public class Goal extends Square {
         cantidad--;
     }
 }
+

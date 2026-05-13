@@ -13,4 +13,7 @@ public class Score implements IScore{
         this.puntuacion=puntuacion;
     }
     
+    public void incrementar(){
+        this.puntuacion++;
+    }
 }
