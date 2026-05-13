@@ -87,4 +87,8 @@ public void setPuntuacion(Score puntuacion) {
 public void incrementar() {
     puntuacion.incrementar();
     }
+@Override
+public void moverPersonaje() {
+//Metodo para mover al personaje invocado por CurrentGameState necesita llamar a CharacterManager
+}
 }

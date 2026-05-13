@@ -18,7 +18,7 @@ public interface ILevel {
     public void setColumnas(int columnas);
     public void setPuntuacion(Score puntuacion);
     public void incrementar();
-    
+    public void moverPersonaje();  //Metodo para mover al personaje invocado por CurrentGameState necesita llamar a CharacterManager
 
 
 }
