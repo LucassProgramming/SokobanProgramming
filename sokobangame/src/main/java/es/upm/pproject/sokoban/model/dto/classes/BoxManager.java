@@ -6,9 +6,8 @@ public class BoxManager implements IBoxManager{
     private Level level;
     private Box caja;
 
-    public BoxManager(Level level, Box caja){
+    public BoxManager(Level level){
         this.level = level;
-        this.caja = caja;
     }
     /*
     -Comprobar la direccion a la que se va mover desde la clase Direccion
@@ -32,10 +31,18 @@ public class BoxManager implements IBoxManager{
             return false;
         }
         else {
-            caja.setX(coorX + incX); 
-            caja.setY(coorY + incY); 
+            caja.setX(coorX + incX);
+            caja.setY(coorY + incY);
             level.incrementar();
+
+            capaSup[coorX][coorY]=null;
+            capaSup[coorX+incX][coorY+incY]=caja;
+
             return true;
         }
+    }
+
+    public void setCaja(Box caja){
+        this.caja=caja;
     }
 }

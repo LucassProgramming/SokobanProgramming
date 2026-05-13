@@ -7,8 +7,8 @@ public interface ILevel {
     
     public Square[][] getCapaInf();
     public Square[][] getCapaSup();
-    public Square[][] setCapaInf();
-    public Square[][] setCapaSup();
+    public void setCapaInf();
+    public void setCapaSup();
     public String getNombre();
     public int getFilas();
     public int getColumnas();
