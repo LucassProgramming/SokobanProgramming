@@ -85,6 +85,6 @@ public void setPuntuacion(Score puntuacion) {
 
 @Override
 public void incrementar() {
-    puntuacion.getPuntuacion();
+    puntuacion.incrementar();
     }
 }
