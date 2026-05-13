@@ -8,4 +8,11 @@ public class Direccion {
         incX = x;
         incY = y;
     }
+
+    public int getX(){
+        return incX;
+    }
+    public int getY(){
+        return incY;
+    }
 }

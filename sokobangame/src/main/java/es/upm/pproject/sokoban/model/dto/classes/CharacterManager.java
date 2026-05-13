@@ -20,7 +20,7 @@ public class CharacterManager {
 
         int incX = direccion.getX();
         int incY = direccion.getY();
-
+        
         Square casillaInf = capaInf[coorX + incX][coorY + incY];
         Square casillaSup = capaSup[coorX + incX][coorY + incY];
         if(casillaInf instanceof Wall){
