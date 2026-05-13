@@ -1,6 +1,10 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
-public class CurrentGameState {
+import java.io.Serializable;
+
+import es.upm.pproject.sokoban.model.dto.interfaces.ICurrentGameState;
+
+public class CurrentGameState implements ICurrentGameState, Serializable {
     private Level [] arrayLevels;
     private int index = 0;
     private Level current;
@@ -15,5 +19,21 @@ public class CurrentGameState {
     public void añadirLevel(Level level){
        arrayLevels[index] = level;
        index++;
+    }
+    @Override
+    public Level getCurrent() {
+        return current;
+    }
+    @Override
+    public void setCurrent(Level current) {
+        this.current = current;
+    }
+    @Override
+    public int getIndex() {
+        return index;
+    }
+    @Override
+    public void setIndex(int index) {
+        this.index = index;
     }
 }
