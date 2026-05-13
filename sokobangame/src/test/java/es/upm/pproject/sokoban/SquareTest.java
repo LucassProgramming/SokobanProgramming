@@ -1,6 +1,7 @@
 package es.upm.pproject.sokoban;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.Test;
 
 import es.upm.pproject.sokoban.model.dto.classes.Square;
@@ -20,12 +21,12 @@ public class SquareTest {
     @Test
     void SquareCoordenadaXIncorrecta(){
         Square square = new Square(2, 5);
-        assertEquals(3, square.getX());
+        assertNotEquals(3, square.getX());
     }
     @Test
     void SquareCoordenadaYIncorrecta(){
         Square square = new Square(2, 5);
-        assertEquals(6, square.getY());
+        assertNotEquals(6, square.getY());
     }
     @Test
     void deberiaGuardarCoordenadasCero(){
