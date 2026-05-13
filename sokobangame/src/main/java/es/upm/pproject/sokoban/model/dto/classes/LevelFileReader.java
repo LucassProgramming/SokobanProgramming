@@ -46,7 +46,7 @@ public class LevelFileReader {
                         break;
                     
                     case '#':
-                        capaSup[i][j] = new Box(null, i, j);
+                        capaSup[i][j] = new Box(null, i, j, 0);
                         capaInf[i][j] = new Square(i, j);
                         break;
 
@@ -62,13 +62,8 @@ public class LevelFileReader {
 
                 }
             }
-            Level NivelResultado = new Level(nombre,filas,columnas,capaInf,capaSup,0);
-            return null;
+            return new Level(nombre,filas,columnas,capaInf,capaSup,new Score());
         }
         
         
     }
-
-
-
-

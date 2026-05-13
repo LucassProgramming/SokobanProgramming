@@ -74,27 +74,17 @@ public void setFilas(int Filas) {
 }
 
 @Override
-public void setColumnas(int Columnas) {
-    this.columnas = Columnas;
+public void setColumnas(int columnas) {
+    this.columnas = columnas;
 }
 
 @Override
-public void setPuntuacion(Score Puntuacion) {
-    this.puntuacion = Puntuacion;
+public void setPuntuacion(Score puntuacion) {
+    this.puntuacion = puntuacion;
 }
 
 @Override
 public void incrementar() {
-    
-}
-
-
-    
-    
-
-
-
-    
-
-
+    puntuacion.getPuntuacion();
+    }
 }

@@ -14,9 +14,9 @@ public interface ILevel {
     public int getColumnas();
     public Score getPuntuacion();
     public void setNombre(String nombre);
-    public void setFilas(int Filas);
-    public void setColumnas(int Columnas);
-    public void setPuntuacion(Score Puntuacion);
+    public void setFilas(int filas);
+    public void setColumnas(int columnas);
+    public void setPuntuacion(Score puntuacion);
     public void incrementar();
     
 

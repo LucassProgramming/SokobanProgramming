@@ -1,10 +1,15 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
 public class Goal extends Square {
+    private static int cantidad = 0;
 
-    public Goal(int x, int y) {
+    public Goal(int x,int y){
         super(x, y);
-        //TODO Auto-generated constructor stub
+        cantidad++;
     }
 
+    public static int getCantidad(){
+        return cantidad;
+    }
 }
+
