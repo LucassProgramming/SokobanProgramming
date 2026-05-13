@@ -9,5 +9,49 @@ public class Level implements ILevel {
     private Score puntuacion;
     private int filas;
     private String nombre;
-    private int Columnas;
+    private int columnas;
+    private CharacterManager manejadorPersonaje;
+
+
+
+    public Square[][] getCapaInf(){
+        return capaInf;
+    }
+    public Square[][] getCapaSup(){
+        return capaSup;
+    }
+    public void setCapaInf(){
+
+    }
+    public void setCapaSup(){
+
+    }
+    public String getNombre(){
+        return nombre;
+    }
+    public int getFilas(){
+        return filas;
+    }
+    public int getColumnas(){
+        return columnas;
+    }
+    public Score getPuntuacion(){
+        return puntuacion;
+    }
+    public void setNombre(){
+
+    }
+    public void setFilas(){
+
+    }
+    public void setColumnas(){
+        
+    }
+    public void setPuntuacion(){
+        
+    }
+    public void incrementar(){
+        
+    }
+
 }
