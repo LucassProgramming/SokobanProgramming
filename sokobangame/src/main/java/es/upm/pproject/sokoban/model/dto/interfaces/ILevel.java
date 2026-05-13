@@ -13,10 +13,10 @@ public interface ILevel {
     public int getFilas();
     public int getColumnas();
     public Score getPuntuacion();
-    public String setNombre();
-    public int setFilas();
-    public int setColumnas();
-    public Score setPuntuacion();
+    public void setNombre();
+    public void setFilas();
+    public void setColumnas();
+    public void setPuntuacion();
     public void incrementar();
     
 

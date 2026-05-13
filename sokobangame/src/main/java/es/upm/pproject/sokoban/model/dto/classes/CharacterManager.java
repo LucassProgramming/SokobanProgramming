@@ -26,7 +26,7 @@ public class CharacterManager {
         if(casillaInf instanceof Wall){
             return;
         } else if(casillaSup instanceof Box){
-           manejador.setCaja(casillaSup);
+           manejador.setCaja((Box) casillaSup);
            boolean movido = manejador.moveBox(level,incX,incY);
            if(movido){ personaje.setX(coorX + incX); personaje.setY(coorY + incY); level.incrementar();}
         } else {personaje.setX(coorX + incX); personaje.setY(coorY + incY); level.incrementar();}
