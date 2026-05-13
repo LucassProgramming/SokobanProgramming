@@ -9,5 +9,5 @@ public class Level implements ILevel {
     private Score puntuacion;
     private int filas;
     private String nombre;
-    private int Columnas;
+    private int columnas;
 }
