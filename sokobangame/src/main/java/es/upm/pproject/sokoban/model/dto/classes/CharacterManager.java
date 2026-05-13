@@ -28,8 +28,17 @@ public class CharacterManager {
         } else if(casillaSup instanceof Box){
            manejador.setCaja((Box) casillaSup);
            boolean movido = manejador.moveBox(level,incX,incY);
-           if(movido){ personaje.setX(coorX + incX); personaje.setY(coorY + incY); level.incrementar();}
-        } else {personaje.setX(coorX + incX); personaje.setY(coorY + incY); level.incrementar();}
+           if(movido){
+            personaje.setX(coorX + incX); 
+            personaje.setY(coorY + incY); 
+            level.incrementar();
+            capaSup[coorX][coorY] = null;
+            capaSup[personaje.getX()][personaje.getY()] = personaje;
+        }
+        } else {personaje.setX(coorX + incX); personaje.setY(coorY + incY);
+             level.incrementar(); 
+            capaSup[coorX][coorY] = null;
+            capaSup[personaje.getX()][personaje.getY()] = personaje;}
     }
 }
 }

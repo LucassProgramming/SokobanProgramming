@@ -12,3 +12,4 @@ public class Goal extends Square {
         return cantidad;
     }
 }
+

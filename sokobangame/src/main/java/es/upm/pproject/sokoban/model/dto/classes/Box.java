@@ -18,4 +18,7 @@ public class Box extends Square{
     public void setColor(Color color) {
         this.color = color;
     }
+    public static int cuantasBoxes(){
+        return cantidad;
+    }
 }

@@ -10,48 +10,81 @@ public class Level implements ILevel {
     private int filas;
     private String nombre;
     private int columnas;
-    private CharacterManager manejadorPersonaje;
+
+public Level(String nombre,int filas,int columnas,Square[][] capaInf,Square[][] capaSup,Score puntuacion){
+
+    this.nombre = nombre;
+    this.filas = filas;
+    this.columnas = columnas;
+    this.capaInf = capaInf;
+    this.capaSup = capaSup;
+    this.puntuacion = puntuacion;
 
 
+}
 
-    public Square[][] getCapaInf(){
-        return capaInf;
-    }
-    public Square[][] getCapaSup(){
-        return capaSup;
-    }
-    public void setCapaInf(){
+@Override
+public Square[][] getCapaInf() {
+    return this.capaInf;
+}
 
-    }
-    public void setCapaSup(){
+@Override
+public Square[][] getCapaSup() {
+    return this.capaSup;
+}
 
-    }
-    public String getNombre(){
-        return nombre;
-    }
-    public int getFilas(){
-        return filas;
-    }
-    public int getColumnas(){
-        return columnas;
-    }
-    public Score getPuntuacion(){
-        return puntuacion;
-    }
-    public void setNombre(){
+@Override
+public void setCapaInf(Square[][] capaInf) {
+     this.capaInf = capaInf;
+}
 
-    }
-    public void setFilas(){
+@Override
+public void setCapaSup(Square[][] capaSup) {
+    this.capaSup = capaSup;
+}
 
-    }
-    public void setColumnas(){
-        
-    }
-    public void setPuntuacion(){
-        
-    }
-    public void incrementar(){
-        
-    }
+@Override
+public String getNombre() {
+   return this.nombre;
+}
 
+@Override
+public int getFilas() {
+    return this.filas;
+}
+
+@Override
+public int getColumnas() {
+    return this.columnas;
+}
+
+@Override
+public Score getPuntuacion() {
+    return this.puntuacion;
+}
+
+@Override
+public void setNombre(String nombre) {
+    this.nombre = nombre;
+}
+
+@Override
+public void setFilas(int Filas) {
+    this.filas = Filas;
+}
+
+@Override
+public void setColumnas(int columnas) {
+    this.columnas = columnas;
+}
+
+@Override
+public void setPuntuacion(Score puntuacion) {
+    this.puntuacion = puntuacion;
+}
+
+@Override
+public void incrementar() {
+    puntuacion.incrementar();
+    }
 }
