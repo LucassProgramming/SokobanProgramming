@@ -24,7 +24,7 @@ public class MainMenuView {
 
         Scene scene = new Scene(layout, 800, 600); // tam de la ventana
         stage.setTitle("Sokoban");
-        stage.setScene(scene);                                   // mete la scen dentro de la ventana
+        stage.setScene(scene);                                   // mete la scene dentro de la ventana
         stage.show();
     }
 
