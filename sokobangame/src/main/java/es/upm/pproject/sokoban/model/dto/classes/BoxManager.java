@@ -3,10 +3,10 @@ import es.upm.pproject.sokoban.model.dto.interfaces.*;
 
 public class BoxManager implements IBoxManager{
     private Direccion direccion;
-    private Level level;
+    private ILevel level;
     private Box caja;
 
-    public BoxManager(Level level){
+    public BoxManager(ILevel level){
         this.level = level;
     }
     /*
@@ -15,7 +15,7 @@ public class BoxManager implements IBoxManager{
         -En caso de que no, mover incrementado/decrementando x o y, guardarlo en el array o base de datos de movimientos 
         -En caso de que si sea muro, no mover y tampoco guardarlo
     */
-    public boolean moveBox(Level level,int x, int y){
+    public boolean moveBox(ILevel level,int x, int y){
         Square [][] capaSup = level.getCapaSup();
         Square [][] capaInf = level.getCapaInf();
 

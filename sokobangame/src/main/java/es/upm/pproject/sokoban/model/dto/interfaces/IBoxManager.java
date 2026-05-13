@@ -4,6 +4,6 @@ import es.upm.pproject.sokoban.model.dto.classes.Level;
 
 public interface IBoxManager {
     
- boolean moveBox(Level level,int x, int y);
+ boolean moveBox(ILevel level,int x, int y);
 
 }

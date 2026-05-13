@@ -22,6 +22,14 @@ public Level(String nombre,int filas,int columnas,Square[][] capaInf,Square[][] 
 
 
 }
+public Level(Square [][] capaInf, Square [][] capaSup){ //Constructor par los test de Character
+    this.nombre = null;
+    this.filas = 0;
+    this.columnas = 0;
+    this.capaInf = capaInf;
+    this.capaSup = capaSup;
+    this.puntuacion = null;
+}
 
 @Override
 public Square[][] getCapaInf() {
