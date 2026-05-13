@@ -1,7 +1,9 @@
 package es.upm.pproject.sokoban.model.dto.classes;
-import es.upm.pproject.sokoban.model.dto.interfaces.*;
+import java.io.Serializable;
 
-public class Score implements IScore{
+import es.upm.pproject.sokoban.model.dto.interfaces.IScore;
+
+public class Score implements IScore, Serializable{
 
     private int puntuacion;
 

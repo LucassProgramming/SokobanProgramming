@@ -1,8 +1,10 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
+import java.io.Serializable;
+
 import es.upm.pproject.sokoban.model.dto.interfaces.ILevel;
 
-public class Level implements ILevel {
+public class Level implements ILevel, Serializable {
 
     private Square capaInf[][];
     private Square capaSup[][];

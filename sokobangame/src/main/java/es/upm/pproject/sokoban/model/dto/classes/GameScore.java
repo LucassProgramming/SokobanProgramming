@@ -1,7 +1,10 @@
 package es.upm.pproject.sokoban.model.dto.classes;
-import es.upm.pproject.sokoban.model.dto.interfaces.*;
+import java.io.Serializable;
 
-public class GameScore implements IGameScore{
+import es.upm.pproject.sokoban.model.dto.interfaces.IGameScore;
+import es.upm.pproject.sokoban.model.dto.interfaces.IScore;
+
+public class GameScore implements IGameScore, Serializable{
 
     private int total;
     
