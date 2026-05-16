@@ -38,7 +38,10 @@ public class MainMenuView {
         salir.setPrefHeight(45);
 
         //botones
-        nuevoJuego.setOnAction(e -> controller.iniciarJuego());
+        nuevoJuego.setOnAction(e -> {
+            try { controller.iniciarJuego(); }
+            catch (Exception ex) { ex.printStackTrace(); }
+        });
         cargarPartida.setOnAction(e -> controller.cargarPartida());
         salir.setOnAction(e -> controller.cerrarApp());
 
