@@ -33,9 +33,11 @@ public class MenuController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
     }
-    public void cargarPartida(){
-        // SaveSlotManager
-        System.out.println("Load Game");
+    public void cargarPartida(int slot){
+        System.out.println("Cargar slot" + slot);
+    }
+    public void guardarPartida(int slot){
+        System.out.println("Guardar en slot " + slot);
     }
     public void cerrarApp(){
         stage.close();
