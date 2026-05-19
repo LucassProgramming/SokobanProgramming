@@ -16,9 +16,8 @@ public class CharacterManagerTest {
         Square [][] capaSup = new Square [2][2];
         capaInf[0][1] = new Wall(0, 1);
         capaSup[0][0] = pers;
-        ILevel level = new Level(capaInf,capaSup);
-        CharacterManager manager = new CharacterManager(level, pers);
-        manager.moverPersonaje(new Direccion(0, 1));
+        Level level = new Level(capaInf,capaSup);
+        CharacterManager.moverPersonaje(level,pers,new Direccion(0, 1));
         assertEquals(capaSup[0][0], pers);
     }
 }

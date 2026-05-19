@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class LevelFileReader {
 
     public static Level CrearNivel(String archivo){
-               
+        PlayableCharacter caracter = null;
         ArrayList<String> lineas = new ArrayList<>();
         try(BufferedReader lector = new BufferedReader(new FileReader(archivo))){
 
@@ -50,8 +50,9 @@ public class LevelFileReader {
                         capaInf[i][j] = new Square(i, j);
                         break;
 
-                    case 'W':
-                        capaSup[i][j] = new PlayableCharacter(i, j);
+                    case 'W':    
+                        caracter = new PlayableCharacter(i, j);
+                        capaSup[i][j] = caracter;
                         capaInf[i][j] = new Square(i, j);
                         break;
                 
@@ -62,7 +63,7 @@ public class LevelFileReader {
 
                 }
             }
-            return new Level(nombre,filas,columnas,capaInf,capaSup,new Score());
+            return new Level(nombre,filas,columnas,capaInf,capaSup,new Score(),caracter);
         }
         
         

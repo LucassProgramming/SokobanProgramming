@@ -11,4 +11,5 @@ public interface ICurrentGameState {
     */
     int getIndex();
     void setIndex(int index);
+    void reversionEstado();
 }
