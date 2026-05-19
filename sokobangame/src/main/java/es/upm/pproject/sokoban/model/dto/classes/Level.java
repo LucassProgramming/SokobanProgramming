@@ -23,8 +23,8 @@ public Level(String nombre,int filas,int columnas,Square[][] capaInf,
     this.columnas = columnas;
     this.capaInf = capaInf;
     this.capaSup = capaSup;
-    this.puntuacion = puntuacion;
-    this.character = character;
+    this.puntuacion = puntuacion; //La puntuacion de este nivel
+    this.character = character; //El personaje de este nivel
 
 
 }
@@ -105,10 +105,12 @@ public void incrementar() {
 public void moverPersonaje(Direccion direccion) {
 //Metodo para mover al personaje invocado por CurrentGameState necesita llamar a CharacterManager
 guardado.save(this);
-CharacterManager.moverPersonaje(this,character, direccion);
+CharacterManager.moverPersonaje(this,character, direccion); //Se pasa a si mismo para que 
+// El personaje sepa por donde moverse
 }
 @Override
 public Level estadoAnterior(){ //Metodo para devolver su estado anterior 
-    return guardado.undo();
+    return guardado.undo(); //Esto se lo devuelve a CurrentGameState para 
+    // restaurar el estado anterior
 }
 }

@@ -36,4 +36,9 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     public void setIndex(int index) {
         this.index = index;
     }
+    @Override
+    public void reversionEstado(){
+        Level anterior = current.estadoAnterior();
+        if(anterior!=null) current = anterior;
+    }
 }

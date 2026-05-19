@@ -3,17 +3,11 @@ package es.upm.pproject.sokoban.model.dto.classes;
 import es.upm.pproject.sokoban.model.dto.interfaces.ILevel;
 
 public class CharacterManager { //Clase para controlar el movimiento del personaje esta asociada con Level
-   
-    private ILevel level; //Atributo level que representa 
-    private PlayableCharacter personaje; //personaje se le añade en LevelFileReader
-    private BoxManager manejador; //BoxManager autogenerado
 
-    public CharacterManager(ILevel level, PlayableCharacter character){ //Contructor de CharacterManager
-        this.level = level;
-        this.personaje = character;
+    private static BoxManager manejador; //BoxManager autogenerado
+    public static void moverPersonaje(Level level,PlayableCharacter personaje,
+        Direccion direccion ){ //moverPersonaje llamado por el nivel con la direccion del teclado
         manejador = new BoxManager(level);
-    }
-    public void moverPersonaje(Direccion direccion ){ //moverPersonaje llamado por el nivel con la direccion del teclado
         Square [][] capaSup = level.getCapaSup(); //obtener la capa superior para cajas
         Square [][] capaInf = level.getCapaInf(); //obtener capa inferior para Muros
 
