@@ -1,0 +1,73 @@
+package es.upm.pproject.sokoban.controller;
+
+import es.upm.pproject.sokoban.model.dto.classes.CurrentGameState;
+import es.upm.pproject.sokoban.model.dto.classes.Direccion;
+import es.upm.pproject.sokoban.model.dto.classes.Level;
+import es.upm.pproject.sokoban.view.BoardView;
+import es.upm.pproject.sokoban.view.GameInfoView;
+import javafx.scene.input.KeyCode;
+
+public class GameController {
+
+    private CurrentGameState estado;
+    private BoardView boardView;
+    private GameInfoView gameInfoView;
+    private int levelNum;
+
+    public GameController(CurrentGameState estado, BoardView boardView,
+            GameInfoView gameInfoView, int levelNum) {
+        this.estado = estado;
+        this.boardView = boardView;
+        this.gameInfoView = gameInfoView;
+        this.levelNum = levelNum;
+    }
+
+    // Recibe la tecla pulsada, la convierte en direccion y mueve al personaje
+    public void handleKey(KeyCode code) {
+        Direccion dir = toDireccion(code);
+        if (dir == null) return; // tecla irrelevante, no hacer nada
+
+        // Pide al nivel actual que mueva al personaje en esa direccion
+        estado.getCurrent().moverPersonaje(dir);
+
+        // Refresca la pantalla con el nuevo estado del nivel
+        actualizarVistas();
+    }
+
+    // Deshace el ultimo movimiento y refresca la pantalla
+    public void undo() {
+        estado.reversionEstado();
+        actualizarVistas();
+    }
+
+    // Reinicia el nivel al estado inicial y refresca la pantalla
+    public void restart() {
+        estado.restart();
+        actualizarVistas();
+    }
+
+    // Traduce la tecla del teclado a un incremento de fila/columna
+    // Fila sube → incX negativo; fila baja → incX positivo
+    // Columna izq → incY negativo; columna der → incY positivo
+    private Direccion toDireccion(KeyCode code) {
+        switch (code) {
+            case UP:    case W: return new Direccion(-1,  0);
+            case DOWN:  case S: return new Direccion( 1,  0);
+            case LEFT:  case A: return new Direccion( 0, -1);
+            case RIGHT: case D: return new Direccion( 0,  1);
+            default:            return null;
+        }
+    }
+
+    // Actualiza el tablero y la barra de info con los datos del nivel actual
+    private void actualizarVistas() {
+        Level level = estado.getCurrent();
+        boardView.actualizar(level);
+        gameInfoView.actualizarInfo(
+            level.getNombre(),
+            levelNum,
+            level.getPuntuacion().getPuntuacion(),
+            0 // puntuacion total: se conectara cuando exista GameScore
+        );
+    }
+}

@@ -30,7 +30,11 @@ public class MenuController {
 
         GameInfoView gameInfoView = new GameInfoView(level.getNombre(), 1, 0, 0);
         BoardView boardView = new BoardView(level);
-        MainGameView mainGameView = new MainGameView(stage,this);
+
+        // GameController conecta el teclado con el modelo y las vistas
+        GameController gameController = new GameController(estadoActual, boardView, gameInfoView, 1);
+
+        MainGameView mainGameView = new MainGameView(stage, gameController);
 
         BorderPane root = new BorderPane();
         root.setTop(gameInfoView);
@@ -38,6 +42,10 @@ public class MenuController {
         root.setBottom(mainGameView);
 
         Scene scene = new Scene(root);
+
+        // Cada vez que se pulsa una tecla, se lo pasamos al GameController
+        scene.setOnKeyPressed(e -> gameController.handleKey(e.getCode()));
+
         stage.setScene(scene);
     }
     public void cargarPartida(int slot){
@@ -45,12 +53,6 @@ public class MenuController {
     }
     public void guardarPartida(int slot){
         System.out.println("Guardar en slot " + slot);
-    }
-    public void undo(){
-
-    }
-    public void restart(){
-        estadoActual.restart();
     }
     public void cerrarApp(){
         stage.close();

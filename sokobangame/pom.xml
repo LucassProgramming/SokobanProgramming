@@ -13,8 +13,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
 
     <sonar.host.url>https://costa.ls.fi.upm.es/sonar</sonar.host.url>
@@ -65,6 +65,21 @@
         <version>0.0.8</version>
         <configuration>
           <mainClass>es.upm.pproject.sokoban.App</mainClass>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.6.3</version>
+        <configuration>
+          <mainClass>es.upm.pproject.sokoban.App</mainClass>
+          <jvmArgs>
+            <jvmArg>--module-path</jvmArg>
+            <jvmArg>${settings.localRepository}/org/openjfx/javafx-base/21.0.1/javafx-base-21.0.1-linux.jar:${settings.localRepository}/org/openjfx/javafx-controls/21.0.1/javafx-controls-21.0.1-linux.jar:${settings.localRepository}/org/openjfx/javafx-graphics/21.0.1/javafx-graphics-21.0.1-linux.jar:${settings.localRepository}/org/openjfx/javafx-fxml/21.0.1/javafx-fxml-21.0.1-linux.jar</jvmArg>
+            <jvmArg>--add-modules</jvmArg>
+            <jvmArg>javafx.controls,javafx.fxml</jvmArg>
+          </jvmArgs>
         </configuration>
       </plugin>
       <plugin>
