@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import es.upm.pproject.sokoban.model.dto.classes.*;
-import es.upm.pproject.sokoban.model.dto.interfaces.ILevel;
 
 public class CharacterManagerTest {
     
