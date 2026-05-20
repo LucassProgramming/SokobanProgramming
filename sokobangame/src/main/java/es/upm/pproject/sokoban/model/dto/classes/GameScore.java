@@ -17,7 +17,7 @@ public class GameScore implements IGameScore, Serializable{
     }
     public int totalScores(IScore[] arrayScores){
         for(IScore score : arrayScores){
-            total=+score.getPuntuacion();
+            total+=score.getPuntuacion();
         }
         setTotal(total);
         return total;

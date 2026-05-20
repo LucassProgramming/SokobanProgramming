@@ -2,19 +2,13 @@ package es.upm.pproject.sokoban.model.dto.classes;
 import es.upm.pproject.sokoban.model.dto.interfaces.*;
 
 public class BoxManager implements IBoxManager{
-    private Direccion direccion;
     private ILevel level;
     private Box caja;
 
     public BoxManager(ILevel level){
         this.level = level;
     }
-    /*
-    -Comprobar la direccion a la que se va mover desde la clase Direccion
-    -Comprobar si es muro (+)
-        -En caso de que no, mover incrementado/decrementando x o y, guardarlo en el array o base de datos de movimientos 
-        -En caso de que si sea muro, no mover y tampoco guardarlo
-    */
+
     public boolean moveBox(ILevel level,int x, int y){
         Square [][] capaSup = level.getCapaSup();
         Square [][] capaInf = level.getCapaInf();
@@ -22,21 +16,16 @@ public class BoxManager implements IBoxManager{
         int coorX = caja.getX();
         int coorY = caja.getY();
 
-        int incX = direccion.getX();
-        int incY = direccion.getY();
-
-        Square casillaInf = capaInf[coorX + incX][coorY + incY];
-        Square casillaSup = capaSup[coorX + incX][coorY + incY];
+        Square casillaInf = capaInf[coorX + x][coorY + y];
         if(casillaInf instanceof Wall){
             return false;
         }
         else {
-            caja.setX(coorX + incX);
-            caja.setY(coorY + incY);
-            level.incrementar();
+            caja.setX(coorX + x);
+            caja.setY(coorY + y);
 
             capaSup[coorX][coorY]=null;
-            capaSup[coorX+incX][coorY+incY]=caja;
+            capaSup[coorX+x][coorY+y]=caja;
 
             return true;
         }

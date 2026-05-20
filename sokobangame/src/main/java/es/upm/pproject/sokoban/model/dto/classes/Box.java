@@ -7,7 +7,7 @@ public class Box extends Square{
     private static int cantidad=0;
     public Box(Color color, int x, int y, int cantidad){
         super(x,y);
-        cantidad++;
+        Box.cantidad++;
         this.color=Color.PINK;
     }
 
