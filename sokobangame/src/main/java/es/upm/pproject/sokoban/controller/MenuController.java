@@ -3,6 +3,7 @@ import es.upm.pproject.sokoban.model.dto.classes.Level;
 import es.upm.pproject.sokoban.model.dto.classes.LevelFileReader;
 import es.upm.pproject.sokoban.view.BoardView;
 import es.upm.pproject.sokoban.view.GameInfoView;
+import es.upm.pproject.sokoban.view.MainGameView;
 import es.upm.pproject.sokoban.view.MainMenuView;
 import java.nio.file.Paths;
 import javafx.scene.Scene;
@@ -25,10 +26,12 @@ public class MenuController {
 
         GameInfoView gameInfoView = new GameInfoView(level.getNombre(), 1, 0, 0);
         BoardView boardView = new BoardView(level);
+        MainGameView mainGameView = new MainGameView(stage,this);
 
         BorderPane root = new BorderPane();
         root.setTop(gameInfoView);
         root.setCenter(boardView);
+        root.setBottom(mainGameView);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
