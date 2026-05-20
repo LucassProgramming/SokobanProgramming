@@ -13,10 +13,10 @@ public class MainGameView extends HBox {
      private Button menu;
 
      public MainGameView(Stage stage, GameController gameController){
-        undo    = new Button("Undo");
-        save    = new Button("Save");
+        undo = new Button("Undo");
+        save = new Button("Save");
         restart = new Button("Restart");
-        menu    = new Button("Menú");
+        menu = new Button("Menú");
         crearVista(gameController);
      }
 

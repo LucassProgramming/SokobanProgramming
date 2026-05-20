@@ -36,7 +36,8 @@ public class LevelFileReader {
         for(int i=0; i< filas; i++){
             String ComienzoNivelArchivo = lineas.get(2+i);
             for(int j=0; j< columnas;j++){
-                switch (ComienzoNivelArchivo.charAt(j)) {
+                char celda = j < ComienzoNivelArchivo.length() ? ComienzoNivelArchivo.charAt(j) : ' ';
+                switch (celda) {
                     case '+':
                         capaInf[i][j] = new Wall(i,j);
                         break;
