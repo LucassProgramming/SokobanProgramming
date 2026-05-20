@@ -11,8 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class BoardView extends GridPane {
 
@@ -23,6 +21,7 @@ public class BoardView extends GridPane {
     private final Image goalImg;
     private final Image cajaImg;
     private final Image cajaEnGoalImg;
+    private final Image JugadorImg;
 
     public BoardView(ILevel level) {
         sueloImg = loadImage("/images/suelo.jpg");
@@ -30,6 +29,8 @@ public class BoardView extends GridPane {
         goalImg = loadImage("/images/goal.jpg");
         cajaImg = loadImage("/images/caja.png");
         cajaEnGoalImg = loadImage("/images/cajaengoal.png");
+        JugadorImg = loadImage("/images/golemfondodepiedra.png");
+
         buildBoard(level);
     }
 
@@ -73,12 +74,7 @@ public class BoardView extends GridPane {
             return makeImageView(onGoal ? cajaEnGoalImg : cajaImg);
         }
         if (square instanceof PlayableCharacter) {
-            // TODO: reemplazar con makeImageView(jugadorImg) cuando se añada la imagen del jugador
-            Rectangle r = new Rectangle(TILE_SIZE * 0.7, TILE_SIZE * 0.7);
-            r.setFill(Color.DODGERBLUE);
-            r.setArcWidth(TILE_SIZE * 0.3);
-            r.setArcHeight(TILE_SIZE * 0.3);
-            return r;
+            return makeImageView(JugadorImg );
         }
         return null;
     }
