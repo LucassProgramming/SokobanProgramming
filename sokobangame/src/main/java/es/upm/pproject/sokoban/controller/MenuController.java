@@ -1,4 +1,5 @@
 package es.upm.pproject.sokoban.controller;
+import es.upm.pproject.sokoban.model.dto.classes.CurrentGameState;
 import es.upm.pproject.sokoban.model.dto.classes.Level;
 import es.upm.pproject.sokoban.model.dto.classes.LevelFileReader;
 import es.upm.pproject.sokoban.view.BoardView;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 public class MenuController {
     private Stage stage;
     private MainMenuView mainMenuView;
+    private CurrentGameState estadoActual;
 
     public MenuController(Stage stage) {
         this.stage = stage;
@@ -22,7 +24,9 @@ public class MenuController {
     }
     public void iniciarJuego() throws Exception {
         String path = Paths.get(getClass().getResource("/levels/nivel1.txt").toURI()).toString();
-        Level level = LevelFileReader.CrearNivel(path);
+        estadoActual = new CurrentGameState();
+        estadoActual.setCurrent(LevelFileReader.CrearNivel(path));
+        Level level = estadoActual.getCurrent();
 
         GameInfoView gameInfoView = new GameInfoView(level.getNombre(), 1, 0, 0);
         BoardView boardView = new BoardView(level);
@@ -41,6 +45,12 @@ public class MenuController {
     }
     public void guardarPartida(int slot){
         System.out.println("Guardar en slot " + slot);
+    }
+    public void undo(){
+
+    }
+    public void restart(){
+        estadoActual.restart();
     }
     public void cerrarApp(){
         stage.close();

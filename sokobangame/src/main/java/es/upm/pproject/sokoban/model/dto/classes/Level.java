@@ -25,6 +25,7 @@ public Level(String nombre,int filas,int columnas,Square[][] capaInf,
     this.capaSup = capaSup;
     this.puntuacion = puntuacion; //La puntuacion de este nivel
     this.character = character; //El personaje de este nivel
+    this.guardado = new LevelRecorder(this);
 
 
 }
@@ -112,5 +113,8 @@ CharacterManager.moverPersonaje(this,character, direccion); //Se pasa a si mismo
 public Level estadoAnterior(){ //Metodo para devolver su estado anterior 
     return guardado.undo(); //Esto se lo devuelve a CurrentGameState para 
     // restaurar el estado anterior
+}
+public Level EstadoInicial(){
+    return guardado.restart();
 }
 }

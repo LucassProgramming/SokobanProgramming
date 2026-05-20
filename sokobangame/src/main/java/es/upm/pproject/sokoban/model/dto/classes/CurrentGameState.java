@@ -26,6 +26,7 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     }
     @Override
     public void setCurrent(Level current) {
+        añadirLevel(current);
         this.current = current;
     }
     @Override
@@ -40,5 +41,9 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     public void reversionEstado(){
         Level anterior = current.estadoAnterior();
         if(anterior!=null) current = anterior;
+    }
+    public void restart(){
+        Level inicio = current.EstadoInicial();
+        if(inicio!=null) current = inicio;
     }
 }

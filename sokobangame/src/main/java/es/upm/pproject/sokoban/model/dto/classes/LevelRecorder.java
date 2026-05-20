@@ -7,6 +7,11 @@ import es.upm.pproject.sokoban.model.dto.interfaces.ILevelRecorder;
 
 public class LevelRecorder implements ILevelRecorder {
    private Stack<Level> estadoNivel = new Stack<>();
+   private Level inicio;
+   public LevelRecorder(Level inicio){
+      this.inicio = inicio;
+   }
+
 
    @Override
    public void save(Level elNivel) {
@@ -18,6 +23,9 @@ public class LevelRecorder implements ILevelRecorder {
    public Level undo() {
     // Devuelvo el estado anterior del nivel 
     return estadoNivel.pop();
+   }
+   public Level restart(){
+      return inicio;
    }
 
 

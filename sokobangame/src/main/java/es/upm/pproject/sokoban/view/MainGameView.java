@@ -29,5 +29,6 @@ public class MainGameView extends HBox {
         this.setAlignment(Pos.CENTER);
         this.getChildren().addAll(undo,save,restart,menu);
         menu.setOnAction(e -> new MainMenuView(stage, controller));
+        restart.setOnAction(e -> controller.restart());
      }
 }
