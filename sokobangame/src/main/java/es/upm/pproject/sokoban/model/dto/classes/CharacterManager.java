@@ -24,7 +24,10 @@ public class CharacterManager { //Clase para controlar el movimiento del persona
             return; //Si es un muro termina sin moverse
         } else if(casillaSup instanceof Box){
           LevelRecorder.save(level);
-           manejador.setCaja((Box) casillaSup); //Si es caja se añade la caja al manejador
+           Box caja = (Box) casillaSup;
+           caja.setX(coorX + incX);
+           caja.setY( coorY + incY);
+           manejador.setCaja(caja); //Si es caja se añade la caja al manejador
            boolean movido = manejador.moveBox(level,incX,incY); //Se llama al manejador para moverla
            if(movido){
             personaje.setX(coorX + incX); 
