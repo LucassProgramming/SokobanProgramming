@@ -12,7 +12,6 @@ public class Level implements ILevel, Serializable {
     private int filas;
     private String nombre;
     private int columnas;
-    private LevelRecorder guardado;
     private PlayableCharacter character;
 
 public Level(String nombre,int filas,int columnas,Square[][] capaInf,
@@ -25,7 +24,6 @@ public Level(String nombre,int filas,int columnas,Square[][] capaInf,
     this.capaSup = capaSup;
     this.puntuacion = puntuacion; //La puntuacion de este nivel
     this.character = character; //El personaje de este nivel
-    this.guardado = new LevelRecorder(this);
 
 
 }
@@ -105,16 +103,10 @@ public void incrementar() {
 @Override
 public void moverPersonaje(Direccion direccion) {
 //Metodo para mover al personaje invocado por CurrentGameState necesita llamar a CharacterManager
-guardado.save(this);
 CharacterManager.moverPersonaje(this,character, direccion); //Se pasa a si mismo para que 
 // El personaje sepa por donde moverse
 }
-@Override
-public Level estadoAnterior(){ //Metodo para devolver su estado anterior 
-    return guardado.undo(); //Esto se lo devuelve a CurrentGameState para 
-    // restaurar el estado anterior
-}
-public Level EstadoInicial(){
-    return guardado.restart();
+public PlayableCharacter getCharacter(){
+    return this.character;
 }
 }

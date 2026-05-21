@@ -21,6 +21,5 @@ public interface ILevel {
     public void setPuntuacion(Score puntuacion);
     public void incrementar();
     public void moverPersonaje(Direccion direccion);  //Metodo para mover al personaje invocado por CurrentGameState necesita llamar a CharacterManager
-    Level estadoAnterior();
 
 }

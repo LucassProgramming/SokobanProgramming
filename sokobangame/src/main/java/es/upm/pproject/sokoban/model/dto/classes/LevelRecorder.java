@@ -1,32 +1,43 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
-import es.upm.pproject.sokoban.model.dto.interfaces.ILevelRecorder;
-
-public class LevelRecorder implements ILevelRecorder {
-   private Stack<Level> estadoNivel = new Stack<>();
-   private Level inicio;
-   public LevelRecorder(Level inicio){
-      this.inicio = inicio;
-   }
+public class LevelRecorder {
+   private static Stack<Level> estadoNivel = new Stack<>();
+   private static Level inicio;
+   private static Level copia;
 
 
-   @Override
-   public void save(Level elNivel) {
+   public static void save(Level elNivel) {
     //guardo el estado del nivel a cada movimiento
-    estadoNivel.push(elNivel);
+
+    estadoNivel.push(clonarLevel(elNivel));
    }
 
-   @Override
-   public Level undo() {
+   public static Level undo() {
     // Devuelvo el estado anterior del nivel 
     return estadoNivel.pop();
    }
-   public Level restart(){
-      return inicio;
+   public static void setInicio(Level level){
+       inicio = clonarLevel(level);
    }
-
+   public static Level restart(){
+      Level incio = clonarLevel(inicio);
+      return incio;
+   }
+   public static void reiniciarStack(){
+      estadoNivel = new Stack<>();
+   }
+   private static Level clonarLevel(Level level){
+      Square [][] capaInf = level.getCapaInf();
+      Square [][] capaSup = level.getCapaSup();
+      Square [][] copiaSup = new Square [capaSup.length][];
+      for(int i = 0; i<capaSup.length;i++){
+         copiaSup[i] = capaSup[i].clone();
+      }
+      copia = new Level(level.getNombre(), level.getFilas(),
+       level.getColumnas(), capaInf, copiaSup, level.getPuntuacion().clone(), level.getCharacter().clone());
+      return copia;
+   }
 
 }

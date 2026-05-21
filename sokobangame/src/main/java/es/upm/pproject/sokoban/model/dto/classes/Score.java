@@ -3,7 +3,7 @@ import java.io.Serializable;
 
 import es.upm.pproject.sokoban.model.dto.interfaces.IScore;
 
-public class Score implements IScore, Serializable{
+public class Score implements IScore, Serializable, Cloneable{
 
     private int puntuacion;
 
@@ -17,5 +17,13 @@ public class Score implements IScore, Serializable{
     
     public void incrementar(){
         this.puntuacion++;
+    }
+    @Override
+    public Score clone() {
+        try {
+            return (Score) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

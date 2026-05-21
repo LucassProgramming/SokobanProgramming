@@ -27,6 +27,8 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     @Override
     public void setCurrent(Level current) {
         añadirLevel(current);
+        LevelRecorder.reiniciarStack();
+        LevelRecorder.setInicio(current);
         this.current = current;
     }
     @Override
@@ -39,11 +41,13 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     }
     @Override
     public void reversionEstado(){
-        Level anterior = current.estadoAnterior();
-        if(anterior!=null) current = anterior;
     }
     public void restart(){
-        Level inicio = current.EstadoInicial();
+        Level inicio = LevelRecorder.restart();
         if(inicio!=null) current = inicio;
+    }
+    public void moverPersonaje(Direccion dir){
+        LevelRecorder.save(current);
+        current.moverPersonaje(dir);
     }
 }

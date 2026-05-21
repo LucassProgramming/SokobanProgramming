@@ -28,7 +28,7 @@ public class GameController {
         if (dir == null) return; // tecla irrelevante, no hacer nada
 
         // Pide al nivel actual que mueva al personaje en esa direccion
-        estado.getCurrent().moverPersonaje(dir);
+        estado.moverPersonaje(dir);
 
         // Refresca la pantalla con el nuevo estado del nivel
         actualizarVistas();
