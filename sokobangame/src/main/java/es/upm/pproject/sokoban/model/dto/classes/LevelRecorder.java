@@ -16,6 +16,9 @@ public class LevelRecorder {
 
    public static Level undo() {
     // Devuelvo el estado anterior del nivel 
+    if(estadoNivel.empty()){
+      return null;
+    }
     return estadoNivel.pop();
    }
    public static void setInicio(Level level){

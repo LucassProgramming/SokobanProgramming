@@ -23,6 +23,7 @@ public class CharacterManager { //Clase para controlar el movimiento del persona
         if(casillaInf instanceof Wall){ 
             return; //Si es un muro termina sin moverse
         } else if(casillaSup instanceof Box){
+          LevelRecorder.save(level);
            manejador.setCaja((Box) casillaSup); //Si es caja se añade la caja al manejador
            boolean movido = manejador.moveBox(level,incX,incY); //Se llama al manejador para moverla
            if(movido){
@@ -34,7 +35,8 @@ public class CharacterManager { //Clase para controlar el movimiento del persona
             capaSup[personaje.getX()][personaje.getY()] = personaje;
             //Se cambia la posicion del personaje en la capa superior
         }
-        } else {personaje.setX(coorX + incX); personaje.setY(coorY + incY);
+        } else { LevelRecorder.save(level);
+            personaje.setX(coorX + incX); personaje.setY(coorY + incY);
              level.incrementar(); 
             capaSup[coorX][coorY] = null; //lo mismo
             capaSup[personaje.getX()][personaje.getY()] = personaje;}

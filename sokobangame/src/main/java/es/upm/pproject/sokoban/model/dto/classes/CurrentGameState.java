@@ -41,13 +41,14 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     }
     @Override
     public void reversionEstado(){
+        Level ant = LevelRecorder.undo();
+        if(ant!=null) current = ant;
     }
     public void restart(){
         Level inicio = LevelRecorder.restart();
         if(inicio!=null) current = inicio;
     }
     public void moverPersonaje(Direccion dir){
-        LevelRecorder.save(current);
         current.moverPersonaje(dir);
     }
 }
