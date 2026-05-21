@@ -34,7 +34,7 @@ public class MenuController {
         // GameController conecta el teclado con el modelo y las vistas
         GameController gameController = new GameController(estadoActual, boardView, gameInfoView, 1);
 
-        MainGameView mainGameView = new MainGameView(stage, gameController);
+        MainGameView mainGameView = new MainGameView(stage, gameController, this);
 
         BorderPane root = new BorderPane();
         root.setTop(gameInfoView);
