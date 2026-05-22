@@ -42,6 +42,7 @@ public class SaveGameView {
         guardar.setOnAction(e -> {
             if (selectedSlot != -1) {
                 controller.guardarPartida(selectedSlot);
+                actualizarSlots(); // Actualiza la vista de los slots para reflejar el nuevo estado
             }
         });
         cargar.setOnAction(e -> {
@@ -133,6 +134,33 @@ public class SaveGameView {
         boton.setPrefHeight(45);
         boton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; ");
         return boton;
+    }
+    /*
+    * Actualiza el texto y el icono de los botones de slot según si el slot tiene una partida guardada o no.
+    */
+    private void actualizarSlots(){
+        slot1.setText(controller.existeSlot(1) ? "SLOT 1 - PARTIDA GUARDADA" : "SLOT 1 - VACÍO");
+        slot2.setText(controller.existeSlot(2) ? "SLOT 2 - PARTIDA GUARDADA" : "SLOT 2 - VACÍO");
+        slot3.setText(controller.existeSlot(3) ? "SLOT 3 - PARTIDA GUARDADA" : "SLOT 3 - VACÍO");
+        actualizarIconoSlot(slot1, 1);
+        actualizarIconoSlot(slot2, 2);
+        actualizarIconoSlot(slot3, 3);
+    }
+    /*
+    * Añade o elimina el icono del cofre dependiendo de si el slot contiene una partida
+    */
+    private void actualizarIconoSlot(Button slotButton, int slot){
+        if(controller.existeSlot(slot)){
+            ImageView chestView = new ImageView(new Image(getClass().getResource("/images/cofre.png").toExternalForm()));
+            chestView.setFitWidth(64);
+            chestView.setFitHeight(64);
+            slotButton.setGraphic(chestView);
+            slotButton.setContentDisplay(ContentDisplay.RIGHT);
+            slotButton.setGraphicTextGap(20);
+        }else{
+            // Si no existe el slot, se quita el icono
+            slotButton.setGraphic(null);
+        }
     }
 
 
