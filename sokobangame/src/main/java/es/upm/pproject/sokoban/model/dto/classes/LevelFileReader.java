@@ -47,7 +47,7 @@ public class LevelFileReader {
                         break;
                     
                     case '#':
-                        capaSup[i][j] = new Box(null, i, j, 0);
+                        capaSup[i][j] = new Box(null, i, j);
                         capaInf[i][j] = new Square(i, j);
                         break;
 

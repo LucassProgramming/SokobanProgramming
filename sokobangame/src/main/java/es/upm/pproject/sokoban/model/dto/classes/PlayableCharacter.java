@@ -6,7 +6,7 @@ public class PlayableCharacter extends Square implements Cloneable { //Clase par
         super(x,y); //Solo tiene las variables de la superclase Square
      }
     @Override
-    public PlayableCharacter clone() {
+    public PlayableCharacter clone() { //Metodo para clonar el personaje para el save
         try {
             return (PlayableCharacter) super.clone();
         } catch (CloneNotSupportedException e) {
