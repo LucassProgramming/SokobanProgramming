@@ -1,7 +1,8 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class LevelFileReader {
@@ -9,7 +10,13 @@ public class LevelFileReader {
     public static Level CrearNivel(String archivo){
         PlayableCharacter caracter = null;
         ArrayList<String> lineas = new ArrayList<>();
-        try(BufferedReader lector = new BufferedReader(new FileReader(archivo))){
+        InputStream stream = LevelFileReader.class.getResourceAsStream(archivo);
+
+        if (stream == null) {
+            throw new RuntimeException("No se ha encontrado el nivel: " + archivo);
+        }
+
+        try (BufferedReader lector = new BufferedReader(new InputStreamReader(stream))) {
 
             String linea;
 
@@ -67,5 +74,21 @@ public class LevelFileReader {
             return new Level(nombre,filas,columnas,capaInf,capaSup,new Score(),caracter);
         }
         
-        
+    public static ArrayList<Level> cargarTodosLosNiveles(){
+        ArrayList<Level> niveles = new ArrayList<>();
+        int contador=1;
+
+        while(true){
+            String nombre_de_archivo = "/levels/level_" + contador + ".txt";
+
+        if(LevelFileReader.class.getResourceAsStream(nombre_de_archivo) == null){
+            System.out.println("No se encontró " + nombre_de_archivo);
+            break;
+        }
+
+            niveles.add(CrearNivel(nombre_de_archivo));
+            contador++;
+        }
+            return niveles;
     }
+}

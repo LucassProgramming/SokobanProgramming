@@ -22,7 +22,7 @@ public class MainMenuView {
     }
     private void crearVista(){
         try {
-            Font.loadFont(getClass().getResourceAsStream("/css/Minecraftia-Regular.ttf"), 16);
+            Font.loadFont(getClass().getResourceAsStream("/css/Minecraftia-Regular.ttf"), 16); //<-- 2. FUENTE NUEVA QUE DA EL EFECTO DE MINECRAFT
         } catch (Exception e) {
             System.err.println("No se pudo cargar la fuente de Minecraft, se usará la alternativa.");
             e.printStackTrace();
@@ -39,9 +39,10 @@ public class MainMenuView {
         Button cargarPartida = new Button("Load Game");
         Button salir = new Button("Exit");
 
+        //<--3. COMUNICACIÓN BOTONES CON CSS
         nuevoJuego.getStyleClass().add("minecraft-button");
         cargarPartida.getStyleClass().add("minecraft-button");
-        salir.getStyleClass().add("minecraft-button");
+        salir.getStyleClass().add("minecraft-button");  
 
         nuevoJuego.setPrefWidth(350);
         nuevoJuego.setPrefHeight(45);
@@ -76,7 +77,7 @@ public class MainMenuView {
 
         Scene scene = new Scene(root, 800, 600); // tam de la ventana
         scene.getStylesheets().add(
-            getClass().getResource("/css/style.css").toExternalForm()
+            getClass().getResource("/css/style.css").toExternalForm()   //<-- 4.COMUNICACIÓN DE LA ESCENA CON EL CSS
         );
         stage.setTitle("Sokoban");
         stage.setScene(scene);                                   // mete la scene dentro de la ventana
