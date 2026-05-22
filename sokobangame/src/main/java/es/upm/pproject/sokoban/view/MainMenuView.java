@@ -1,4 +1,5 @@
 package es.upm.pproject.sokoban.view;
+
 import es.upm.pproject.sokoban.controller.MenuController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font; // <-- 1. NUEVO IMPORT
 import javafx.stage.Stage;
 
 public class MainMenuView {
@@ -19,6 +21,13 @@ public class MainMenuView {
         crearVista();
     }
     private void crearVista(){
+        try {
+            Font.loadFont(getClass().getResourceAsStream("/css/Minecraftia-Regular.ttf"), 16);
+        } catch (Exception e) {
+            System.err.println("No se pudo cargar la fuente de Minecraft, se usará la alternativa.");
+            e.printStackTrace();
+        }
+
         Image tituloImg = new Image(
             getClass().getResource("/images/Titulo.png").toExternalForm()
         );
@@ -29,6 +38,10 @@ public class MainMenuView {
         Button nuevoJuego = new Button("New Game");
         Button cargarPartida = new Button("Load Game");
         Button salir = new Button("Exit");
+
+        nuevoJuego.getStyleClass().add("minecraft-button");
+        cargarPartida.getStyleClass().add("minecraft-button");
+        salir.getStyleClass().add("minecraft-button");
 
         nuevoJuego.setPrefWidth(350);
         nuevoJuego.setPrefHeight(45);
@@ -62,9 +75,11 @@ public class MainMenuView {
         root.getChildren().addAll(fondoView, layout);
 
         Scene scene = new Scene(root, 800, 600); // tam de la ventana
+        scene.getStylesheets().add(
+            getClass().getResource("/css/style.css").toExternalForm()
+        );
         stage.setTitle("Sokoban");
         stage.setScene(scene);                                   // mete la scene dentro de la ventana
         stage.show();
     }
-
 }
