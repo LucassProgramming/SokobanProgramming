@@ -1,0 +1,37 @@
+.minecraft-button {
+    /* Fuente de minecraft */
+    -fx-font-family: "Minecraftia", monospace;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    
+    /* Color de texto blanco y su sombra oscura */
+    -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.75), 0, 0, 2, 2);
+    
+    /* Fondo gris oscuro con textura simulada */
+    -fx-background-color: linear-gradient(to bottom, #747474 0%, #5c5c5c 100%);
+    
+    /* Bordes estilo Minecraft */
+    -fx-border-color: #373737 #000000 #000000 #373737;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-background-insets: 0, 2;
+    
+    /*ALINEACIÓN Y COMPENSACIÓN*/
+    -fx-alignment: center;
+    -fx-padding: 10 20 -4 20;
+}
+
+/* Efecto Hover (Cuando pasas el ratón por encima) */
+.minecraft-button:hover {
+    -fx-text-fill: #FFFFA0;
+    -fx-background-color: linear-gradient(to bottom, #8c8c8c 0%, #747474 100%);
+    -fx-border-color: #525252 #000000 #000000 #525252;
+}
+
+/* Efecto Pressed (Al hacer clic) */
+.minecraft-button:armed, .minecraft-button:pressed {
+    -fx-border-color: #000000 #525252 #525252 #000000;
+    -fx-background-color: linear-gradient(to bottom, #4a4a4a 0%, #5c5c5c 100%);
+    -fx-padding: 13px 20px 7px 20px; 
+}
