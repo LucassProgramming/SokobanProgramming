@@ -30,7 +30,7 @@ public class MenuController {
     public void iniciarJuego() throws Exception {
         estadoActual = new CurrentGameState();
         partidaEnCurso = true;
-        estadoActual.setCurrent(LevelFileReader.CrearNivel("levels/Level_2.txt"));
+        estadoActual.setCurrent(LevelFileReader.CrearNivel("levels/Level_1.txt"));
         Level level = estadoActual.getCurrent();
 
         GameInfoView gameInfoView = new GameInfoView(level.getNombre(), 1, 0, 0);
