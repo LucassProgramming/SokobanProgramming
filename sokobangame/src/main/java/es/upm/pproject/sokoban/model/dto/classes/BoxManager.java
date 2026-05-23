@@ -17,7 +17,11 @@ public class BoxManager implements IBoxManager{
         int coorY = caja.getY();
 
         Square casillaInf = capaInf[coorX + x][coorY + y];
+        Square casillaSup = capaSup[coorX + x][coorY + y];
         if(casillaInf instanceof Wall){
+            return false;
+        }
+        else if(casillaSup instanceof Box){
             return false;
         }
         else {
