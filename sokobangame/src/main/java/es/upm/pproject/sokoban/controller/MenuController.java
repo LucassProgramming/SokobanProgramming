@@ -1,5 +1,8 @@
 package es.upm.pproject.sokoban.controller;
 
+
+import java.nio.file.Paths;
+
 import es.upm.pproject.sokoban.model.dto.classes.CurrentGameState;
 import es.upm.pproject.sokoban.model.dto.classes.Level;
 import es.upm.pproject.sokoban.model.dto.classes.LevelFileReader;
@@ -27,6 +30,7 @@ public class MenuController {
         this.mainMenuView = mainMenuView;
     }
     public void iniciarJuego() throws Exception {
+        String path = Paths.get(getClass().getResource("/levels/nivel1.txt").toURI()).toString();
         estadoActual = new CurrentGameState();
         partidaEnCurso = true;
         estadoActual.setCurrent(LevelFileReader.CrearNivel("levels/Level_1.txt"));

@@ -13,7 +13,7 @@ public class BoxManager implements IBoxManager{
         Square [][] capaSup = level.getCapaSup();
         Square [][] capaInf = level.getCapaInf();
 
-        int coorX = caja.getX();
+        int coorX = caja.getX(); 
         int coorY = caja.getY();
 
         Square casillaInf = capaInf[coorX + x][coorY + y];

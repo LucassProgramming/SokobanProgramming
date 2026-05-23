@@ -16,39 +16,42 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     public Level[] getArray(){
         return arrayLevels;
     }
-    public void añadirLevel(Level level){
+    public void añadirLevel(Level level){ //Añade un nivel al array
        arrayLevels[index] = level;
        index++;
     }
     @Override
-    public Level getCurrent() {
+    public Level getCurrent() {  //Obtiene el nivel actual
         return current;
     }
     @Override
-    public void setCurrent(Level current) {
-        añadirLevel(current);
-        LevelRecorder.reiniciarStack();
-        LevelRecorder.setInicio(current);
+    public void setCurrent(Level current) { //Establece el nivel actual y lo añade al array
+    //  (Puede que sea innecesario que sea public)
+        añadirLevel(current); //Lo añado por si acaso pero en verdad deberia de estar ya en el array
+        LevelRecorder.reiniciarStack(); //Reinicio el registro de movimientos guardados
+        LevelRecorder.setInicio(current); //Se pone como el nuevo estado inicial
         this.current = current;
     }
     @Override
-    public int getIndex() {
+    public int getIndex() {  //Devuelve el indice del nivel actual en el array de niveles
         return index;
     }
     @Override
-    public void setIndex(int index) {
+    public void setIndex(int index) { //Añade el indice del nivel deseado al cambiar de niveles
         this.index = index;
     }
     @Override
-    public void reversionEstado(){
-        Level ant = LevelRecorder.undo();
+    public void reversionEstado(){ //Vuelve al movimiento anterior del nivel actual
+        Level ant = LevelRecorder.undo(); //Obtiene el estado anterior al ultimo movimiento
         if(ant!=null) current = ant;
     }
-    public void restart(){
-        Level inicio = LevelRecorder.restart();
-        if(inicio!=null) current = inicio;
+    @Override
+    public void restart(){ //Reinicia el nivel actual al estado inicial
+        Level inicio = LevelRecorder.restart(); //Obtiene el primer save
+        if(inicio!=null) current = inicio; //Establece el actual como el primer save
     }
-    public void moverPersonaje(Direccion dir){
+    @Override
+    public void moverPersonaje(Direccion dir){ //metodo para mover el personaje del nivel actual
         current.moverPersonaje(dir);
     }
 }

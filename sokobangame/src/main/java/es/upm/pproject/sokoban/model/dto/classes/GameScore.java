@@ -15,7 +15,8 @@ public class GameScore implements IGameScore, Serializable{
     public void setTotal(int total) {
         this.total = total;
     }
-    public int totalScores(IScore[] arrayScores){
+    public int totalScores(IScore[] arrayScores){ //En verdad esto lo tienes que sacar de los array 
+    // de niveles de CurrentGameState
         for(IScore score : arrayScores){
             total+=score.getPuntuacion();
         }
