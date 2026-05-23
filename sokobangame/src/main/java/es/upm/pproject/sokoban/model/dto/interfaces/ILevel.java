@@ -1,7 +1,6 @@
 package es.upm.pproject.sokoban.model.dto.interfaces;
 
 import es.upm.pproject.sokoban.model.dto.classes.Direccion;
-import es.upm.pproject.sokoban.model.dto.classes.Level;
 import es.upm.pproject.sokoban.model.dto.classes.Score;
 import es.upm.pproject.sokoban.model.dto.classes.Square;
 
@@ -21,5 +20,5 @@ public interface ILevel {
     public void setPuntuacion(Score puntuacion);
     public void incrementar();
     public void moverPersonaje(Direccion direccion);  //Metodo para mover al personaje invocado por CurrentGameState necesita llamar a CharacterManager
-
+    public boolean estaCompletado();
 }

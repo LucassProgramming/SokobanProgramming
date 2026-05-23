@@ -117,4 +117,15 @@ CharacterManager.moverPersonaje(this,character, direccion); //Se pasa a si mismo
 public PlayableCharacter getCharacter(){
     return this.character;
 }
+@Override
+public boolean estaCompletado(){
+    for(int i=0; i<filas; i++){
+        for(int j=0; j<columnas; j++){
+            if(capaInf[i][j] instanceof Goal && !(capaSup[i][j] instanceof Box)){
+                return false;
+            }
+        }
+    }
+    return true;
+}
 }
