@@ -1,6 +1,8 @@
 package es.upm.pproject.sokoban.controller;
 
 
+import java.util.ArrayList;
+
 import es.upm.pproject.sokoban.model.dto.classes.CurrentGameState;
 import es.upm.pproject.sokoban.model.dto.classes.Level;
 import es.upm.pproject.sokoban.model.dto.classes.LevelFileReader;
@@ -20,6 +22,7 @@ public class MenuController {
     private CurrentGameState estadoActual;
     private SaveSlotManager saveSlotManager = new SaveSlotManager();
     private boolean partidaEnCurso = false;
+    private ArrayList<Level> niveles = LevelFileReader.cargarTodosLosNiveles();
 
     public MenuController(Stage stage) {
         this.stage = stage;
@@ -30,7 +33,7 @@ public class MenuController {
     public void iniciarJuego() throws Exception {
         estadoActual = new CurrentGameState();
         partidaEnCurso = true;
-        estadoActual.setCurrent(LevelFileReader.CrearNivel("levels/Level_1.txt"));
+        estadoActual.setCurrent(niveles.get(0));
         Level level = estadoActual.getCurrent();
 
         GameInfoView gameInfoView = new GameInfoView(level.getNombre(), 1, 0, 0);
@@ -101,15 +104,13 @@ public class MenuController {
         return partidaEnCurso && estadoActual != null && estadoActual.getCurrent() != null;
     }
     public void siguienteNivel(){
-        try{
-            int siguiente = estadoActual.getIndex() + 1;
-            Level siguienteLevel = LevelFileReader.CrearNivel("levels/Level_" + siguiente + ".txt");
-            estadoActual.setCurrent(siguienteLevel);
-
-            GameInfoView gameInfoView = new GameInfoView(siguienteLevel.getNombre(), siguiente, 0, 0);
-
-            BoardView boardView = new BoardView(siguienteLevel);
-            GameController gameController = new GameController(estadoActual, boardView, gameInfoView, siguiente, this);
+        int siguiente = estadoActual.getIndex();
+        if(siguiente < niveles.size()){
+            estadoActual.setCurrent(niveles.get(siguiente));
+            Level level = estadoActual.getCurrent();
+            GameInfoView gameInfoView = new GameInfoView(level.getNombre(), siguiente + 1, 0, 0);
+            BoardView boardView = new BoardView(level);
+            GameController gameController = new GameController(estadoActual, boardView, gameInfoView, siguiente + 1, this);
             MainGameView mainGameView = new MainGameView(stage, gameController, this);
 
             BorderPane root = new BorderPane();
@@ -119,10 +120,10 @@ public class MenuController {
 
             Scene scene = new Scene(root);
             scene.setOnKeyPressed(e -> gameController.handleKey(e.getCode()));
-
             stage.setScene(scene);
-        } catch (Exception e) {
-            System.out.println("No hay mas niveles disponibles");
+        } else {
+            System.out.println("Juego completado");
+            //Aqui es donde tenemos que mostrar la pantalla de victoria o algo asi, por ahora volvemos al menu principal
             volverAlMenu();
         }
     }

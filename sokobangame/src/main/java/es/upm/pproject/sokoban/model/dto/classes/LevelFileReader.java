@@ -81,10 +81,9 @@ public class LevelFileReader {
         int contador=1;
 
         while(true){
-            String nombre_de_archivo = "/levels/level_" + contador + ".txt";
+            String nombre_de_archivo = "/levels/Level_" + contador + ".txt";
 
         if(LevelFileReader.class.getResourceAsStream(nombre_de_archivo) == null){
-            System.out.println("No se encontró " + nombre_de_archivo);
             break;
         }
 
