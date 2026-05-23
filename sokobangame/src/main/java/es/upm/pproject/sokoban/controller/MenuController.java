@@ -37,7 +37,7 @@ public class MenuController {
         BoardView boardView = new BoardView(level);
 
         // GameController conecta el teclado con el modelo y las vistas
-        GameController gameController = new GameController(estadoActual, boardView, gameInfoView, 1);
+        GameController gameController = new GameController(estadoActual, boardView, gameInfoView, 1, this);
 
         MainGameView mainGameView = new MainGameView(stage, gameController, this);
 
@@ -60,7 +60,7 @@ public class MenuController {
             GameInfoView gameInfoView = new GameInfoView(level.getNombre(), estadoActual.getIndex(), level.getPuntuacion().getPuntuacion(), 0);
 
             BoardView boardView = new BoardView(level);
-            GameController gameController = new GameController(estadoActual, boardView, gameInfoView, estadoActual.getIndex());
+            GameController gameController = new GameController(estadoActual, boardView, gameInfoView, estadoActual.getIndex(), this);
             MainGameView mainGameView = new MainGameView(stage, gameController, this);
             BorderPane root = new BorderPane();
             root.setTop(gameInfoView);
@@ -99,6 +99,32 @@ public class MenuController {
     }
     public boolean hayPartidaActiva(){
         return partidaEnCurso && estadoActual != null && estadoActual.getCurrent() != null;
+    }
+    public void siguienteNivel(){
+        try{
+            int siguiente = estadoActual.getIndex() + 1;
+            Level siguienteLevel = LevelFileReader.CrearNivel("levels/Level_" + siguiente + ".txt");
+            estadoActual.setCurrent(siguienteLevel);
+
+            GameInfoView gameInfoView = new GameInfoView(siguienteLevel.getNombre(), siguiente, 0, 0);
+
+            BoardView boardView = new BoardView(siguienteLevel);
+            GameController gameController = new GameController(estadoActual, boardView, gameInfoView, siguiente, this);
+            MainGameView mainGameView = new MainGameView(stage, gameController, this);
+
+            BorderPane root = new BorderPane();
+            root.setTop(gameInfoView);
+            root.setCenter(boardView);
+            root.setBottom(mainGameView);
+
+            Scene scene = new Scene(root);
+            scene.setOnKeyPressed(e -> gameController.handleKey(e.getCode()));
+
+            stage.setScene(scene);
+        } catch (Exception e) {
+            System.out.println("No hay mas niveles disponibles");
+            volverAlMenu();
+        }
     }
     public void cerrarApp(){
         stage.close();

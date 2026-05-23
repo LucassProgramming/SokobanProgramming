@@ -13,13 +13,15 @@ public class GameController {
     private BoardView boardView;
     private GameInfoView gameInfoView;
     private int levelNum;
+    private MenuController menuController;
 
     public GameController(CurrentGameState estado, BoardView boardView,
-            GameInfoView gameInfoView, int levelNum) {
+            GameInfoView gameInfoView, int levelNum, MenuController menuController) {
         this.estado = estado;
         this.boardView = boardView;
         this.gameInfoView = gameInfoView;
         this.levelNum = levelNum;
+        this.menuController = menuController;
     }
 
     // Recibe la tecla pulsada, la convierte en direccion y mueve al personaje
@@ -32,6 +34,9 @@ public class GameController {
 
         // Refresca la pantalla con el nuevo estado del nivel
         actualizarVistas();
+        if(estado.getCurrent().estaCompletado()){
+            menuController.siguienteNivel();
+        }
     }
 
     // Deshace el ultimo movimiento y refresca la pantalla
