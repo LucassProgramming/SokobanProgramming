@@ -27,7 +27,7 @@ public class MenuController {
         this.mainMenuView = mainMenuView;
     }
     public void iniciarJuego() throws Exception {
-        String path = Paths.get(getClass().getResource("/levels/nivel1.txt").toURI()).toString();
+        String path = Paths.get(getClass().getResource("levels/nivel1.txt").toURI()).toString();
         estadoActual = new CurrentGameState();
         estadoActual.setCurrent(LevelFileReader.CrearNivel(path));
         Level level = estadoActual.getCurrent();
