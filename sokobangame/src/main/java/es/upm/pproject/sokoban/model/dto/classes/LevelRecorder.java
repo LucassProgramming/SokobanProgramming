@@ -17,29 +17,31 @@ public class LevelRecorder {
    public static Level undo() {
     // Devuelvo el estado anterior del nivel 
     if(estadoNivel.empty()){
-      return null;
+      return null; //Devuelve null ya que sino tiraria excepcion
     }
     return estadoNivel.pop();
    }
    public static void setInicio(Level level){
-       inicio = clonarLevel(level);
+       inicio = clonarLevel(level); //Clono el nivel para que no haga referencia a la misma direccion de memoria
    }
    public static Level restart(){
-      Level incio = clonarLevel(inicio);
+      Level incio = clonarLevel(inicio); //Clono el nivel para que no haga referencia a la misma direccion de memoria
+      reiniciarStack(); //Borro el registro de movimientos anterior luego del restart
       return incio;
    }
    public static void reiniciarStack(){
-      estadoNivel = new Stack<>();
+      estadoNivel = new Stack<>(); //Borro el registro de movimientos anterior
    }
-   private static Level clonarLevel(Level level){
-      Square [][] capaInf = level.getCapaInf();
+   private static Level clonarLevel(Level level){ //Metodo para clonar un nivel en su totalidad
+      Square [][] capaInf = level.getCapaInf(); 
       Square [][] capaSup = level.getCapaSup();
-      Square [][] copiaSup = new Square [capaSup.length][];
-      for(int i = 0; i<capaSup.length;i++){
-         copiaSup[i] = capaSup[i].clone();
+      Square [][] copiaSup = new Square [capaSup.length][]; //Creamos una copia de la capa superior la importante
+      for(int i = 0; i<capaSup.length;i++){ 
+         copiaSup[i] = capaSup[i].clone(); //Clonamos cada fila una por una
       }
       copia = new Level(level.getNombre(), level.getFilas(),
-       level.getColumnas(), capaInf, copiaSup, level.getPuntuacion().clone(), level.getCharacter().clone());
+       level.getColumnas(), capaInf, copiaSup, 
+       level.getPuntuacion().clone(), level.getCharacter().clone()); //Creamos un nuevo nivel con diferente direccion
       return copia;
    }
 

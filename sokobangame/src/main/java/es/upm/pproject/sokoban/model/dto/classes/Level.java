@@ -35,6 +35,14 @@ public Level(Square [][] capaInf, Square [][] capaSup){ //Constructor par los te
     this.capaSup = capaSup;
     this.puntuacion = null;
 }
+public Level(){ //Constructor par los test de Character
+    this.nombre = null;
+    this.filas = 0;
+    this.columnas = 0;
+    this.capaInf = new Square [3][3];
+    this.capaSup = new Square [3][3];
+    this.puntuacion = null;
+}
 
 @Override
 public Square[][] getCapaInf() {

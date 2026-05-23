@@ -5,7 +5,7 @@ import java.awt.Color;
 public class Box extends Square{
     private Color color;
     private static int cantidad=0;
-    public Box(Color color, int x, int y, int cantidad){
+    public Box(Color color, int x, int y){
         super(x,y);
         Box.cantidad++;
         this.color=Color.PINK;

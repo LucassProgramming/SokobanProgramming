@@ -22,7 +22,7 @@ public class BoxManagerTest {
         capaSup = new Square[4][4];
         level = new Level(capaInf, capaSup);
         manager = new BoxManager(level);
-        box = new Box(Color.PINK, 1, 1, 0);
+        box = new Box(Color.PINK, 1, 1);
         capaSup[1][1] = box;
     }
 
@@ -95,7 +95,7 @@ public class BoxManagerTest {
 
     @Test
     void moveBoxDireccionArriba() {
-        box = new Box(Color.PINK, 2, 2, 0);
+        box = new Box(Color.PINK, 2, 2);
         capaSup[2][2] = box;
         manager.setCaja(box);
         boolean resultado = manager.moveBox(level, -1, 0);
@@ -108,7 +108,7 @@ public class BoxManagerTest {
 
     @Test
     void moveBoxMuroArriba() {
-        box = new Box(Color.PINK, 2, 2, 0);
+        box = new Box(Color.PINK, 2, 2);
         capaSup[2][2] = box;
         capaInf[1][2] = new Wall(1, 2);
         manager.setCaja(box);
