@@ -10,7 +10,6 @@ public class LevelFileReader {
     public static Level CrearNivel(String archivo){
         PlayableCharacter caracter = null;
         ArrayList<String> lineas = new ArrayList<>();
-        InputStream stream = LevelFileReader.class.getResourceAsStream("src/main/resources" + archivo);
          //Le ponemos la / manualmente para que lea la ruta de menu controller bien.
         String ruta = archivo.startsWith("/") ? archivo : "/" + archivo;
         InputStream stream = LevelFileReader.class.getResourceAsStream(ruta);
