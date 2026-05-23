@@ -10,7 +10,13 @@ public class LevelFileReader {
     public static Level CrearNivel(String archivo){
         PlayableCharacter caracter = null;
         ArrayList<String> lineas = new ArrayList<>();
+<<<<<<< HEAD
         InputStream stream = LevelFileReader.class.getResourceAsStream("src/main/resources/" + archivo);
+=======
+        //Le ponemos la / manualmente para que lea la ruta de menu controller bien.
+        String ruta = archivo.startsWith("/") ? archivo : "/" + archivo;
+        InputStream stream = LevelFileReader.class.getResourceAsStream(ruta);
+>>>>>>> b714264299e2153f5e1d11d8c11308e2185adcff
 
         if (stream == null) {
             throw new RuntimeException("No se ha encontrado el nivel: " + archivo);
@@ -79,7 +85,7 @@ public class LevelFileReader {
         int contador=1;
 
         while(true){
-            String nombre_de_archivo = "/levels/level_" + contador + ".txt";
+            String nombre_de_archivo = "/levels/nivel" + contador + ".txt";
 
         if(LevelFileReader.class.getResourceAsStream(nombre_de_archivo) == null){
             System.out.println("No se encontró " + nombre_de_archivo);
