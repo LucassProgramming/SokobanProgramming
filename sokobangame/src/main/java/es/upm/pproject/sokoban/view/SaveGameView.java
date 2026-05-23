@@ -19,9 +19,11 @@ public class SaveGameView {
     private Button slot2;
     private Button slot3;
     private MenuController controller;
-    public SaveGameView(Stage stage, MenuController controller) {
+    private boolean modoGuardar;
+    public SaveGameView(Stage stage, MenuController controller, boolean modoGuardar) {
         this.stage = stage;
         this.controller = controller;
+        this.modoGuardar = modoGuardar;
         crearVista();
     }
     private void crearVista(){
@@ -35,6 +37,15 @@ public class SaveGameView {
         Button guardar = crearBotonAccion("SAVE GAME");
         Button cargar = crearBotonAccion("LOAD GAME");
         Button volver = crearBotonAccion("BACK TO MAIN MENU");
+
+        guardar.setVisible(modoGuardar);
+        guardar.setManaged(modoGuardar);
+
+        cargar.setVisible(!modoGuardar);
+        cargar.setManaged(!modoGuardar);
+        
+
+
         // Acciones de los botones
         slot1.setOnAction(e -> seleccionarSlot(1));
         slot2.setOnAction(e -> seleccionarSlot(2));

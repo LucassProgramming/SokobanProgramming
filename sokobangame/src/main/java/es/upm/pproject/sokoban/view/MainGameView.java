@@ -29,7 +29,7 @@ public class MainGameView extends HBox {
         // Cada boton delega su accion en el GameController
         undo.setOnAction(e    -> gameController.undo());
         restart.setOnAction(e -> gameController.restart());
-        menu.setOnAction(e -> new MainMenuView(stage, controller));
-        save.setOnAction(e -> new SaveGameView(stage, controller));
+        menu.setOnAction(e -> { controller.volverAlMenu();});
+        save.setOnAction(e -> new SaveGameView(stage, controller, true));
      }
 }

@@ -56,7 +56,7 @@ public class MainMenuView {
             try { controller.iniciarJuego(); }
             catch (Exception ex) { ex.printStackTrace(); }
         });
-        cargarPartida.setOnAction(e -> new SaveGameView(stage, controller));
+        cargarPartida.setOnAction(e -> new SaveGameView(stage, controller, false));
         salir.setOnAction(e -> controller.cerrarApp());
 
         VBox layout = new VBox(20); // Contenedor vertical con 20 px de separación

@@ -18,6 +18,7 @@ public class MenuController {
     private MainMenuView mainMenuView;
     private CurrentGameState estadoActual;
     private SaveSlotManager saveSlotManager = new SaveSlotManager();
+    private boolean partidaEnCurso = false;
 
     public MenuController(Stage stage) {
         this.stage = stage;
@@ -27,7 +28,8 @@ public class MenuController {
     }
     public void iniciarJuego() throws Exception {
         estadoActual = new CurrentGameState();
-        estadoActual.setCurrent(LevelFileReader.CrearNivel("levels/nivel1.txt"));
+        partidaEnCurso = true;
+        estadoActual.setCurrent(LevelFileReader.CrearNivel("levels/Level_1.txt"));
         Level level = estadoActual.getCurrent();
 
         GameInfoView gameInfoView = new GameInfoView(level.getNombre(), 1, 0, 0);
@@ -81,11 +83,21 @@ public class MenuController {
         }
     }
     /*
+     * Vuelve al menú principal y marca que no hay partida en curso
+     */
+    public void volverAlMenu(){
+        partidaEnCurso = false;
+        new MainMenuView(stage, this);
+    }
+    /*
     * Comprueba si existe una partida guardad en el slot indicado
     * Se utiliza en SaveGameView para mostrar visualmente qué slots están ocupados
     */
     public boolean existeSlot(int slot){
         return saveSlotManager.existeSlot(slot);
+    }
+    public boolean hayPartidaActiva(){
+        return partidaEnCurso && estadoActual != null && estadoActual.getCurrent() != null;
     }
     public void cerrarApp(){
         stage.close();
