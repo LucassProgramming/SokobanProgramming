@@ -6,11 +6,13 @@ import es.upm.pproject.sokoban.model.dto.interfaces.ICurrentGameState;
 
 public class CurrentGameState implements ICurrentGameState, Serializable {
     private Level [] arrayLevels;
+    private GameScore puntuacionTotal;
     private int index = 0;
     private Level current;
 
     public CurrentGameState(){
         arrayLevels = new Level[99];
+        puntuacionTotal = new GameScore();
     }
 
     public Level[] getArray(){
@@ -40,18 +42,24 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     public void setIndex(int index) { //Añade el indice del nivel deseado al cambiar de niveles
         this.index = index;
     }
+    public GameScore getPuntuacionTotal(){
+       return puntuacionTotal;
+    }
     @Override
     public void reversionEstado(){ //Vuelve al movimiento anterior del nivel actual
         Level ant = LevelRecorder.undo(); //Obtiene el estado anterior al ultimo movimiento
         if(ant!=null) current = ant;
+        puntuacionTotal.totalScores(arrayLevels);
     }
     @Override
     public void restart(){ //Reinicia el nivel actual al estado inicial
         Level inicio = LevelRecorder.restart(); //Obtiene el primer save
         if(inicio!=null) current = inicio; //Establece el actual como el primer save
+        puntuacionTotal.totalScores(arrayLevels);
     }
     @Override
     public void moverPersonaje(Direccion dir){ //metodo para mover el personaje del nivel actual
         current.moverPersonaje(dir);
+        puntuacionTotal.totalScores(arrayLevels);
     }
 }

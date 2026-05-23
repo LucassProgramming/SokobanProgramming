@@ -41,7 +41,7 @@ public Level(){ //Constructor par los test de Character
     this.columnas = 0;
     this.capaInf = new Square [3][3];
     this.capaSup = new Square [3][3];
-    this.puntuacion = null;
+    this.puntuacion = new Score();
 }
 
 @Override

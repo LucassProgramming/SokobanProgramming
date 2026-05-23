@@ -7,6 +7,10 @@ public class Score implements IScore, Serializable, Cloneable{
 
     private int puntuacion;
 
+    public Score(){
+        puntuacion = 0;
+    }
+
     public int getPuntuacion() {
         return puntuacion;
     }

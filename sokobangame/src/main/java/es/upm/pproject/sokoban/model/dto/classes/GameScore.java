@@ -2,7 +2,6 @@ package es.upm.pproject.sokoban.model.dto.classes;
 import java.io.Serializable;
 
 import es.upm.pproject.sokoban.model.dto.interfaces.IGameScore;
-import es.upm.pproject.sokoban.model.dto.interfaces.IScore;
 
 public class GameScore implements IGameScore, Serializable{
 
@@ -15,10 +14,12 @@ public class GameScore implements IGameScore, Serializable{
     public void setTotal(int total) {
         this.total = total;
     }
-    public int totalScores(IScore[] arrayScores){ //En verdad esto lo tienes que sacar de los array 
+    public int totalScores(Level [] niveles){ //En verdad esto lo tienes que sacar de los array 
     // de niveles de CurrentGameState
-        for(IScore score : arrayScores){
-            total+=score.getPuntuacion();
+        for(Level nivel:niveles){
+            Score score = nivel.getPuntuacion();
+            
+            total= score != null ? total + score.getPuntuacion() : total + 0 ;
         }
         setTotal(total);
         return total;
