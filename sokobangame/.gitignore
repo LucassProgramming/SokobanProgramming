@@ -4,3 +4,7 @@ target/
 .vscode/
 ### Classes ###
 .class
+### Save files ###
+*.dat
+### Windows metadata ###
+*:Zone.Identifier
