@@ -6,7 +6,7 @@ import javafx.scene.media.MediaPlayer;
 
 public class MusicView{
     private Media media;
-    private MediaPlayer mediaPlayer;
+    private static MediaPlayer mediaPlayer;
     private String musicURL;
  
     public MusicView(String path){
@@ -21,8 +21,13 @@ public class MusicView{
     // Crear y reproducir el MediaPlayer
    mediaPlayer = new MediaPlayer(media);
    mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-   mediaPlayer.setVolume(0.5);
+   mediaPlayer.setVolume(0.7);
     mediaPlayer.play();
 }
+
+public static void stop(){
+    if(mediaPlayer!=null) mediaPlayer.pause();
+}
+
 
 }

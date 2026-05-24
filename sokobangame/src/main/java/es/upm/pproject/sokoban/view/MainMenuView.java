@@ -19,7 +19,7 @@ public class MainMenuView {
     public MainMenuView(Stage stage, MenuController controller) {
         this.stage = stage;
         this.controller = controller;
-        musicView = new MusicView("/musica_minecraft.mp3");
+        musicView = new MusicView("/music/musica_minecraft.mp3");
         crearVista();
     }
     private void crearVista(){
@@ -83,6 +83,7 @@ public class MainMenuView {
         );
         stage.setTitle("Sokoban");
         stage.setScene(scene);                                   // mete la scene dentro de la ventana
+        MusicView.stop();
         musicView.start(); //Pone musica
         stage.show();
     }
