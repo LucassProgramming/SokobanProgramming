@@ -1,6 +1,5 @@
 package es.upm.pproject.sokoban.controller;
 
-
 import es.upm.pproject.sokoban.model.dto.classes.CurrentGameState;
 import es.upm.pproject.sokoban.model.dto.classes.Level;
 import es.upm.pproject.sokoban.model.dto.classes.LevelFileReader;
@@ -12,6 +11,8 @@ import es.upm.pproject.sokoban.view.MainMenuView;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
+
 
 
 public class MenuController {
@@ -57,7 +58,8 @@ public class MenuController {
         try{
             estadoActual = (CurrentGameState) saveSlotManager.cargarPartida(slot);
             Level level = estadoActual.getCurrent();
-            GameInfoView gameInfoView = new GameInfoView(level.getNombre(), estadoActual.getIndex(), level.getPuntuacion().getPuntuacion(), 0);
+            GameInfoView gameInfoView = new GameInfoView(level.getNombre(), estadoActual.getIndex(),
+             level.getPuntuacion().getPuntuacion(), estadoActual.getPuntuacionTotal().getTotal());
 
             BoardView boardView = new BoardView(level);
             GameController gameController = new GameController(estadoActual, boardView, gameInfoView, estadoActual.getIndex(), this);
@@ -106,7 +108,8 @@ public class MenuController {
             Level siguienteLevel = LevelFileReader.CrearNivel("levels/Level_" + siguiente + ".txt");
             estadoActual.setCurrent(siguienteLevel);
 
-            GameInfoView gameInfoView = new GameInfoView(siguienteLevel.getNombre(), siguiente, 0, 0);
+            GameInfoView gameInfoView = new GameInfoView(siguienteLevel.getNombre(), siguiente,
+             siguienteLevel.getPuntuacion().getPuntuacion(), estadoActual.getPuntuacionTotal().getTotal());
 
             BoardView boardView = new BoardView(siguienteLevel);
             GameController gameController = new GameController(estadoActual, boardView, gameInfoView, siguiente, this);

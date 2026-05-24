@@ -72,7 +72,7 @@ public class GameController {
             level.getNombre(),
             levelNum,
             level.getPuntuacion().getPuntuacion(),
-            0 // puntuacion total: se conectara cuando exista GameScore
+            estado.getPuntuacionTotal().getTotal() // puntuacion total: se conectara cuando exista GameScore
         );
     }
 }

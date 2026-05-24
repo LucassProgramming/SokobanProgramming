@@ -6,6 +6,10 @@ import es.upm.pproject.sokoban.model.dto.interfaces.IGameScore;
 public class GameScore implements IGameScore, Serializable{
 
     private int total;
+
+    public GameScore(){
+        total = 0;
+    }
     
     public int getTotal() {
         return total;
@@ -13,6 +17,12 @@ public class GameScore implements IGameScore, Serializable{
 
     public void setTotal(int total) {
         this.total = total;
+    }
+    public void restar(int cantidad){
+        this.total-=cantidad;
+    }
+    public void sumar(int cantidad){
+        this.total+= cantidad;
     }
     public int totalScores(Level [] niveles){ //En verdad esto lo tienes que sacar de los array 
     // de niveles de CurrentGameState

@@ -15,9 +15,11 @@ import javafx.stage.Stage;
 public class MainMenuView {
     private Stage stage; // Ventana principal
     private MenuController controller;
+    private MusicView musicView;
     public MainMenuView(Stage stage, MenuController controller) {
         this.stage = stage;
         this.controller = controller;
+        musicView = new MusicView("/musica_minecraft.mp3");
         crearVista();
     }
     private void crearVista(){
@@ -81,6 +83,7 @@ public class MainMenuView {
         );
         stage.setTitle("Sokoban");
         stage.setScene(scene);                                   // mete la scene dentro de la ventana
+        musicView.start(); //Pone musica
         stage.show();
     }
 }
