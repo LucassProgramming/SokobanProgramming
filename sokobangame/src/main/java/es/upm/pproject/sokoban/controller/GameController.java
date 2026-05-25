@@ -56,10 +56,14 @@ public class GameController {
     // Columna izq → incY negativo; columna der → incY positivo
     private Direccion toDireccion(KeyCode code) {
         switch (code) {
-            case UP:    case W: return new Direccion(-1,  0);
-            case DOWN:  case S: return new Direccion( 1,  0);
-            case LEFT:  case A: return new Direccion( 0, -1);
-            case RIGHT: case D: return new Direccion( 0,  1);
+            case UP: return new Direccion(-1,  0);    
+            case W: return new Direccion(-1,  0);
+            case DOWN: return new Direccion( 1,  0);  
+            case S: return new Direccion( 1,  0);
+            case LEFT: return new Direccion( 0, -1);  
+            case A: return new Direccion( 0, -1);
+            case RIGHT: return new Direccion( 0,  1); 
+            case D: return new Direccion( 0,  1);
             default:            return null;
         }
     }
