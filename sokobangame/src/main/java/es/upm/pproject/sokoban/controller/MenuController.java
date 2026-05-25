@@ -112,7 +112,7 @@ public class MenuController {
             estadoActual.setCurrent(niveles.get(siguiente));
             Level level = estadoActual.getCurrent();
             GameInfoView gameInfoView = new GameInfoView(level.getNombre(), siguiente + 1,
-             siguienteLevel.getPuntuacion().getPuntuacion(), estadoActual.getPuntuacionTotal().getTotal());
+             level.getPuntuacion().getPuntuacion(), estadoActual.getPuntuacionTotal().getTotal());
             BoardView boardView = new BoardView(level);
             GameController gameController = new GameController(estadoActual, boardView, gameInfoView, siguiente + 1, this);
             MainGameView mainGameView = new MainGameView(stage, gameController, this);
