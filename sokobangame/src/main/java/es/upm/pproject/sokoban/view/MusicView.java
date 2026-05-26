@@ -28,6 +28,14 @@ public class MusicView{
 public static void stop(){
     if(mediaPlayer!=null) mediaPlayer.pause();
 }
+public static void turnUp(){
+    double volumen = mediaPlayer.getVolume();
+    if((volumen) < 1.0) mediaPlayer.setVolume(volumen + 0.1); 
+}
+public static void turnDown(){
+    double volumen = mediaPlayer.getVolume();
+    if((volumen) > 0.0) mediaPlayer.setVolume(volumen - 0.1); 
+}
 
 
 }
