@@ -23,10 +23,11 @@ public class MenuController {
     private CurrentGameState estadoActual;
     private SaveSlotManager saveSlotManager = new SaveSlotManager();
     private boolean partidaEnCurso = false;
-    private ArrayList<Level> niveles = LevelFileReader.cargarTodosLosNiveles();
+    private ArrayList<Level> niveles;
 
     public MenuController(Stage stage) {
         this.stage = stage;
+        niveles = LevelFileReader.cargarTodosLosNiveles();
     }
     public void setMainMenuView(MainMenuView mainMenuView) {
         this.mainMenuView = mainMenuView;
@@ -94,6 +95,7 @@ public class MenuController {
      */
     public void volverAlMenu(){
         partidaEnCurso = false;
+        this.niveles = LevelFileReader.cargarTodosLosNiveles();
         new MainMenuView(stage, this);
     }
     /*

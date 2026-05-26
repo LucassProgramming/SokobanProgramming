@@ -62,7 +62,9 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     }
     @Override
     public void moverPersonaje(Direccion dir){ //metodo para mover el personaje del nivel actual
+        int puntini = current.getPuntuacion().getPuntuacion();
         current.moverPersonaje(dir);
-        puntuacionTotal.sumar(1);
+        if(current.getPuntuacion().getPuntuacion()> puntini) puntuacionTotal.sumar(1);
+        
     }
 }
