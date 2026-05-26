@@ -21,12 +21,20 @@ public class MusicView{
     // Crear y reproducir el MediaPlayer
    mediaPlayer = new MediaPlayer(media);
    mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-   mediaPlayer.setVolume(0.3);
+   mediaPlayer.setVolume(0.7);
     mediaPlayer.play();
 }
 
 public static void stop(){
     if(mediaPlayer!=null) mediaPlayer.pause();
+}
+public static void turnUp(){
+    double volumen = mediaPlayer.getVolume();
+    if((volumen) < 1.0) mediaPlayer.setVolume(volumen + 0.1); 
+}
+public static void turnDown(){
+    double volumen = mediaPlayer.getVolume();
+    if((volumen) > 0.0) mediaPlayer.setVolume(volumen - 0.1); 
 }
 
 
