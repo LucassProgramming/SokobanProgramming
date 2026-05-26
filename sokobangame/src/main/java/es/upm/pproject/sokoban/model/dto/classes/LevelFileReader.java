@@ -10,6 +10,11 @@ public class LevelFileReader {
     public static Level CrearNivel(String archivo){
         PlayableCharacter caracter = null;
         ArrayList<String> lineas = new ArrayList<>();
+        //Contadores para las distintas validaciones
+        int numBoxes = 0;
+        int numGoals = 0;
+        int numPlayableCharacters = 0;
+
          //Le ponemos la / manualmente para que lea la ruta de menu controller bien.
         String ruta = archivo.startsWith("/") ? archivo : "/" + archivo;
         InputStream stream = LevelFileReader.class.getResourceAsStream(ruta);
@@ -53,17 +58,28 @@ public class LevelFileReader {
 
                     case '*':
                         capaInf[i][j] = new Goal(i,j);
+
+                        
+                        numGoals++;
+
                         break;
                     
                     case '#':
                         capaSup[i][j] = new Box(null, i, j);
                         capaInf[i][j] = new Square(i, j);
+
+
+                        numBoxes++;
+
                         break;
 
                     case 'W':    
                         caracter = new PlayableCharacter(i, j);
                         capaSup[i][j] = caracter;
                         capaInf[i][j] = new Square(i, j);
+
+                        numPlayableCharacters++;
+
                         break;
                 
                     default:
@@ -73,6 +89,23 @@ public class LevelFileReader {
 
                 }
             }
+            // Condiciones mínimas del juego
+            if(numBoxes == 0){
+                throw new RuntimeException("Error en el nivel" + nombre + ": no hay cajas.");
+            }
+
+            if(numGoals == 0){
+                throw new RuntimeException("Error en el nivel" + nombre + ": no hay metas.");
+            }
+
+            if (numPlayableCharacters != 1) {
+                throw new RuntimeException("Error en el nivel" + nombre + ": debe existir exactamente un personaje.");
+            }
+
+            if(numBoxes != numGoals){
+                throw new RuntimeException( "Error en el nivel" + nombre + ": el número de cajas y de metas no coincide.");
+            }
+
             return new Level(nombre,filas,columnas,capaInf,capaSup,new Score(),caracter);
         }
         
