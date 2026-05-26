@@ -21,7 +21,7 @@ public class MusicView{
     // Crear y reproducir el MediaPlayer
    mediaPlayer = new MediaPlayer(media);
    mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-   mediaPlayer.setVolume(0.7);
+   mediaPlayer.setVolume(0.3);
     mediaPlayer.play();
 }
 
