@@ -1,5 +1,7 @@
 package es.upm.pproject.sokoban.view;
 
+import javax.swing.JFrame;
+
 import es.upm.pproject.sokoban.controller.MenuController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,7 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font; // <-- 1. NUEVO IMPORT
 import javafx.stage.Stage;
 
-public class MainMenuView {
+public class MainMenuView{
     private Stage stage; // Ventana principal
     private MenuController controller;
     private MusicView musicView;
@@ -87,4 +89,5 @@ public class MainMenuView {
         musicView.start(); //Pone musica
         stage.show();
     }
+
 }

@@ -61,7 +61,7 @@ public class SaveGameView {
                 controller.cargarPartida(selectedSlot);
             }
         });
-        volver.setOnAction(e -> new MainMenuView(stage, controller));
+        volver.setOnAction(e -> controller.volverAlMenu());
 
         VBox layout = new VBox(18); // Contenedor vertical con 20 px de separación
         layout.setAlignment(Pos.CENTER);
