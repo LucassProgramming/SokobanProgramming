@@ -77,7 +77,7 @@ public class MenuController {
             Scene scene = new Scene(root);
             scene.setOnKeyPressed(e -> gameController.handleKey(e.getCode()));
             stage.setScene(scene);
-            logger.info("Partida cargada correctamente" + slot);
+            logger.info(String.format("Partida cargada correctamente %d", slot));
         } catch (Exception e) {
             logger.info("Error al cargar la partida");
         }
@@ -85,9 +85,9 @@ public class MenuController {
     public void guardarPartida(int slot){
         try {
             saveSlotManager.guardarPartida(estadoActual, slot);
-            logger.info("Partida guardada en slot" + slot);
+            logger.info(String.format("Partida guardada en slot %d", slot));
         } catch (Exception e) {
-            logger.info("Error al guardar la partida en slot" + slot);
+            logger.info(String.format("Error al guardar la partida en slot %d", slot));
         }
     }
     /*
