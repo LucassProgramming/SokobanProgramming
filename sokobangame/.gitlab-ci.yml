@@ -1,4 +1,25 @@
+stages:
+  - test
+  - sonar
+
 maven_build:
+  stage: test
   image: maven:3.9.6-eclipse-temurin-17
   script:
     - mvn test
+
+sonarqube-check:
+  stage: sonar
+  image: maven:3.9.6-eclipse-temurin-17
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - mvn verify sonar:sonar -Dsonar.projectKey=sokoban-Progra
+  allow_failure: true
+  only:
+    - master
