@@ -1,6 +1,8 @@
 maven_build:
   image: maven:3.6.3-jdk-11
-  script: mvn test
+  script:
+   - cd sokobangame
+   - mvn test
 
 sonarqube-check:
   image: maven:3.6.3-jdk-11
