@@ -1,6 +1,7 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
 import java.awt.Color;
+import java.util.Objects;
 
 public class Box extends Square{
     private Color color;
@@ -20,5 +21,16 @@ public class Box extends Square{
     }
     public static int cuantasBoxes(){
         return cantidad;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Box box)) return false;
+        return Objects.equals(color, box.color);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(color);
     }
 }

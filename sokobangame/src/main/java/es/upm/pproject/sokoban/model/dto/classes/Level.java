@@ -1,6 +1,8 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Objects;
 
 import es.upm.pproject.sokoban.model.dto.interfaces.ILevel;
 
@@ -128,4 +130,15 @@ public boolean estaCompletado(){
     }
     return true;
 }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Level level)) return false;
+        return filas == level.filas && columnas == level.columnas && Objects.deepEquals(capaInf, level.capaInf) && Objects.deepEquals(capaSup, level.capaSup) && Objects.equals(puntuacion, level.puntuacion) && Objects.equals(nombre, level.nombre) && Objects.equals(character, level.character);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Arrays.deepHashCode(capaInf), Arrays.deepHashCode(capaSup), puntuacion, filas, nombre, columnas, character);
+    }
 }

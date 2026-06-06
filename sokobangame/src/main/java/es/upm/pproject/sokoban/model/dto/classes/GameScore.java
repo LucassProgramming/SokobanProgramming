@@ -1,5 +1,6 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 import java.io.Serializable;
+import java.util.Objects;
 
 import es.upm.pproject.sokoban.model.dto.interfaces.IGameScore;
 
@@ -33,5 +34,16 @@ public class GameScore implements IGameScore, Serializable{
         }
         setTotal(total);
         return total;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof GameScore gameScore)) return false;
+        return total == gameScore.total;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(total);
     }
 }

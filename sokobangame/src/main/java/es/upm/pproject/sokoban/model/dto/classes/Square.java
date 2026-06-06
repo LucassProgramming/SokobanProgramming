@@ -1,5 +1,6 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Square implements Serializable {
 
@@ -21,5 +22,16 @@ public class Square implements Serializable {
     }
     public void setY(int y){
         this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Square square)) return false;
+        return x == square.x && y == square.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

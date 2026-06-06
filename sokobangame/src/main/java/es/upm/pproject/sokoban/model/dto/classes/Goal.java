@@ -18,5 +18,6 @@ public class Goal extends Square {
     public static void decrementar(){ //Método para decrementar la cantidad cada vez que una caja se encuentra por encima
         cantidad--;
     }
+
 }
 

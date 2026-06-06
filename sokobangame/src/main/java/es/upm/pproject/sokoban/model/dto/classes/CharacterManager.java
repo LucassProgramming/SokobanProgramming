@@ -44,5 +44,6 @@ public class CharacterManager { //Clase para controlar el movimiento del persona
             capaSup[coorX][coorY] = null; //lo mismo
             capaSup[personaje.getX()][personaje.getY()] = personaje;}
     }
+
 }
 }

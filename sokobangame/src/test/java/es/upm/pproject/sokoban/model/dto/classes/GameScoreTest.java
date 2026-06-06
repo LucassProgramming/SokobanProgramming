@@ -1,11 +1,8 @@
-package es.upm.pproject.sokoban;
+package es.upm.pproject.sokoban.model.dto.classes;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import es.upm.pproject.sokoban.model.dto.classes.GameScore;
-import es.upm.pproject.sokoban.model.dto.classes.Level;
 
 
 public class GameScoreTest { 

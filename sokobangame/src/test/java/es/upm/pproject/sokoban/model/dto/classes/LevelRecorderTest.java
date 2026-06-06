@@ -1,17 +1,9 @@
-package es.upm.pproject.sokoban;
+package es.upm.pproject.sokoban.model.dto.classes;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import es.upm.pproject.sokoban.model.dto.classes.CharacterManager;
-import es.upm.pproject.sokoban.model.dto.classes.Direccion;
-import es.upm.pproject.sokoban.model.dto.classes.Level;
-import es.upm.pproject.sokoban.model.dto.classes.LevelRecorder;
-import es.upm.pproject.sokoban.model.dto.classes.PlayableCharacter;
-import es.upm.pproject.sokoban.model.dto.classes.Score;
-import es.upm.pproject.sokoban.model.dto.classes.Square;
 
 public class LevelRecorderTest {
 

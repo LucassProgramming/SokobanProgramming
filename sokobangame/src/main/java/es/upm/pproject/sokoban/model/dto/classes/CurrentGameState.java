@@ -1,6 +1,8 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Objects;
 
 import es.upm.pproject.sokoban.model.dto.interfaces.ICurrentGameState;
 
@@ -66,5 +68,16 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
         current.moverPersonaje(dir);
         if(current.getPuntuacion().getPuntuacion()> puntini) puntuacionTotal.sumar(1);
         
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof CurrentGameState that)) return false;
+        return index == that.index && Objects.deepEquals(arrayLevels, that.arrayLevels) && Objects.equals(puntuacionTotal, that.puntuacionTotal) && Objects.equals(current, that.current);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Arrays.hashCode(arrayLevels), puntuacionTotal, index, current);
     }
 }

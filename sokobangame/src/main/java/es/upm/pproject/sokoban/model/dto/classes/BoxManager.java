@@ -1,6 +1,8 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 import es.upm.pproject.sokoban.model.dto.interfaces.*;
 
+import java.util.Objects;
+
 public class BoxManager implements IBoxManager{
     private ILevel level;
     private Box caja;
@@ -37,5 +39,16 @@ public class BoxManager implements IBoxManager{
 
     public void setCaja(Box caja){
         this.caja=caja;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof BoxManager that)) return false;
+        return Objects.equals(level, that.level) && Objects.equals(caja, that.caja);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(level, caja);
     }
 }
