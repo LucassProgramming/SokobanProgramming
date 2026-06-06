@@ -9,7 +9,7 @@ import es.upm.pproject.sokoban.model.dto.classes.Level;
 import es.upm.pproject.sokoban.model.dto.classes.Score;
 import es.upm.pproject.sokoban.model.dto.interfaces.IScore;
 
-public class GameScoreTest {
+public class GameScoreTest { //
 
     private GameScore gameScore;
 
