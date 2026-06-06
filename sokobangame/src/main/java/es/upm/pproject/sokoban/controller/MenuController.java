@@ -2,6 +2,9 @@ package es.upm.pproject.sokoban.controller;
 
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.upm.pproject.sokoban.model.dto.classes.CurrentGameState;
 import es.upm.pproject.sokoban.model.dto.classes.Level;
 import es.upm.pproject.sokoban.model.dto.classes.LevelFileReader;
@@ -23,6 +26,7 @@ public class MenuController {
     private SaveSlotManager saveSlotManager = new SaveSlotManager();
     private boolean partidaEnCurso = false;
     private ArrayList<Level> niveles;
+    private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
 
     public MenuController(Stage stage) {
         this.stage = stage;
@@ -73,17 +77,17 @@ public class MenuController {
             Scene scene = new Scene(root);
             scene.setOnKeyPressed(e -> gameController.handleKey(e.getCode()));
             stage.setScene(scene);
-            System.out.println("Partida cargada correctamente" + slot);
+            logger.info("Partida cargada correctamente" + slot);
         } catch (Exception e) {
-            System.out.println("Error al cargar la partida");
+            logger.info("Error al cargar la partida");
         }
     }
     public void guardarPartida(int slot){
         try {
             saveSlotManager.guardarPartida(estadoActual, slot);
-            System.out.println("Partida guardada en slot" + slot);
+            logger.info("Partida guardada en slot" + slot);
         } catch (Exception e) {
-            System.out.println("Error al guardar la partida en slot" + slot);
+            logger.info("Error al guardar la partida en slot" + slot);
         }
     }
     /*
@@ -124,7 +128,7 @@ public class MenuController {
             scene.setOnKeyPressed(e -> gameController.handleKey(e.getCode()));
             stage.setScene(scene);
         } else {
-            System.out.println("Juego completado");
+            logger.info("Juego completado");
             //Aqui es donde tenemos que mostrar la pantalla de victoria o algo asi, por ahora volvemos al menu principal
             volverAlMenu();
         }
