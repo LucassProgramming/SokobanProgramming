@@ -10,7 +10,7 @@ public class PlayableCharacter extends Square implements Cloneable { //Clase par
         try {
             return (PlayableCharacter) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //Exception por si acaso
         }
     }
 
