@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 
 public class MenuController {
     private Stage stage;
-    private MainMenuView mainMenuView;
     private CurrentGameState estadoActual;
     private SaveSlotManager saveSlotManager = new SaveSlotManager();
     private boolean partidaEnCurso = false;
@@ -29,10 +28,7 @@ public class MenuController {
         this.stage = stage;
         niveles = LevelFileReader.cargarTodosLosNiveles();
     }
-    public void setMainMenuView(MainMenuView mainMenuView) {
-        this.mainMenuView = mainMenuView;
-    }
-    public void iniciarJuego() throws Exception {
+    public void iniciarJuego(){
         estadoActual = new CurrentGameState();
         partidaEnCurso = true;
         estadoActual.setCurrent(niveles.get(0));

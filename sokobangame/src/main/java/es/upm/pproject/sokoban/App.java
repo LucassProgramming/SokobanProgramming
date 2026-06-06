@@ -11,7 +11,6 @@ public class App extends Application {
     public void start(Stage stage) {
         MenuController controller = new MenuController(stage);
         MainMenuView mainMenuView = new MainMenuView(stage, controller);
-        controller.setMainMenuView(mainMenuView);
     }
 
     public static void main(String[] args) {
