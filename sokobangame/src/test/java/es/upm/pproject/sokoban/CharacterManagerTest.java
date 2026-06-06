@@ -5,9 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.Color;
-import java.awt.color.*;
-
 import es.upm.pproject.sokoban.model.dto.classes.*;
 
 public class CharacterManagerTest {

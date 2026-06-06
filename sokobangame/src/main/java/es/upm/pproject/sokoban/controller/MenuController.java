@@ -11,7 +11,6 @@ import es.upm.pproject.sokoban.view.GameInfoView;
 import es.upm.pproject.sokoban.view.MainGameView;
 import es.upm.pproject.sokoban.view.MainMenuView;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 

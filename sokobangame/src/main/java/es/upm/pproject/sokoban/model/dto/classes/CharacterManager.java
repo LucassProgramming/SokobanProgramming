@@ -1,6 +1,5 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
-import es.upm.pproject.sokoban.model.dto.interfaces.ILevel;
 
 public class CharacterManager { //Clase para controlar el movimiento del personaje esta asociada con Level
 

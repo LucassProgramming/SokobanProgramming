@@ -2,7 +2,6 @@ package es.upm.pproject.sokoban;
 
 import es.upm.pproject.sokoban.controller.MenuController;
 import es.upm.pproject.sokoban.view.MainMenuView;
-import es.upm.pproject.sokoban.view.MusicView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

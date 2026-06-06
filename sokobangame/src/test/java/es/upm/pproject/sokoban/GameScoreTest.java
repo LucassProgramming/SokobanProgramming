@@ -6,10 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import es.upm.pproject.sokoban.model.dto.classes.GameScore;
 import es.upm.pproject.sokoban.model.dto.classes.Level;
-import es.upm.pproject.sokoban.model.dto.classes.Score;
-import es.upm.pproject.sokoban.model.dto.interfaces.IScore;
 
-public class GameScoreTest { //ab
+
+public class GameScoreTest { 
 
     private GameScore gameScore;
 

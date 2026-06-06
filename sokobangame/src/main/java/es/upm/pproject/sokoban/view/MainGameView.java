@@ -5,7 +5,6 @@ import es.upm.pproject.sokoban.controller.MenuController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.media.Media;
 import javafx.stage.Stage;
 
 public class MainGameView extends HBox {
