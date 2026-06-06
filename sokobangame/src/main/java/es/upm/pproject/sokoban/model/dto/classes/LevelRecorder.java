@@ -1,5 +1,4 @@
 package es.upm.pproject.sokoban.model.dto.classes;
-
 import java.util.Stack;
 
 public class LevelRecorder {
@@ -10,7 +9,6 @@ public class LevelRecorder {
 
    public static void save(Level elNivel) {
     //guardo el estado del nivel a cada movimiento
-
     estadoNivel.push(clonarLevel(elNivel));
    }
 
