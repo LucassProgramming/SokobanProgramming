@@ -9,7 +9,7 @@ Classic Sokoban puzzle game built with Java and JavaFX. Push all the boxes onto 
 | Jiaxu He | 230226 |
 | Lucas Daniel Benítez Maidana | 230223 |
 | Denis Andrei Cosor Strimbeanu | 230069 |
-| Mateo Cuñarro Alfonsín | |
+| Mateo Cuñarro Alfonsín | 230245 |
 
 ## Requirements
 
