@@ -5,9 +5,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import es.upm.pproject.sokoban.model.exceptions.CajaNotFoundInLevelException;
+import es.upm.pproject.sokoban.model.exceptions.GoalNotFoundInLevelException;
+import es.upm.pproject.sokoban.model.exceptions.GoalsAndBoxesArentEqualsException;
+import es.upm.pproject.sokoban.model.exceptions.LevelDoesntExistException;
+import es.upm.pproject.sokoban.model.exceptions.PlayableCharacterNotFoundInLevelException;
+
 public class LevelFileReader {
 
-    public static Level CrearNivel(String archivo){
+    private LevelFileReader(){}
+
+    public static Level crearNivel(String archivo){
         PlayableCharacter caracter = null;
         ArrayList<String> lineas = new ArrayList<>();
         //Contadores para las distintas validaciones
@@ -20,7 +28,7 @@ public class LevelFileReader {
         InputStream stream = LevelFileReader.class.getResourceAsStream(ruta);
 
         if (stream == null) {
-            throw new RuntimeException("No se ha encontrado el nivel: " + archivo);
+            throw new LevelDoesntExistException(archivo);
         }
 
         try (BufferedReader lector = new BufferedReader(new InputStreamReader(stream))) {
@@ -91,19 +99,19 @@ public class LevelFileReader {
             }
             // Condiciones mínimas del juego
             if(numBoxes == 0){
-                throw new RuntimeException("Error en el nivel" + nombre + ": no hay cajas.");
+                throw new CajaNotFoundInLevelException(nombre);
             }
 
             if(numGoals == 0){
-                throw new RuntimeException("Error en el nivel" + nombre + ": no hay metas.");
+                throw new GoalNotFoundInLevelException(nombre);
             }
 
             if (numPlayableCharacters != 1) {
-                throw new RuntimeException("Error en el nivel" + nombre + ": debe existir exactamente un personaje.");
+                throw new PlayableCharacterNotFoundInLevelException(nombre);
             }
 
             if(numBoxes != numGoals){
-                throw new RuntimeException( "Error en el nivel" + nombre + ": el número de cajas y de metas no coincide.");
+                throw new GoalsAndBoxesArentEqualsException(nombre);
             }
 
             return new Level(nombre,filas,columnas,capaInf,capaSup,new Score(),caracter);
@@ -120,7 +128,7 @@ public class LevelFileReader {
             break;
         }
 
-            niveles.add(CrearNivel(nombre_de_archivo));
+            niveles.add(crearNivel(nombre_de_archivo));
             contador++;
         }
             return niveles;

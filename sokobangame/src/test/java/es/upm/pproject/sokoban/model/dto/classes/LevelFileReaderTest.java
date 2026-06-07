@@ -2,6 +2,8 @@ package es.upm.pproject.sokoban.model.dto.classes;
 
 import org.junit.jupiter.api.Test;
 
+import es.upm.pproject.sokoban.model.exceptions.LevelDoesntExistException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LevelFileReaderTest {
@@ -10,8 +12,8 @@ public class LevelFileReaderTest {
     public void levelFileReaderTest() {
 
     }
-    @Test public void CrearNivelProducesBoxesGoalsAndSinglePlayableCharacter() {
-        Level level = LevelFileReader.CrearNivel("/levels/Level_2.txt");
+    @Test public void crearNivelProducesBoxesGoalsAndSinglePlayableCharacter() {
+        Level level = LevelFileReader.crearNivel("/levels/Level_2.txt");
         int boxes = 0; int goals = 0; int playableChars = 0; Square[][] capaInf = level.getCapaInf();
         Square[][] capaSup = level.getCapaSup();
         for (int i = 0; i < level.getFilas(); i++) {
@@ -25,9 +27,9 @@ public class LevelFileReaderTest {
         assertEquals(1, playableChars);
         assertNotNull(level.getCharacter());
     }
-    @Test public void CrearNivelThrowsWhenFileNotFound() {
-        assertThrows(RuntimeException.class,
-                () -> LevelFileReader.CrearNivel("/levels/NoSuchLevel.txt"));
+    @Test public void cThrowsWhenFileNotFound() {
+        assertThrows(LevelDoesntExistException.class,
+                () -> LevelFileReader.crearNivel("/levels/NoSuchLevel.txt"));
     }
     @Test public void cargarTodosLosNivelesEachLevelMeetsBasicValidation() {
         java.util.ArrayList<Level> niveles = LevelFileReader.cargarTodosLosNiveles();
