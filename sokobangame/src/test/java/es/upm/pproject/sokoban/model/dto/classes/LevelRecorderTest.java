@@ -30,7 +30,7 @@ public class LevelRecorderTest {
                 puntuacion,
                 character
         );
-        LevelRecorder.reiniciarStack();
+        LevelRecorder.reiniciarDeque();
         LevelRecorder.setInicio(level);
     }
 
@@ -70,7 +70,7 @@ public class LevelRecorderTest {
     void LevelRecordertestReiniciarStack() {
         LevelRecorder.save(level);
 
-        LevelRecorder.reiniciarStack();
+        LevelRecorder.reiniciarDeque();
 
         assertNull(LevelRecorder.undo());
     }

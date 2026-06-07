@@ -8,3 +8,4 @@ target/
 *.dat
 ### Windows metadata ###
 *:Zone.Identifier
+.idea/

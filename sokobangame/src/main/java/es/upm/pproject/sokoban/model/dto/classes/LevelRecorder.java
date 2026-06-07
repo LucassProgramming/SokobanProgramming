@@ -1,8 +1,9 @@
 package es.upm.pproject.sokoban.model.dto.classes;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class LevelRecorder {
-   private static Stack<Level> estadoNivel = new Stack<>();
+   private static Deque<Level> estadoNivel = new ArrayDeque<>();
    private static Level inicio;
 
 
@@ -15,7 +16,7 @@ public class LevelRecorder {
 
    public static Level undo() {
     // Devuelvo el estado anterior del nivel 
-    if(estadoNivel.empty()){
+    if(estadoNivel.isEmpty()){
       return null; //Devuelve null ya que sino tiraria excepcion
     }
     return estadoNivel.pop();
@@ -25,11 +26,11 @@ public class LevelRecorder {
    }
    public static Level restart(){
       Level incio = clonarLevel(inicio); //Clono el nivel para que no haga referencia a la misma direccion de memoria
-      reiniciarStack(); //Borro el registro de movimientos anterior luego del restart
+      reiniciarDeque(); //Borro el registro de movimientos anterior luego del restart
       return incio;
    }
-   public static void reiniciarStack(){
-      estadoNivel = new Stack<>(); //Borro el registro de movimientos anterior
+   public static void reiniciarDeque(){
+      estadoNivel = new ArrayDeque<>(); //Borro el registro de movimientos anterior
    }
    private static Level clonarLevel(Level level){ //Metodo para clonar un nivel en su totalidad
       Square [][] capaInf = level.getCapaInf(); 

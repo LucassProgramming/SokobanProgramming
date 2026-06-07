@@ -24,7 +24,7 @@ public class CurrentGameStateTest {
 
     @Test
     void setCurrentSetsCurrentAndRegistersInicio() {
-        LevelRecorder.reiniciarStack();
+        LevelRecorder.reiniciarDeque();
         CurrentGameState cs = new CurrentGameState();
         Square[][] capaInf = new Square[2][2];
         Square[][] capaSup = new Square[2][2];
@@ -40,7 +40,7 @@ public class CurrentGameStateTest {
 
     @Test
     void moverPersonajeIncreasesGameScoreWhenMoveHappens() {
-        LevelRecorder.reiniciarStack();
+        LevelRecorder.reiniciarDeque();
         CurrentGameState cs = new CurrentGameState();
         Square[][] capaInf = new Square[3][3];
         Square[][] capaSup = new Square[3][3];
@@ -57,7 +57,7 @@ public class CurrentGameStateTest {
 
     @Test
     void moverPersonajeDoesNotIncreaseWhenBlockedByWall() {
-        LevelRecorder.reiniciarStack();
+        LevelRecorder.reiniciarDeque();
         CurrentGameState cs = new CurrentGameState();
         Square[][] capaInf = new Square[3][3];
         Square[][] capaSup = new Square[3][3];
@@ -75,7 +75,7 @@ public class CurrentGameStateTest {
 
     @Test
     void reversionEstadoRestoresPreviousStateAndDecrementsTotal() {
-        LevelRecorder.reiniciarStack();
+        LevelRecorder.reiniciarDeque();
         CurrentGameState cs = new CurrentGameState();
         Square[][] capaInf = new Square[3][3];
         Square[][] capaSup = new Square[3][3];
