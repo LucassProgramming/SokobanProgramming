@@ -1,5 +1,7 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
+import es.upm.pproject.sokoban.model.exceptions.CouldntCloneException;
+
 public class PlayableCharacter extends Square implements Cloneable { //Clase para el personaje jugable
 
      public PlayableCharacter(int x, int y){
@@ -10,7 +12,7 @@ public class PlayableCharacter extends Square implements Cloneable { //Clase par
         try {
             return (PlayableCharacter) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e); //Exception por si acaso
+            throw new CouldntCloneException(e); //Exception por si acaso
         }
     }
 

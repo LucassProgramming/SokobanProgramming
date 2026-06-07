@@ -39,10 +39,10 @@ public class LevelRecorder {
       for(int i = 0; i<capaSup.length;i++){ 
          copiaSup[i] = capaSup[i].clone(); //Clonamos cada fila una por una
       }
-      Level copia = new Level(level.getNombre(), level.getFilas(),
+      
+      return new Level(level.getNombre(), level.getFilas(),
        level.getColumnas(), capaInf, copiaSup, 
-       level.getPuntuacion().clone(), level.getCharacter().clone()); //Creamos un nuevo nivel con diferente direccion
-      return copia;
+       level.getPuntuacion().clone(), level.getCharacter().clone());
    }
 
 }
