@@ -21,4 +21,17 @@ public class Box extends Square{
     public static int cuantasBoxes(){
         return cantidad;
     }
+    @Override
+    public boolean equals(Object object){
+        boolean iguales=false;
+        Box acomparar;
+        if (object == null || getClass() != object.getClass())
+           return iguales;
+        if(object instanceof Box){
+            acomparar = (Box) object;
+            if(super.equals(acomparar) && acomparar.color.equals(this.color))
+                iguales = true;
+        }
+        return iguales;
+    }
 }
