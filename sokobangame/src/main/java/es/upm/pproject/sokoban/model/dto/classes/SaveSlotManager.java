@@ -32,16 +32,12 @@ public class SaveSlotManager implements ISaveSlotManager{
         salida.writeObject(estado);
         } catch (FileNotFoundException e) {
           logger.info(e.getMessage());
-        } catch(NullPointerException e){
-            logger.info(e.getMessage());
-        } catch(InvalidClassException e){
-            logger.info(e.getMessage());
         }
         // Convierte el objeto en bytes
         
     }
     @Override
-    public ICurrentGameState cargarPartida(int slot)  throws IOException, ClassNotFoundException{
+    public CurrentGameState cargarPartida(int slot)  throws IOException, ClassNotFoundException{
         String nombreArchivo = "slot" + slot + ".dat";
         CurrentGameState estado = null;
     try(  //Abre el archivo del slot indica para leer bytes
@@ -51,10 +47,6 @@ public class SaveSlotManager implements ISaveSlotManager{
             estado = (CurrentGameState) entrada.readObject();
         } catch (FileNotFoundException e) {
           logger.info(e.getMessage());
-        } catch(NullPointerException e){
-            logger.info(e.getMessage());
-        } catch(InvalidClassException e){
-            logger.info(e.getMessage());
         }
         // Lee el objeto del archivo
         return estado;

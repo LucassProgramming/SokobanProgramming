@@ -1,6 +1,8 @@
 package es.upm.pproject.sokoban.model.dto.interfaces;
 import java.io.IOException;
 
+import es.upm.pproject.sokoban.model.dto.classes.CurrentGameState;
+
 public interface ISaveSlotManager {
     /*
     * Guarda el estado actual del juego en el slot indicado
@@ -16,7 +18,7 @@ public interface ISaveSlotManager {
     * @throws IOException si ocurre un error al cargar la partida
     * @throws ClassNotFoundException si la clase del estado del juego no se encuentra al cargar la partida
     */
-    ICurrentGameState cargarPartida(int slot)  throws IOException, ClassNotFoundException;
+    CurrentGameState cargarPartida(int slot)  throws IOException, ClassNotFoundException;
     /*
     * Comprueba si existe un slot guardado
     * @param slot slot a comprobar
