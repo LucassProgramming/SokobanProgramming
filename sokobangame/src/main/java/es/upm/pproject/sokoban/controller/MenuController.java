@@ -61,7 +61,7 @@ public class MenuController {
     }
     public void cargarPartida(int slot){
         try{
-            estadoActual = (CurrentGameState) saveSlotManager.cargarPartida(slot);
+            estadoActual = saveSlotManager.cargarPartida(slot);
             Level level = estadoActual.getCurrent();
             GameInfoView gameInfoView = new GameInfoView(level.getNombre(), estadoActual.getIndex(),
              level.getPuntuacion().getPuntuacion(), estadoActual.getPuntuacionTotal().getTotal());
