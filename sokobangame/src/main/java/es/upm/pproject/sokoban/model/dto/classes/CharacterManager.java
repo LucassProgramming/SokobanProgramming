@@ -3,6 +3,8 @@ package es.upm.pproject.sokoban.model.dto.classes;
 
 public class CharacterManager { //Clase para controlar el movimiento del personaje esta asociada con Level
 
+    private CharacterManager(){}
+
     public static void moverPersonaje(Level level,PlayableCharacter personaje,
         Direccion direccion ){ //moverPersonaje llamado por el nivel con la direccion del teclado
         BoxManager manejador = new BoxManager(level);

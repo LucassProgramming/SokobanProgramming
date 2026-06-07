@@ -8,8 +8,8 @@ import es.upm.pproject.sokoban.model.dto.interfaces.ILevel;
 
 public class Level implements ILevel, Serializable {
 
-    private Square capaInf[][];
-    private Square capaSup[][];
+    private Square [][] capaInf;
+    private Square [][] capaSup;
     private Score puntuacion;
     private int filas;
     private String nombre;
@@ -92,8 +92,8 @@ public void setNombre(String nombre) {
 }
 
 @Override
-public void setFilas(int Filas) {
-    this.filas = Filas;
+public void setFilas(int filas) {
+    this.filas = filas;
 }
 
 @Override
