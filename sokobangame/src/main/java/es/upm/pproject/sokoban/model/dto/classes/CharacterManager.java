@@ -3,10 +3,9 @@ package es.upm.pproject.sokoban.model.dto.classes;
 
 public class CharacterManager { //Clase para controlar el movimiento del personaje esta asociada con Level
 
-    private static BoxManager manejador; //BoxManager autogenerado
     public static void moverPersonaje(Level level,PlayableCharacter personaje,
         Direccion direccion ){ //moverPersonaje llamado por el nivel con la direccion del teclado
-        manejador = new BoxManager(level);
+        BoxManager manejador = new BoxManager(level);
         Square [][] capaSup = level.getCapaSup(); //obtener la capa superior para cajas
         Square [][] capaInf = level.getCapaInf(); //obtener capa inferior para Muros
 
@@ -20,10 +19,9 @@ public class CharacterManager { //Clase para controlar el movimiento del persona
         Square casillaInf = capaInf[coorX + incX][coorY + incY]; //Obtener posicion futura en la capa inferior
         Square casillaSup = capaSup[coorX + incX][coorY + incY]; //Obtener posicion futura en la capa superior
         if(casillaInf instanceof Wall){ 
-            return; //Si es un muro termina sin moverse
-        } else if(casillaSup instanceof Box){
+            //Si es un muro termina sin moverse
+        } else if(casillaSup instanceof Box caja){
           LevelRecorder.save(level); //Guardo el estado anterior cuando ya se que se va ha mover el personaje
-           Box caja = (Box) casillaSup;
            caja.setX(coorX + incX); //Les pongo otras coordenadas como contramedida de restart o 
            // undo para que no se queden las que tenian antes de ello
            caja.setY( coorY + incY);

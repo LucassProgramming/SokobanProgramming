@@ -27,9 +27,8 @@ public class Box extends Square{
         boolean iguales=false;
         if (object == null || getClass() != object.getClass())
            return iguales;
-        if(object instanceof Box acomparar){
-            if(super.equals(acomparar) && acomparar.color.equals(this.color))
-                iguales = true;
+        if(object instanceof Box acomparar && super.equals(acomparar) && acomparar.color.equals(this.color)){
+            iguales = true;
         }
         return iguales;
     }
