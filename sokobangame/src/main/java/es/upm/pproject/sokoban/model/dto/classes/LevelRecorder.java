@@ -4,8 +4,9 @@ import java.util.Stack;
 public class LevelRecorder {
    private static Stack<Level> estadoNivel = new Stack<>();
    private static Level inicio;
-   private static Level copia;
 
+
+   private LevelRecorder(){}
 
    public static void save(Level elNivel) {
     //guardo el estado del nivel a cada movimiento
@@ -37,7 +38,7 @@ public class LevelRecorder {
       for(int i = 0; i<capaSup.length;i++){ 
          copiaSup[i] = capaSup[i].clone(); //Clonamos cada fila una por una
       }
-      copia = new Level(level.getNombre(), level.getFilas(),
+      Level copia = new Level(level.getNombre(), level.getFilas(),
        level.getColumnas(), capaInf, copiaSup, 
        level.getPuntuacion().clone(), level.getCharacter().clone()); //Creamos un nuevo nivel con diferente direccion
       return copia;
