@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
@@ -15,14 +14,13 @@ import java.nio.file.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import es.upm.pproject.sokoban.model.dto.interfaces.ICurrentGameState;
 import es.upm.pproject.sokoban.model.dto.interfaces.ISaveSlotManager;
 
 public class SaveSlotManager implements ISaveSlotManager{
    private static Logger logger = LoggerFactory.getLogger(SaveSlotManager.class);
 
     @Override
-    public void guardarPartida(ICurrentGameState estado, int slot) throws IOException{
+    public void guardarPartida(CurrentGameState estado, int slot) throws IOException{
         
         String nombreArchivo = "slot" + slot + ".dat";
         // Abre o crea si no existe el archivo

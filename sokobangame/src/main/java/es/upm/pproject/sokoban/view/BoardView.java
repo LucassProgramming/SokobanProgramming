@@ -21,7 +21,7 @@ public class BoardView extends GridPane {
     private final Image goalImg;
     private final Image cajaImg;
     private final Image cajaEnGoalImg;
-    private final Image JugadorImg;
+    private final Image jugadorImg;
     private final Image golemEnGoalImg;
 
     public BoardView(ILevel level) {
@@ -30,7 +30,7 @@ public class BoardView extends GridPane {
         goalImg = loadImage("/images/goal.jpg");
         cajaImg = loadImage("/images/caja.png");
         cajaEnGoalImg = loadImage("/images/cajaengoal.png");
-        JugadorImg = loadImage("/images/golemfondodepiedra.png");
+        jugadorImg = loadImage("/images/golemfondodepiedra.png");
         golemEnGoalImg = loadImage("/images/golemgoal.png");
 
         buildBoard(level);
@@ -76,7 +76,7 @@ public class BoardView extends GridPane {
             return makeImageView(onGoal ? cajaEnGoalImg : cajaImg);
         }
         if (square instanceof PlayableCharacter) {
-            return makeImageView(onGoal ? golemEnGoalImg : JugadorImg);
+            return makeImageView(onGoal ? golemEnGoalImg : jugadorImg);
         }
         return null;
     }

@@ -4,7 +4,7 @@ import es.upm.pproject.sokoban.model.dto.classes.Level;
 
 public interface ICurrentGameState {
     public Level[] getArray();
-    public void añadirLevel(Level level); //Añade un nivel al array
+    public void anadirLevel(Level level); //Añade un nivel al array
     Level getCurrent(); //Obtiene el nivel actual
     void setCurrent(Level current); //Establece el nivel actual y lo añade al array (Puede que sea innecesario que sea public)
     /*

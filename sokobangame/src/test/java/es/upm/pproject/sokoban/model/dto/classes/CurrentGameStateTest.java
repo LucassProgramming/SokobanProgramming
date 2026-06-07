@@ -17,7 +17,7 @@ public class CurrentGameStateTest {
     void añadirLevelAddsLevelAndIncrementsIndex() {
         CurrentGameState cs = new CurrentGameState();
         Level level = new Level();
-        cs.añadirLevel(level);
+        cs.anadirLevel(level);
         assertEquals(1, cs.getIndex());
         assertSame(level, cs.getArray()[0]);
     }

@@ -10,7 +10,7 @@ public interface ISaveSlotManager {
     * @param slot el slot donde se guardará la partida
     * @throws IOException si ocurre un error al guardar la partida
     */
-    void guardarPartida(ICurrentGameState estado, int slot) throws IOException;
+    void guardarPartida(CurrentGameState estado, int slot) throws IOException;
     /*
     * Carga el estado del juego desde el slot indicado
     * @param slot el slot desde donde se cargará la partida

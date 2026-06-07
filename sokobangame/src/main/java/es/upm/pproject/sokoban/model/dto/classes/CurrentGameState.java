@@ -20,7 +20,7 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     public Level[] getArray(){
         return arrayLevels;
     }
-    public void añadirLevel(Level level){ //Añade un nivel al array
+    public void anadirLevel(Level level){ //Añade un nivel al array
        arrayLevels[index] = level;
        index++;
     }
@@ -31,7 +31,7 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     @Override
     public void setCurrent(Level current) { //Establece el nivel actual y lo añade al array
     //  (Puede que sea innecesario que sea public)
-        añadirLevel(current); //Lo añado por si acaso pero en verdad deberia de estar ya en el array
+        anadirLevel(current); //Lo añado por si acaso pero en verdad deberia de estar ya en el array
         LevelRecorder.reiniciarDeque(); //Reinicio el registro de movimientos guardados
         LevelRecorder.setInicio(current); //Se pone como el nuevo estado inicial
         this.current = current;

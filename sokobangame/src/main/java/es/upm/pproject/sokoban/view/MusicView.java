@@ -5,22 +5,19 @@ import javafx.scene.media.MediaPlayer;
 
 
 public class MusicView{
-    private Media media;
     private static MediaPlayer mediaPlayer;
-    private String musicURL;
  
-    public MusicView(String path){
-        musicURL = getClass().getResource(path).toExternalForm();
+    private MusicView(){
     }
 
-    public void start() {
+    public static void start(String musicURL) {
 
     // Crear el objeto Media
-    media = new Media(musicURL);
+    Media media = new Media(musicURL);
 
     // Crear y reproducir el MediaPlayer
-   mediaPlayer = new MediaPlayer(media);
-   mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+    mediaPlayer = new MediaPlayer(media);
+    mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     mediaPlayer.play();
 }
 

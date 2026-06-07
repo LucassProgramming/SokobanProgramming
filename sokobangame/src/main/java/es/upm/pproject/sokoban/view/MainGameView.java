@@ -14,14 +14,12 @@ public class MainGameView extends HBox {
      private Button mas;
      private Button menos;
      private Button menu;
-     private MusicView musicView;
 
      public MainGameView(Stage stage, GameController gameController, MenuController menuController){
         undo = new Button("Undo");
         save = new Button("Save");
         restart = new Button("Restart");
         menu = new Button("Menú");
-        musicView = new MusicView("/music/zelda_song.mp3");
         mas = new Button("Audio +");
         menos = new Button("Audio -");
         crearVista(gameController, stage, menuController);
@@ -35,11 +33,11 @@ public class MainGameView extends HBox {
         // Cada boton delega su accion en el GameController
         undo.setOnAction(e    -> gameController.undo());
         restart.setOnAction(e -> gameController.restart());
-        menu.setOnAction(e -> { controller.volverAlMenu();});
+        menu.setOnAction(e -> controller.volverAlMenu());
         save.setOnAction(e -> new SaveGameView(stage, controller, true));
         mas.setOnAction(e -> MusicView.turnUp());
         menos.setOnAction(e -> MusicView.turnDown());
         MusicView.stop();
-        musicView.start();
+        MusicView.start(getClass().getResource("/music/zelda_song.mp3").toExternalForm());
      }
 }

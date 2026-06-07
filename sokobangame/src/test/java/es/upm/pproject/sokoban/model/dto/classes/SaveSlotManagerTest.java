@@ -45,7 +45,7 @@ public class SaveSlotManagerTest {
         Square[][] capaInf = new Square[2][2];
         Square[][] capaSup = new Square[2][2];
         Level nivel = new Level(capaInf, capaSup);
-        estadoOriginal.añadirLevel(nivel);
+        estadoOriginal.anadirLevel(nivel);
         manager.guardarPartida(estadoOriginal, 1);
         ICurrentGameState estadoCargado = manager.cargarPartida(1);
         assertNotNull(estadoCargado);
