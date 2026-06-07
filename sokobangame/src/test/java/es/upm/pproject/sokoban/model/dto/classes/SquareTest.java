@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.Test;
 
 
-public class SquareTest {
+class SquareTest {
     @Test
     void SquareCoordenadaXCorrecta(){
         Square square = new Square(2, 5);

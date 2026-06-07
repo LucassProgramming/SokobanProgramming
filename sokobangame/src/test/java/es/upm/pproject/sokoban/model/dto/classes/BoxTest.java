@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.Color;
 
-public class BoxTest {
+class BoxTest {
 
     @Test
     void boxGuardaCoordenadaX() {

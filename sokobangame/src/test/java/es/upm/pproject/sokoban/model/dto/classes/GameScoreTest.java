@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-public class GameScoreTest { 
+class GameScoreTest { 
 
     private GameScore gameScore;
 

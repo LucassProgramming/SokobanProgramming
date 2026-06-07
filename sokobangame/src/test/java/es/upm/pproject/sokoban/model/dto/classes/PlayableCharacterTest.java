@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 
-public class PlayableCharacterTest {
+class PlayableCharacterTest {
    @Test
     void CharacterCoordenadaXCorrecta(){
         PlayableCharacter personaje = new PlayableCharacter(2, 5);

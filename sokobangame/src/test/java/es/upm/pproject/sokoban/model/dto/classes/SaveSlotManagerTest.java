@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import es.upm.pproject.sokoban.model.dto.interfaces.ICurrentGameState;
 
 
-public class SaveSlotManagerTest {
+class SaveSlotManagerTest {
     @Test
     void guardarPartida_CrearArchivo() throws IOException {
         SaveSlotManager manager = new SaveSlotManager();

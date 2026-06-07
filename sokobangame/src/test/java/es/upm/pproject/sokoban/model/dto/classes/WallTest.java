@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 
-public class WallTest {
+class WallTest {
     @Test
     void WallCoordenadaXCorrecta(){
         Wall wall = new Wall(2, 5);

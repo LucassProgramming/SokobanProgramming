@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DireccionTest {
+class DireccionTest {
     @Test void getXReturnsProvidedIncrement() {
         Direccion direccion = new Direccion(2, 5);
         assertEquals(2, direccion.getX()); }

@@ -3,7 +3,7 @@ package es.upm.pproject.sokoban.model.dto.classes;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-public class LevelTest{
+class LevelTest{
 
     @Test
     void levelGuardaYCambiaAtributosBasicos() {

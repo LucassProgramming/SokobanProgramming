@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-public class CurrentGameStateTest {
+class CurrentGameStateTest {
 
     @Test
     void getArrayReturnsLength99AndStartsEmpty() {
