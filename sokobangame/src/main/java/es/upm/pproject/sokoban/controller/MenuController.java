@@ -1,6 +1,6 @@
 package es.upm.pproject.sokoban.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class MenuController {
     private CurrentGameState estadoActual;
     private SaveSlotManager saveSlotManager = new SaveSlotManager();
     private boolean partidaEnCurso = false;
-    private ArrayList<Level> niveles;
+    private List<Level> niveles;
     private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
 
     public MenuController(Stage stage) {

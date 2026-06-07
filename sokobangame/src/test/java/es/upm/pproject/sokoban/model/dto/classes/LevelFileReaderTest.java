@@ -32,7 +32,7 @@ public class LevelFileReaderTest {
                 () -> LevelFileReader.crearNivel("/levels/NoSuchLevel.txt"));
     }
     @Test public void cargarTodosLosNivelesEachLevelMeetsBasicValidation() {
-        java.util.ArrayList<Level> niveles = LevelFileReader.cargarTodosLosNiveles();
+        java.util.List<Level> niveles = LevelFileReader.cargarTodosLosNiveles();
         for(Level level : niveles) {
             int boxes = 0; int goals = 0;
             int playableChars = 0;

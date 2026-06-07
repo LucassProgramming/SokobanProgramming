@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import es.upm.pproject.sokoban.model.exceptions.CajaNotFoundInLevelException;
 import es.upm.pproject.sokoban.model.exceptions.GoalNotFoundInLevelException;
@@ -12,6 +16,8 @@ import es.upm.pproject.sokoban.model.exceptions.LevelDoesntExistException;
 import es.upm.pproject.sokoban.model.exceptions.PlayableCharacterNotFoundInLevelException;
 
 public class LevelFileReader {
+
+    private static final Logger logger = LoggerFactory.getLogger(LevelFileReader.class);
 
     private LevelFileReader(){}
 
@@ -40,7 +46,7 @@ public class LevelFileReader {
             }
         
         } catch (Exception e){
-            System.out.println("Error en lectura" + e.getMessage());
+            logger.info("Error en lectura {}", e.getMessage());
 
         }
 
@@ -52,13 +58,13 @@ public class LevelFileReader {
         
 
 
-        Square capaInf[][] = new Square[filas][columnas];
-        Square capaSup[][] = new Square[filas][columnas];
+        Square [][] capaInf = new Square[filas][columnas];
+        Square [][] capaSup = new Square[filas][columnas];
 
         for(int i=0; i< filas; i++){
-            String ComienzoNivelArchivo = lineas.get(2+i);
+            String comienzoNivelArchivo = lineas.get(2+i);
             for(int j=0; j< columnas;j++){
-                char celda = j < ComienzoNivelArchivo.length() ? ComienzoNivelArchivo.charAt(j) : ' ';
+                char celda = j < comienzoNivelArchivo.length() ? comienzoNivelArchivo.charAt(j) : ' ';
                 switch (celda) {
                     case '+':
                         capaInf[i][j] = new Wall(i,j);
@@ -117,18 +123,18 @@ public class LevelFileReader {
             return new Level(nombre,filas,columnas,capaInf,capaSup,new Score(),caracter);
         }
         
-    public static ArrayList<Level> cargarTodosLosNiveles(){
-        ArrayList<Level> niveles = new ArrayList<>();
+    public static List<Level> cargarTodosLosNiveles(){
+        List<Level> niveles = new ArrayList<>();
         int contador=1;
 
         while(true){
-            String nombre_de_archivo = "/levels/Level_" + contador + ".txt";
+            String nombreDeArchivo = "/levels/Level_" + contador + ".txt";
 
-        if(LevelFileReader.class.getResourceAsStream(nombre_de_archivo) == null){
+        if(LevelFileReader.class.getResourceAsStream(nombreDeArchivo) == null){
             break;
         }
 
-            niveles.add(crearNivel(nombre_de_archivo));
+            niveles.add(crearNivel(nombreDeArchivo));
             contador++;
         }
             return niveles;
