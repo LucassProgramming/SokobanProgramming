@@ -1,5 +1,6 @@
 package es.upm.pproject.sokoban.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import es.upm.pproject.sokoban.model.dto.classes.Level;
 import es.upm.pproject.sokoban.model.dto.classes.LevelFileReader;
 import es.upm.pproject.sokoban.model.dto.classes.SaveSlotManager;
 import es.upm.pproject.sokoban.view.BoardView;
+import es.upm.pproject.sokoban.view.GameCompleteView;
 import es.upm.pproject.sokoban.view.GameInfoView;
 import es.upm.pproject.sokoban.view.MainGameView;
 import es.upm.pproject.sokoban.view.MainMenuView;
@@ -62,6 +64,28 @@ public class MenuController {
     public void cargarPartida(int slot){
         try{
             estadoActual = saveSlotManager.cargarPartida(slot);
+            if (estadoActual == null) {
+                logger.info("No se pudo cargar la partida del slot {}", slot);
+                return;
+            }
+            if (estadoActual.getArray() == null || estadoActual.getCurrent() == null) {
+                logger.info("Estado de partida inválido en slot {}", slot);
+                return;
+            }
+
+            List<Level> loadedLevels = new ArrayList<>();
+            for (Level level : estadoActual.getArray()) {
+                if (level == null) break;
+                loadedLevels.add(level);
+            }
+            if (!loadedLevels.isEmpty()) {
+                for (int i = 0; i < loadedLevels.size() && i < niveles.size(); i++) {
+                    if (loadedLevels.get(i) != null) {
+                        niveles.set(i, loadedLevels.get(i));
+                    }
+                }
+            }
+
             Level level = estadoActual.getCurrent();
             GameInfoView gameInfoView = new GameInfoView(level.getNombre(), estadoActual.getIndex(),
              level.getPuntuacion().getPuntuacion(), estadoActual.getPuntuacionTotal().getTotal());
@@ -129,8 +153,19 @@ public class MenuController {
             stage.setScene(scene);
         } else {
             logger.info("Juego completado");
-            //Aqui es donde tenemos que mostrar la pantalla de victoria o algo asi, por ahora volvemos al menu principal
-            volverAlMenu();
+            int totalScore = estadoActual.getPuntuacionTotal().getTotal();
+            int levelsCompleted = estadoActual.getIndex();
+            List<Level> completedLevels = new ArrayList<>();
+            for (Level level : estadoActual.getArray()) {
+                if (level == null) break;
+                completedLevels.add(level);
+            }
+            if (completedLevels.isEmpty()) {
+                completedLevels = niveles;
+            }
+            GameCompleteView gameCompleteView = new GameCompleteView(stage, this, totalScore, levelsCompleted, completedLevels);
+            Scene scene = new Scene(gameCompleteView);
+            stage.setScene(scene);
         }
     }
     public void cerrarApp(){

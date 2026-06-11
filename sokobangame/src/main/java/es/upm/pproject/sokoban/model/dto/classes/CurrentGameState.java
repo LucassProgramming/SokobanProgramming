@@ -50,15 +50,23 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     @Override
     public void reversionEstado(){ //Vuelve al movimiento anterior del nivel actual
         Level ant = LevelRecorder.undo(); //Obtiene el estado anterior al ultimo movimiento
-        if(ant!=null){current = ant;
-        puntuacionTotal.restar(1); //Resto un movimiento de la puntuacion total
+        if(ant != null) {
+            current = ant;
+            if (index > 0) {
+                arrayLevels[index - 1] = current;
+            }
+            puntuacionTotal.restar(1); //Resto un movimiento de la puntuacion total
         }
     }
     @Override
     public void restart(){ //Reinicia el nivel actual al estado inicial
         Level inicio = LevelRecorder.restart(); //Obtiene el primer save
         int cantidad = current.getPuntuacion().getPuntuacion();
-        if(inicio!=null){current = inicio; //Establece el actual como el primer save
+        if(inicio != null) {
+            current = inicio; //Establece el actual como el primer save
+            if (index > 0) {
+                arrayLevels[index - 1] = current;
+            }
             puntuacionTotal.restar(cantidad);
         }
     }
