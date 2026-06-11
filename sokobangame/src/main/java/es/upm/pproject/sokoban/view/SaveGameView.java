@@ -3,7 +3,9 @@ import es.upm.pproject.sokoban.controller.MenuController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -50,10 +52,25 @@ public class SaveGameView {
         slot1.setOnAction(e -> seleccionarSlot(1));
         slot2.setOnAction(e -> seleccionarSlot(2));
         slot3.setOnAction(e -> seleccionarSlot(3));
-        guardar.setOnAction(e -> {
-            if (selectedSlot != -1) {
-                controller.guardarPartida(selectedSlot);
-                actualizarSlots(); // Actualiza la vista de los slots para reflejar el nuevo estado
+        guardar.setOnAction(e ->{
+            if (selectedSlot != -1){
+                if (controller.existeSlot(selectedSlot)){
+                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirm.setTitle("Confirmar sobrescritura");
+                    confirm.setHeaderText("El slot " + selectedSlot + " ya contiene una partida guardada.");
+                    confirm.setContentText("¿Deseas sobrescribir la partida existente?");
+                    confirm.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+                    confirm.showAndWait().ifPresent(response -> {
+                        if (response == ButtonType.YES){
+                            controller.guardarPartida(selectedSlot);
+                            actualizarSlots();
+                        }
+                    });
+                }else{
+                    controller.guardarPartida(selectedSlot);
+                    actualizarSlots();
+                }
             }
         });
         cargar.setOnAction(e -> {
