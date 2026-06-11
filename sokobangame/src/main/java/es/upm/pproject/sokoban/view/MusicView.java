@@ -11,15 +11,13 @@ public class MusicView{
     }
 
     public static void start(String musicURL) {
-
-    // Crear el objeto Media
-    Media media = new Media(musicURL);
-
-    // Crear y reproducir el MediaPlayer
-    mediaPlayer = new MediaPlayer(media);
-    mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-    mediaPlayer.play();
-}
+        double volume = (mediaPlayer != null) ? mediaPlayer.getVolume() : 1.0;
+        Media media = new Media(musicURL);
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setVolume(volume);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();
+    }
 
 public static void stop(){
     if(mediaPlayer!=null) mediaPlayer.pause();
