@@ -59,7 +59,7 @@ public class MainMenuView{
         //botones
         nuevoJuego.setOnAction(e -> {
             try { controller.iniciarJuego(); }
-            catch (Exception ex) { ex.printStackTrace(); }
+            catch (Exception ex) { LOGGER.log(Level.SEVERE, "Error al iniciar el juego", ex); }
         });
         cargarPartida.setOnAction(e -> new SaveGameView(stage, controller, false));
         salir.setOnAction(e -> controller.cerrarApp());
