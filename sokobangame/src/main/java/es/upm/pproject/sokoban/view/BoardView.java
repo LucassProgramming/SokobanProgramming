@@ -12,10 +12,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
-public class BoardView extends GridPane {
+public class BoardView {
 
     private static final int TILE_SIZE = 64;
 
+    private final GridPane grid;
     private final Image sueloImg;
     private final Image muroImg;
     private final Image goalImg;
@@ -25,6 +26,7 @@ public class BoardView extends GridPane {
     private final Image golemEnGoalImg;
 
     public BoardView(ILevel level) {
+        grid = new GridPane();
         sueloImg = loadImage("/images/suelo.jpg");
         muroImg = loadImage("/images/muro.jpg");
         goalImg = loadImage("/images/goal.jpg");
@@ -36,8 +38,12 @@ public class BoardView extends GridPane {
         buildBoard(level);
     }
 
+    public GridPane getRoot() {
+        return grid;
+    }
+
     public void actualizar(ILevel level) {
-        getChildren().clear();
+        grid.getChildren().clear();
         buildBoard(level);
     }
 
@@ -58,7 +64,7 @@ public class BoardView extends GridPane {
                     if (top != null) cell.getChildren().add(top);
                 }
 
-                add(cell, j, i);
+                grid.add(cell, j, i);
             }
         }
     }

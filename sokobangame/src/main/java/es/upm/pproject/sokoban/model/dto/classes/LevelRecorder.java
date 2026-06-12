@@ -42,7 +42,7 @@ public class LevelRecorder {
       
       return new Level(level.getNombre(), level.getFilas(),
        level.getColumnas(), capaInf, copiaSup, 
-       level.getPuntuacion().clone(), level.getCharacter().clone());
+       new Score(level.getPuntuacion()), new PlayableCharacter(level.getCharacter()));
    }
 
 }

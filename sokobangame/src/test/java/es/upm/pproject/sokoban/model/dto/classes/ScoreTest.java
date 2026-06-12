@@ -67,11 +67,11 @@ class ScoreTest {
     }
 
     @Test
-    void cloneProduceObjetoIndependiente() {
+    void constructorCopiaProduceObjetoIndependiente() {
         score.setPuntuacion(5);
-        Score clon = score.clone();
-        assertEquals(5, clon.getPuntuacion());
-        clon.setPuntuacion(99);
+        Score copia = new Score(score);
+        assertEquals(5, copia.getPuntuacion());
+        copia.setPuntuacion(99);
         assertEquals(5, score.getPuntuacion());
     }
 

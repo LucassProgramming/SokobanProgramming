@@ -34,19 +34,19 @@ class PlayableCharacterTest {
     }
 
     @Test
-    void cloneProduceObjetoDistinto() {
+    void constructorCopiaProduceObjetoDistinto() {
         PlayableCharacter original = new PlayableCharacter(1, 2);
-        PlayableCharacter clon = original.clone();
-        assertNotSame(original, clon);
-        assertEquals(original.getX(), clon.getX());
-        assertEquals(original.getY(), clon.getY());
+        PlayableCharacter copia = new PlayableCharacter(original);
+        assertNotSame(original, copia);
+        assertEquals(original.getX(), copia.getX());
+        assertEquals(original.getY(), copia.getY());
     }
 
     @Test
-    void cloneEsIndependiente() {
+    void constructorCopiaEsIndependiente() {
         PlayableCharacter original = new PlayableCharacter(1, 2);
-        PlayableCharacter clon = original.clone();
-        clon.setX(99);
+        PlayableCharacter copia = new PlayableCharacter(original);
+        copia.setX(99);
         assertEquals(1, original.getX());
     }
 }

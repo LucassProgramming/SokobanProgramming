@@ -12,13 +12,19 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
-public class GameCompleteView extends BorderPane {
+public class GameCompleteView {
 
-    public GameCompleteView(Stage stage, MenuController menuController, int totalScore, int levelsCompleted, List<Level> allLevels) {
-        setPrefSize(800, 600);
-        setStyle("-fx-background-color: #1b1b1b;");
+    private final BorderPane pane;
+
+    public BorderPane getRoot() {
+        return pane;
+    }
+
+    public GameCompleteView(MenuController menuController, int totalScore, int levelsCompleted, List<Level> allLevels) {
+        pane = new BorderPane();
+        pane.setPrefSize(800, 600);
+        pane.setStyle("-fx-background-color: #1b1b1b;");
 
         Label title = new Label("¡MUNDO COMPLETADO!");
         title.setStyle("-fx-font-size: 44px; -fx-font-weight: bold; -fx-text-fill: #55AA33; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0.7, 0, 2);");
@@ -74,8 +80,8 @@ public class GameCompleteView extends BorderPane {
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setPadding(new Insets(20, 0, 30, 0));
 
-        setTop(headerBox);
-        setCenter(scrollPane);
-        setBottom(buttonBox);
+        pane.setTop(headerBox);
+        pane.setCenter(scrollPane);
+        pane.setBottom(buttonBox);
     }
 }

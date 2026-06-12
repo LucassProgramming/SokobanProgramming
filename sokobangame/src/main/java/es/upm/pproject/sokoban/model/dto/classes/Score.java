@@ -3,14 +3,17 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import es.upm.pproject.sokoban.model.dto.interfaces.IScore;
-import es.upm.pproject.sokoban.model.exceptions.CouldntCloneException;
 
-public class Score implements IScore, Serializable, Cloneable{
+public class Score implements IScore, Serializable {
 
     private int puntuacion;
 
     public Score(){
         puntuacion = 0;
+    }
+
+    public Score(Score other) {
+        this.puntuacion = other.puntuacion;
     }
 
     public int getPuntuacion() {
@@ -24,15 +27,6 @@ public class Score implements IScore, Serializable, Cloneable{
     public void incrementar(){
         this.puntuacion++;
     }
-    @Override
-    public Score clone() {
-        try {
-            return (Score) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new CouldntCloneException(e);
-        }
-    }
-
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Score score)) return false;

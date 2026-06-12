@@ -50,9 +50,9 @@ public class MenuController {
         MainGameView mainGameView = new MainGameView(stage, gameController, this);
 
         BorderPane root = new BorderPane();
-        root.setTop(gameInfoView);
-        root.setCenter(boardView);
-        root.setBottom(mainGameView);
+        root.setTop(gameInfoView.getRoot());
+        root.setCenter(boardView.getRoot());
+        root.setBottom(mainGameView.getRoot());
 
         Scene scene = new Scene(root);
 
@@ -94,9 +94,9 @@ public class MenuController {
             GameController gameController = new GameController(estadoActual, boardView, gameInfoView, estadoActual.getIndex(), this);
             MainGameView mainGameView = new MainGameView(stage, gameController, this);
             BorderPane root = new BorderPane();
-            root.setTop(gameInfoView);
-            root.setCenter(boardView);
-            root.setBottom(mainGameView);
+            root.setTop(gameInfoView.getRoot());
+            root.setCenter(boardView.getRoot());
+            root.setBottom(mainGameView.getRoot());
 
             Scene scene = new Scene(root);
             scene.setOnKeyPressed(e -> gameController.handleKey(e.getCode()));
@@ -144,9 +144,9 @@ public class MenuController {
             MainGameView mainGameView = new MainGameView(stage, gameController, this);
 
             BorderPane root = new BorderPane();
-            root.setTop(gameInfoView);
-            root.setCenter(boardView);
-            root.setBottom(mainGameView);
+            root.setTop(gameInfoView.getRoot());
+            root.setCenter(boardView.getRoot());
+            root.setBottom(mainGameView.getRoot());
 
             Scene scene = new Scene(root);
             scene.setOnKeyPressed(e -> gameController.handleKey(e.getCode()));
@@ -163,8 +163,8 @@ public class MenuController {
             if (completedLevels.isEmpty()) {
                 completedLevels = niveles;
             }
-            GameCompleteView gameCompleteView = new GameCompleteView(stage, this, totalScore, levelsCompleted, completedLevels);
-            Scene scene = new Scene(gameCompleteView);
+            GameCompleteView gameCompleteView = new GameCompleteView(this, totalScore, levelsCompleted, completedLevels);
+            Scene scene = new Scene(gameCompleteView.getRoot());
             stage.setScene(scene);
         }
     }
