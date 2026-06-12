@@ -10,7 +10,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         MenuController controller = new MenuController(stage);
-        MainMenuView mainMenuView = new MainMenuView(stage, controller);
+        new MainMenuView(stage, controller);
     }
 
     public static void main(String[] args) {
