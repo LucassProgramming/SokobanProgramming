@@ -1,6 +1,10 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 class LevelTest{
@@ -98,11 +102,53 @@ class LevelTest{
     }
 
     @Test
-    void notEqualsConNombreDistinto() {
+    void notEqualsConObjetoDeOtraClase() {
+        Level level = new Level();
+        assertNotEquals("nivel", level);
+    }
+
+
+    @Test
+    void notEqualsConCapaInfDistinta() {
+        Square[][] ci1 = new Square[1][1];
+        Square[][] ci2 = new Square[1][1];
+        Square[][] cs = new Square[1][1];
+        ci1[0][0] = new Square(0, 0);
+        ci2[0][0] = new Square(0, 1);
+        Level l1 = new Level("A", 1, 1, ci1, cs, new Score(), null);
+        Level l2 = new Level("A", 1, 1, ci2, cs, new Score(), null);
+        assertNotEquals(l1, l2);
+    }
+
+    @Test
+    void notEqualsConCapaSupDistinta() {
+        Square[][] ci = new Square[1][1];
+        Square[][] cs1 = new Square[1][1];
+        Square[][] cs2 = new Square[1][1];
+        cs1[0][0] = new Box(0, 0);
+        Level l1 = new Level("A", 1, 1, ci, cs1, new Score(), null);
+        Level l2 = new Level("A", 1, 1, ci, cs2, new Score(), null);
+        assertNotEquals(l1, l2);
+    }
+
+    @Test
+    void notEqualsConPuntuacionDistinta() {
         Square[][] ci = new Square[1][1];
         Square[][] cs = new Square[1][1];
-        Level l1 = new Level("A", 1, 1, ci, cs, new Score(), null);
-        Level l2 = new Level("B", 1, 1, ci, cs, new Score(), null);
+        Score s1 = new Score();
+        Score s2 = new Score();
+        s2.setPuntuacion(1);
+        Level l1 = new Level("A", 1, 1, ci, cs, s1, null);
+        Level l2 = new Level("A", 1, 1, ci, cs, s2, null);
+        assertNotEquals(l1, l2);
+    }
+
+    @Test
+    void notEqualsConPersonajeDistinto() {
+        Square[][] ci = new Square[1][1];
+        Square[][] cs = new Square[1][1];
+        Level l1 = new Level("A", 1, 1, ci, cs, new Score(), new PlayableCharacter(0, 0));
+        Level l2 = new Level("A", 1, 1, ci, cs, new Score(), new PlayableCharacter(0, 1));
         assertNotEquals(l1, l2);
     }
 

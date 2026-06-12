@@ -1,12 +1,15 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+
 import es.upm.pproject.sokoban.model.dto.interfaces.ICurrentGameState;
 
 
@@ -55,4 +58,36 @@ class SaveSlotManagerTest {
         archivo.delete();
     }
 
+    @Test
+    void cargarPartidaSiNoExisteDevuelveNull() throws IOException, ClassNotFoundException {
+        SaveSlotManager manager = new SaveSlotManager();
+        assertEquals(null, manager.cargarPartida(99));
+    }
+    @Test
+    void borrarSlotSiNoExisteNoFalla() {
+        SaveSlotManager manager = new SaveSlotManager();
+        manager.borrarSlot(99);
+        assertFalse(manager.existeSlot(99));
+    }
+    @Test
+    void guardarPartidaSiHayUnaCarpetaNoFalla() throws IOException {
+        SaveSlotManager manager = new SaveSlotManager();
+        File carpeta = new File("slot98.dat");
+        carpeta.mkdir();
+        manager.guardarPartida(new CurrentGameState(), 98);
+        assertTrue(carpeta.exists());
+        carpeta.delete();
+    }
+    @Test
+    void borrarSlotConCarpetaNoVaciaNoFalla() throws IOException {
+        SaveSlotManager manager = new SaveSlotManager();
+        Path carpeta = Path.of("slot97.dat");
+        Path archivo = carpeta.resolve("partida.txt");
+        Files.createDirectory(carpeta);
+        Files.createFile(archivo);
+        manager.borrarSlot(97);
+        assertTrue(Files.exists(carpeta));
+        Files.delete(archivo);
+        Files.delete(carpeta);
+    }
 }
