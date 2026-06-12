@@ -16,6 +16,7 @@ import es.upm.pproject.sokoban.view.GameInfoView;
 import es.upm.pproject.sokoban.view.MainGameView;
 import es.upm.pproject.sokoban.view.MainMenuView;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -57,7 +58,7 @@ public class MenuController {
         Scene scene = new Scene(root);
 
         // Cada vez que se pulsa una tecla, se lo pasamos al GameController
-        scene.setOnKeyPressed(e -> gameController.handleKey(e.getCode()));
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> { gameController.handleKey(e.getCode()); e.consume(); });
 
         stage.setScene(scene);
     }
@@ -99,7 +100,7 @@ public class MenuController {
             root.setBottom(mainGameView.getRoot());
 
             Scene scene = new Scene(root);
-            scene.setOnKeyPressed(e -> gameController.handleKey(e.getCode()));
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> { gameController.handleKey(e.getCode()); e.consume(); });
             stage.setScene(scene);
             logger.info("Partida cargada correctamente {}", slot);
         } catch (Exception e) {
@@ -149,7 +150,7 @@ public class MenuController {
             root.setBottom(mainGameView.getRoot());
 
             Scene scene = new Scene(root);
-            scene.setOnKeyPressed(e -> gameController.handleKey(e.getCode()));
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> { gameController.handleKey(e.getCode()); e.consume(); });
             stage.setScene(scene);
         } else {
             logger.info("Juego completado");
