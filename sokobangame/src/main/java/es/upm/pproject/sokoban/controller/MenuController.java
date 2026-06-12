@@ -45,22 +45,8 @@ public class MenuController {
          estadoActual.getPuntuacionTotal().getTotal());
         BoardView boardView = new BoardView(level);
 
-        // GameController conecta el teclado con el modelo y las vistas
         GameController gameController = new GameController(estadoActual, boardView, gameInfoView, 1, this);
-
-        MainGameView mainGameView = new MainGameView(stage, gameController, this);
-
-        BorderPane root = new BorderPane();
-        root.setTop(gameInfoView.getRoot());
-        root.setCenter(boardView.getRoot());
-        root.setBottom(mainGameView.getRoot());
-
-        Scene scene = new Scene(root);
-
-        // Cada vez que se pulsa una tecla, se lo pasamos al GameController
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> { gameController.handleKey(e.getCode()); e.consume(); });
-
-        stage.setScene(scene);
+        mostrarEscenaJuego(gameInfoView, boardView, gameController);
     }
     public void cargarPartida(int slot){
         try{
@@ -93,15 +79,7 @@ public class MenuController {
 
             BoardView boardView = new BoardView(level);
             GameController gameController = new GameController(estadoActual, boardView, gameInfoView, estadoActual.getIndex(), this);
-            MainGameView mainGameView = new MainGameView(stage, gameController, this);
-            BorderPane root = new BorderPane();
-            root.setTop(gameInfoView.getRoot());
-            root.setCenter(boardView.getRoot());
-            root.setBottom(mainGameView.getRoot());
-
-            Scene scene = new Scene(root);
-            scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> { gameController.handleKey(e.getCode()); e.consume(); });
-            stage.setScene(scene);
+            mostrarEscenaJuego(gameInfoView, boardView, gameController);
             logger.info("Partida cargada correctamente {}", slot);
         } catch (Exception e) {
             logger.info("Error al cargar la partida");
@@ -142,16 +120,7 @@ public class MenuController {
              level.getPuntuacion().getPuntuacion(), estadoActual.getPuntuacionTotal().getTotal());
             BoardView boardView = new BoardView(level);
             GameController gameController = new GameController(estadoActual, boardView, gameInfoView, siguiente + 1, this);
-            MainGameView mainGameView = new MainGameView(stage, gameController, this);
-
-            BorderPane root = new BorderPane();
-            root.setTop(gameInfoView.getRoot());
-            root.setCenter(boardView.getRoot());
-            root.setBottom(mainGameView.getRoot());
-
-            Scene scene = new Scene(root);
-            scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> { gameController.handleKey(e.getCode()); e.consume(); });
-            stage.setScene(scene);
+            mostrarEscenaJuego(gameInfoView, boardView, gameController);
         } else {
             logger.info("Juego completado");
             int totalScore = estadoActual.getPuntuacionTotal().getTotal();
@@ -171,5 +140,16 @@ public class MenuController {
     }
     public void cerrarApp(){
         stage.close();
+    }
+
+    private void mostrarEscenaJuego(GameInfoView gameInfoView, BoardView boardView, GameController gameController) {
+        MainGameView mainGameView = new MainGameView(stage, gameController, this);
+        BorderPane root = new BorderPane();
+        root.setTop(gameInfoView.getRoot());
+        root.setCenter(boardView.getRoot());
+        root.setBottom(mainGameView.getRoot());
+        Scene scene = new Scene(root);
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> { gameController.handleKey(e.getCode()); e.consume(); });
+        stage.setScene(scene);
     }
 }
