@@ -90,4 +90,56 @@ class CurrentGameStateTest {
         assertEquals(0, cs.getPuntuacionTotal().getTotal());
         assertEquals(0, cs.getCurrent().getPuntuacion().getPuntuacion());
     }
+
+    @Test
+    void reversionEstadoConPilaVaciaNoHaceNada() {
+        LevelRecorder.reiniciarDeque();
+        CurrentGameState cs = new CurrentGameState();
+        Square[][] capaInf = new Square[3][3];
+        Square[][] capaSup = new Square[3][3];
+        PlayableCharacter pc = new PlayableCharacter(0, 0);
+        Level level = new Level("L5", 3, 3, capaInf, capaSup, new Score(), pc);
+        cs.setCurrent(level);
+        cs.reversionEstado();
+        assertEquals(0, cs.getPuntuacionTotal().getTotal());
+    }
+
+    @Test
+    void restartRestoresPuntuacionCero() {
+        LevelRecorder.reiniciarDeque();
+        CurrentGameState cs = new CurrentGameState();
+        Square[][] capaInf = new Square[3][3];
+        Square[][] capaSup = new Square[3][3];
+        PlayableCharacter pc = new PlayableCharacter(0, 0);
+        Level level = new Level("L6", 3, 3, capaInf, capaSup, new Score(), pc);
+        capaSup[0][0] = pc;
+        cs.setCurrent(level);
+        cs.moverPersonaje(new Direccion(0, 1));
+        cs.moverPersonaje(new Direccion(0, 1));
+        assertEquals(2, cs.getPuntuacionTotal().getTotal());
+        cs.restart();
+        assertEquals(0, cs.getPuntuacionTotal().getTotal());
+        assertEquals(0, cs.getCurrent().getPuntuacion().getPuntuacion());
+    }
+
+    @Test
+    void setIndexActualizaIndice() {
+        CurrentGameState cs = new CurrentGameState();
+        cs.setIndex(7);
+        assertEquals(7, cs.getIndex());
+    }
+
+    @Test
+    void equalsConMismoEstado() {
+        CurrentGameState cs1 = new CurrentGameState();
+        CurrentGameState cs2 = new CurrentGameState();
+        assertEquals(cs1, cs2);
+    }
+
+    @Test
+    void hashCodeConsistenteConEquals() {
+        CurrentGameState cs1 = new CurrentGameState();
+        CurrentGameState cs2 = new CurrentGameState();
+        assertEquals(cs1.hashCode(), cs2.hashCode());
+    }
 }

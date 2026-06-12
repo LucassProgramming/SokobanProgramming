@@ -33,10 +33,44 @@ class SquareTest {
         assertEquals(0, square.getX());
         assertEquals(0, square.getY());
     }
-    @Test 
+    @Test
     void deberiaGuardarCoordenadasNegativas(){
         Square square = new Square(-1, -1);
         assertEquals(-1, square.getX());
         assertEquals(-1, square.getY());
+    }
+
+    @Test
+    void setXActualizaCoordenadaX() {
+        Square square = new Square(1, 1);
+        square.setX(7);
+        assertEquals(7, square.getX());
+    }
+
+    @Test
+    void setYActualizaCoordenadaY() {
+        Square square = new Square(1, 1);
+        square.setY(9);
+        assertEquals(9, square.getY());
+    }
+
+    @Test
+    void equalsConMismasCoordenadas() {
+        assertEquals(new Square(3, 4), new Square(3, 4));
+    }
+
+    @Test
+    void notEqualsConDistintaX() {
+        assertNotEquals(new Square(1, 4), new Square(2, 4));
+    }
+
+    @Test
+    void notEqualsConDistintaY() {
+        assertNotEquals(new Square(3, 4), new Square(3, 5));
+    }
+
+    @Test
+    void hashCodeConsistenteConEquals() {
+        assertEquals(new Square(3, 4).hashCode(), new Square(3, 4).hashCode());
     }
 }

@@ -2,7 +2,7 @@ package es.upm.pproject.sokoban.model.dto.classes;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DireccionTest {
     @Test void getXReturnsProvidedIncrement() {
@@ -21,9 +21,28 @@ class DireccionTest {
     }
     @Test
     void largeValuesArePreserved() {
-        Direccion direccion = new Direccion(1000000,
-                2000000);
+        Direccion direccion = new Direccion(1000000, 2000000);
         assertEquals(1000000, direccion.getX());
         assertEquals(2000000, direccion.getY());
+    }
+
+    @Test
+    void equalsConMismosValores() {
+        assertEquals(new Direccion(1, 0), new Direccion(1, 0));
+    }
+
+    @Test
+    void notEqualsConDistintaX() {
+        assertNotEquals(new Direccion(1, 0), new Direccion(0, 0));
+    }
+
+    @Test
+    void notEqualsConDistintaY() {
+        assertNotEquals(new Direccion(0, 1), new Direccion(0, 0));
+    }
+
+    @Test
+    void hashCodeConsistenteConEquals() {
+        assertEquals(new Direccion(-1, 0).hashCode(), new Direccion(-1, 0).hashCode());
     }
 }

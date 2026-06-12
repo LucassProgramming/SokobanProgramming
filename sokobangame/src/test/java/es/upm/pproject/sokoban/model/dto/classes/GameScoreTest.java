@@ -80,4 +80,57 @@ class GameScoreTest {
         int resultado = gameScore.totalScores(new Level[]{s1, s2});
         assertEquals(0, resultado);
     }
+
+    @Test
+    void sumarAumentaTotal() {
+        gameScore.sumar(5);
+        assertEquals(5, gameScore.getTotal());
+    }
+
+    @Test
+    void sumarVariasVeces() {
+        gameScore.sumar(3);
+        gameScore.sumar(7);
+        assertEquals(10, gameScore.getTotal());
+    }
+
+    @Test
+    void restarReduceTotal() {
+        gameScore.setTotal(10);
+        gameScore.restar(4);
+        assertEquals(6, gameScore.getTotal());
+    }
+
+    @Test
+    void restarPuedeDejarNegativo() {
+        gameScore.restar(5);
+        assertEquals(-5, gameScore.getTotal());
+    }
+
+    @Test
+    void equalsConMismoTotal() {
+        GameScore a = new GameScore();
+        a.setTotal(42);
+        GameScore b = new GameScore();
+        b.setTotal(42);
+        assertEquals(a, b);
+    }
+
+    @Test
+    void notEqualsConDistintoTotal() {
+        GameScore a = new GameScore();
+        a.setTotal(1);
+        GameScore b = new GameScore();
+        b.setTotal(2);
+        assertNotEquals(a, b);
+    }
+
+    @Test
+    void hashCodeConsistenteConEquals() {
+        GameScore a = new GameScore();
+        a.setTotal(99);
+        GameScore b = new GameScore();
+        b.setTotal(99);
+        assertEquals(a.hashCode(), b.hashCode());
+    }
 }

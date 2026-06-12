@@ -65,4 +65,40 @@ class ScoreTest {
         score.incrementar();
         assertEquals(8, score.getPuntuacion());
     }
+
+    @Test
+    void cloneProduceObjetoIndependiente() {
+        score.setPuntuacion(5);
+        Score clon = score.clone();
+        assertEquals(5, clon.getPuntuacion());
+        clon.setPuntuacion(99);
+        assertEquals(5, score.getPuntuacion());
+    }
+
+    @Test
+    void equalsConMismaPuntuacion() {
+        Score a = new Score();
+        a.setPuntuacion(3);
+        Score b = new Score();
+        b.setPuntuacion(3);
+        assertEquals(a, b);
+    }
+
+    @Test
+    void notEqualsConDistintaPuntuacion() {
+        Score a = new Score();
+        a.setPuntuacion(1);
+        Score b = new Score();
+        b.setPuntuacion(2);
+        assertNotEquals(a, b);
+    }
+
+    @Test
+    void hashCodeConsistenteConEquals() {
+        Score a = new Score();
+        a.setPuntuacion(7);
+        Score b = new Score();
+        b.setPuntuacion(7);
+        assertEquals(a.hashCode(), b.hashCode());
+    }
 }

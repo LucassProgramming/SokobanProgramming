@@ -2,7 +2,11 @@ package es.upm.pproject.sokoban.model.dto.classes;
 
 import org.junit.jupiter.api.Test;
 
+import es.upm.pproject.sokoban.model.exceptions.CajaNotFoundInLevelException;
+import es.upm.pproject.sokoban.model.exceptions.GoalNotFoundInLevelException;
+import es.upm.pproject.sokoban.model.exceptions.GoalsAndBoxesArentEqualsException;
 import es.upm.pproject.sokoban.model.exceptions.LevelDoesntExistException;
+import es.upm.pproject.sokoban.model.exceptions.PlayableCharacterNotFoundInLevelException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,5 +67,29 @@ import static org.junit.jupiter.api.Assertions.*;
             assertEquals(boxes, goals);
             assertEquals(1, playableChars);
         }
+    }
+
+    @Test
+    void crearNivelSinCajasLanzaExcepcion() {
+        assertThrows(CajaNotFoundInLevelException.class,
+                () -> LevelFileReader.crearNivel("/levels/invalid/NoBox.txt"));
+    }
+
+    @Test
+    void crearNivelSinGoalsLanzaExcepcion() {
+        assertThrows(GoalNotFoundInLevelException.class,
+                () -> LevelFileReader.crearNivel("/levels/invalid/NoGoal.txt"));
+    }
+
+    @Test
+    void crearNivelSinPersonajeLanzaExcepcion() {
+        assertThrows(PlayableCharacterNotFoundInLevelException.class,
+                () -> LevelFileReader.crearNivel("/levels/invalid/NoPlayer.txt"));
+    }
+
+    @Test
+    void crearNivelConMasCajasQueGoalsLanzaExcepcion() {
+        assertThrows(GoalsAndBoxesArentEqualsException.class,
+                () -> LevelFileReader.crearNivel("/levels/invalid/TwoBoxesOneGoal.txt"));
     }
 }

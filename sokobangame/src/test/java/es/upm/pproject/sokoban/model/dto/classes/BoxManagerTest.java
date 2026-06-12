@@ -113,4 +113,43 @@ import org.junit.jupiter.api.Test;
         assertFalse(resultado);
         assertEquals(2, box.getX());
     }
+
+    @Test
+    void moveBoxBloqueadoPorOtraCaja() {
+        Box otraCaja = new Box(1, 2);
+        capaSup[1][2] = otraCaja;
+        manager.setCaja(box);
+        boolean resultado = manager.moveBox(level, 0, 1);
+        assertFalse(resultado);
+        assertSame(box, capaSup[1][1]);
+    }
+
+    @Test
+    void equalsConMismoLevelYCaja() {
+        BoxManager m1 = new BoxManager(level);
+        BoxManager m2 = new BoxManager(level);
+        Box b = new Box(2, 2);
+        m1.setCaja(b);
+        m2.setCaja(b);
+        assertEquals(m1, m2);
+    }
+
+    @Test
+    void notEqualsConDistintaCaja() {
+        BoxManager m1 = new BoxManager(level);
+        BoxManager m2 = new BoxManager(level);
+        m1.setCaja(new Box(1, 1));
+        m2.setCaja(new Box(2, 2));
+        assertNotEquals(m1, m2);
+    }
+
+    @Test
+    void hashCodeConsistenteConEquals() {
+        BoxManager m1 = new BoxManager(level);
+        BoxManager m2 = new BoxManager(level);
+        Box b = new Box(3, 3);
+        m1.setCaja(b);
+        m2.setCaja(b);
+        assertEquals(m1.hashCode(), m2.hashCode());
+    }
 }

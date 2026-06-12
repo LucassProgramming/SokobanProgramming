@@ -97,4 +97,55 @@ class LevelTest{
         assertEquals(l1.hashCode(), l2.hashCode());
     }
 
+    @Test
+    void notEqualsConNombreDistinto() {
+        Square[][] ci = new Square[1][1];
+        Square[][] cs = new Square[1][1];
+        Level l1 = new Level("A", 1, 1, ci, cs, new Score(), null);
+        Level l2 = new Level("B", 1, 1, ci, cs, new Score(), null);
+        assertNotEquals(l1, l2);
+    }
+
+    @Test
+    void setCapaInfActualizaReferencia() {
+        Square[][] ci = new Square[2][2];
+        Square[][] cs = new Square[2][2];
+        Level level = new Level("l", 2, 2, ci, cs, new Score(), null);
+        Square[][] nuevaCapaInf = new Square[3][3];
+        level.setCapaInf(nuevaCapaInf);
+        assertSame(nuevaCapaInf, level.getCapaInf());
+    }
+
+    @Test
+    void setCapaSupActualizaReferencia() {
+        Square[][] ci = new Square[2][2];
+        Square[][] cs = new Square[2][2];
+        Level level = new Level("l", 2, 2, ci, cs, new Score(), null);
+        Square[][] nuevaCapaSup = new Square[3][3];
+        level.setCapaSup(nuevaCapaSup);
+        assertSame(nuevaCapaSup, level.getCapaSup());
+    }
+
+    @Test
+    void getCharacterDevuelvePersonaje() {
+        Square[][] ci = new Square[2][2];
+        Square[][] cs = new Square[2][2];
+        PlayableCharacter pc = new PlayableCharacter(0, 0);
+        Level level = new Level("l", 2, 2, ci, cs, new Score(), pc);
+        assertSame(pc, level.getCharacter());
+    }
+
+    @Test
+    void moverPersonajeDelegaEnCharacterManager() {
+        LevelRecorder.reiniciarDeque();
+        Square[][] ci = new Square[3][3];
+        Square[][] cs = new Square[3][3];
+        PlayableCharacter pc = new PlayableCharacter(0, 0);
+        cs[0][0] = pc;
+        Level level = new Level("l", 3, 3, ci, cs, new Score(), pc);
+        LevelRecorder.setInicio(level);
+        level.moverPersonaje(new Direccion(0, 1));
+        assertSame(pc, cs[0][1]);
+        assertEquals(1, level.getPuntuacion().getPuntuacion());
+    }
 }

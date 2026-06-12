@@ -66,4 +66,26 @@ class BoxTest {
         Box box = new Box(4, 0);
         assertEquals(0, box.getY());
     }
+
+    @Test
+    void equalsConMismasCoordenadas() {
+        assertEquals(new Box(2, 3), new Box(2, 3));
+    }
+
+    @Test
+    void notEqualsConDistintasCoordenadas() {
+        assertNotEquals(new Box(1, 1), new Box(2, 2));
+    }
+
+    @Test
+    void notEqualsConNulo() {
+        assertNotEquals(null, new Box(1, 1));
+    }
+
+    @Test
+    void hashCodeConsistenteConEquals() {
+        Box a = new Box(5, 5);
+        Box b = new Box(5, 5);
+        assertEquals(a.hashCode(), b.hashCode());
+    }
 }
