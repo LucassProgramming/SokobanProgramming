@@ -116,6 +116,7 @@ public class BoardView {
         iv.setFitWidth(tileSize);
         iv.setFitHeight(tileSize); //Como hemos cambiado el nombre de la variable lo cambiamos aquí
         iv.setPreserveRatio(false);
+        iv.setSmooth(false);
         return iv;
     }
 
