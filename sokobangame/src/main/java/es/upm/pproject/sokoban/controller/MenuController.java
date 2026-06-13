@@ -136,6 +136,10 @@ public class MenuController {
             GameCompleteView gameCompleteView = new GameCompleteView(this, totalScore, levelsCompleted, completedLevels);
             Scene scene = new Scene(gameCompleteView.getRoot());
             stage.setScene(scene);
+
+            stage.setFullScreen(true);//Mantener pantalla completa
+
+            stage.show();
         }
     }
     public void cerrarApp(){
@@ -151,5 +155,9 @@ public class MenuController {
         Scene scene = new Scene(root);
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> { gameController.handleKey(e.getCode()); e.consume(); });
         stage.setScene(scene);
+
+        stage.setFullScreen(true);        //Mantener la pantalla completa al cambiar de escena
+
+        stage.show();
     }
 }

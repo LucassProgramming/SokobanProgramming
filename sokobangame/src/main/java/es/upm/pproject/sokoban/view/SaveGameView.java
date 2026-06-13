@@ -95,8 +95,14 @@ public class SaveGameView {
         StackPane root = new StackPane();
         root.getChildren().addAll(fondoView, layout);
 
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root);//Cambio igual que el de mainMenuView (ir también a su scene)
+        fondoView.fitWidthProperty().bind(scene.widthProperty());
+        fondoView.fitHeightProperty().bind(scene.heightProperty());//Aquí también igual que mainMenuView
+
         stage.setScene(scene);
+
+        stage.setFullScreen(true);//Mantener la pantalla completa
+
         stage.show();
     }
     /* Selecciona un slot y actualiza su estilo */

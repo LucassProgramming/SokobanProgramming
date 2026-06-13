@@ -74,13 +74,15 @@ public class MainMenuView{
         );
 
         ImageView fondoView = new ImageView(fondo);
-        fondoView.setFitWidth(800);
-        fondoView.setFitHeight(600);
+        //Para que el tamaño se ajuste al de la ventana ya no fijo el fondo a 800x600.
 
         StackPane root = new StackPane();
         root.getChildren().addAll(fondoView, layout);
 
-        Scene scene = new Scene(root, 800, 600); // tam de la ventana
+        Scene scene = new Scene(root); // Aquí también quitamos el 800x600 para que se ajuste al tamaño de la ventana
+        fondoView.fitWidthProperty().bind(scene.widthProperty());
+        fondoView.fitHeightProperty().bind(scene.heightProperty());//Con estas dos cosas el fondo se estira al tamaño de la ventana
+
         scene.getStylesheets().add(
             getClass().getResource("/css/style.css").toExternalForm()
         );
@@ -89,6 +91,8 @@ public class MainMenuView{
         MusicView.stop();
         MusicView.start(getClass().getResource("/music/musica_minecraft.mp3").toExternalForm()); //Pone musica
         stage.show();
+
+        stage.setFullScreen(true);//Para mantener la pantalla completa
     }
 
 }
