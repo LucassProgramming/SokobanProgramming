@@ -3,7 +3,9 @@ package es.upm.pproject.sokoban.view;
 import es.upm.pproject.sokoban.controller.GameController;
 import es.upm.pproject.sokoban.controller.MenuController;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -38,7 +40,23 @@ public class MainGameView {
 
         // Cada boton delega su accion en el GameController
         undo.setOnAction(e    -> gameController.undo());
-        restart.setOnAction(e -> gameController.restart());
+         //Cambio para mensaje de sobreescritura del nivel
+        restart.setOnAction(e -> {
+
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setTitle("Confirmar reinicio");
+            confirm.setHeaderText("¿Seguro que quieres reiniciar el nivel?");
+            confirm.setContentText("Perderás el progreso actual de este nivel.");
+
+            confirm.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+            confirm.showAndWait().ifPresent(response -> {
+                  if (response == ButtonType.YES) {
+                  gameController.restart();
+               }
+            });
+         });
+
         menu.setOnAction(e -> controller.volverAlMenu());
         save.setOnAction(e -> new SaveGameView(stage, controller, true));
         mas.setOnAction(e -> MusicView.turnUp());
