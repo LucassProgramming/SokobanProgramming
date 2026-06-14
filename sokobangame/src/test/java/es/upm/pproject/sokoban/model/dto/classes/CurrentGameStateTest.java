@@ -275,4 +275,76 @@ class CurrentGameStateTest {
         CurrentGameState cs2 = new CurrentGameState();
         assertEquals(cs1.hashCode(), cs2.hashCode());
     }
+
+    // Cubre la rama FALSE de "if (index > 0)" en reversionEstado cuando undo devuelve no-nulo.
+    // Con index=0, arrayLevels[index-1] sería arrayLevels[-1] → ArrayIndexOutOfBoundsException
+    // si el if no existiera. Verifica que el movimiento se deshace igualmente (puntuacion baja).
+    @Test
+    void reversionEstadoConIndexCeroYUndoNoNuloNoCrashea() {
+        LevelRecorder.reiniciarDeque();
+        CurrentGameState cs = new CurrentGameState();
+        Square[][] capaInf = new Square[3][3];
+        Square[][] capaSup = new Square[3][3];
+        PlayableCharacter pc = new PlayableCharacter(0, 0);
+        Level level = new Level("T1", 3, 3, capaInf, capaSup, new Score(), pc);
+        capaSup[0][0] = pc;
+        cs.setCurrent(level);
+        cs.moverPersonaje(new Direccion(0, 1)); // movimiento válido → LevelRecorder.save() llamado
+        assertEquals(1, cs.getPuntuacionTotal().getTotal());
+        cs.setIndex(0); // forzar index=0 aunque haya estado guardado
+        assertDoesNotThrow(() -> cs.reversionEstado()); // no debe lanzar ArrayIndexOutOfBoundsException
+        assertEquals(0, cs.getPuntuacionTotal().getTotal()); // restar() se ejecutó igualmente
+    }
+
+    // Cubre la rama FALSE de "if (index > 0)" en restart cuando restart() devuelve no-nulo.
+    @Test
+    void restartConIndexCeroYInicioNoNuloNoCrashea() {
+        LevelRecorder.reiniciarDeque();
+        CurrentGameState cs = new CurrentGameState();
+        Square[][] capaInf = new Square[3][3];
+        Square[][] capaSup = new Square[3][3];
+        PlayableCharacter pc = new PlayableCharacter(0, 0);
+        Level level = new Level("T2", 3, 3, capaInf, capaSup, new Score(), pc);
+        capaSup[0][0] = pc;
+        cs.setCurrent(level); // setInicio() llamado con level
+        cs.moverPersonaje(new Direccion(0, 1));
+        cs.moverPersonaje(new Direccion(0, 1));
+        assertEquals(2, cs.getPuntuacionTotal().getTotal());
+        cs.setIndex(0); // forzar index=0
+        assertDoesNotThrow(() -> cs.restart()); // no debe lanzar ArrayIndexOutOfBoundsException
+        assertEquals(0, cs.getPuntuacionTotal().getTotal()); // puntuacion restada
+    }
+
+    // Cubre el return true de equals con current no-nulo usando la misma instancia de
+    // PlayableCharacter (que no tiene equals propio) para que Level.equals devuelva true.
+    @Test
+    void equalsConSoloCurrentDistintoDevuelveFalso() throws Exception {
+        // Cubre D (Objects.equals(current, that.current)) = FALSE con A, B, C = TRUE.
+        // La única forma sin cambiar la API es fijar current via reflection.
+        CurrentGameState cs1 = new CurrentGameState();
+        CurrentGameState cs2 = new CurrentGameState();
+        // index=0, arrays=[null...], puntuacion=0 en ambos → A, B, C = TRUE
+        java.lang.reflect.Field f = CurrentGameState.class.getDeclaredField("current");
+        f.setAccessible(true);
+        f.set(cs1, new Level("X", 1, 1, new Square[1][1], new Square[1][1],
+                new Score(), new PlayableCharacter(0, 0)));
+        // cs1.current != null, cs2.current == null → D = FALSE
+        assertNotEquals(cs1, cs2);
+    }
+
+    @Test
+    void equalsDevuelveTrueConCurrentNoNuloIgual() {
+        LevelRecorder.reiniciarDeque();
+        PlayableCharacter sharedPc = new PlayableCharacter(0, 0);
+        Square[][] capaInf = new Square[2][2];
+        Square[][] capaSup = new Square[2][2];
+        Level l1 = new Level("X", 2, 2, capaInf, capaSup, new Score(), sharedPc);
+        Level l2 = new Level("X", 2, 2, capaInf, capaSup, new Score(), sharedPc);
+        CurrentGameState cs1 = new CurrentGameState();
+        CurrentGameState cs2 = new CurrentGameState();
+        cs1.setCurrent(l1);
+        LevelRecorder.reiniciarDeque();
+        cs2.setCurrent(l2);
+        assertEquals(cs1, cs2);
+    }
 }

@@ -103,4 +103,29 @@ class CharacterManagerTest {
         CharacterManager.moverPersonaje(level, pers, new Direccion(0, 1));
         assertEquals(1, level.getPuntuacion().getPuntuacion());
     }
+
+    @Test
+    void noSeMueveFueraDelMapaPorFilas() {
+        // getFilas() > (coorX + incX) = FALSE: personaje en fila 3, mueve abajo → 4 > 4 = false
+        PlayableCharacter p = new PlayableCharacter(3, 1);
+        capaSup[3][1] = p;
+        capaSup[1][1] = null;
+        Level l = new Level("test", 4, 4, capaInf, capaSup, new Score(), p);
+        CharacterManager.moverPersonaje(l, p, new Direccion(1, 0));
+        assertSame(p, capaSup[3][1]);
+        assertEquals(3, p.getX());
+    }
+
+    @Test
+    void noSeMueveFueraDelMapaPorColumnas() {
+        // getFilas() > (coorX+incX) = TRUE, getColumnas() > (coorY+incY) = FALSE:
+        // personaje en columna 3, mueve derecha → 4 > 1 true, 4 > 4 = false
+        PlayableCharacter p = new PlayableCharacter(1, 3);
+        capaSup[1][3] = p;
+        capaSup[1][1] = null;
+        Level l = new Level("test", 4, 4, capaInf, capaSup, new Score(), p);
+        CharacterManager.moverPersonaje(l, p, new Direccion(0, 1));
+        assertSame(p, capaSup[1][3]);
+        assertEquals(3, p.getY());
+    }
 }

@@ -139,4 +139,13 @@ class GameScoreTest {
         GameScore a = new GameScore();
         assertNotEquals(a, null);
     }
+
+    @Test
+    void totalScoresConPuntuacionNulaDevuelveCero() {
+        // score != null = FALSE: Level con getPuntuacion() == null → rama del ternario que suma 0
+        Level s = new Level("sin-score", 0, 0, new Square[0][0], new Square[0][0],
+                null, new PlayableCharacter(0, 0));
+        int resultado = gameScore.totalScores(new Level[]{s});
+        assertEquals(0, resultado);
+    }
 }
