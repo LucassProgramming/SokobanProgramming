@@ -96,6 +96,14 @@ class BoxTest {
     }
 
     @Test
+    void notEqualsWhenComparedWithSquare() {
+        // A Box and a Square with same coordinates must not be equal (different classes)
+        Box box = new Box(2, 2);
+        Square square = new Square(2, 2);
+        assertNotEquals(box, square);
+    }
+
+    @Test
     void hashCodeConsistenteConEquals() {
         Box a = new Box(5, 5);
         Box b = new Box(5, 5);
