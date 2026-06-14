@@ -90,6 +90,26 @@ class CurrentGameStateTest {
         assertEquals(0, cs.getPuntuacionTotal().getTotal());
         assertEquals(0, cs.getCurrent().getPuntuacion().getPuntuacion());
     }
+
+    @Test
+    void reversionEstadoConIndiceMayorQueCeroActualizaArrayLevels() {
+        LevelRecorder.reiniciarDeque();
+        CurrentGameState cs = new CurrentGameState();
+        Square[][] capaInf = new Square[3][3];
+        Square[][] capaSup = new Square[3][3];
+        Score puntuacion = new Score();
+        PlayableCharacter pc = new PlayableCharacter(0, 0);
+        Level level = new Level("R1", 3, 3, capaInf, capaSup, puntuacion, pc);
+        capaSup[0][0] = pc;
+        cs.setCurrent(level);
+        // realizar un movimiento que se guarde
+        cs.moverPersonaje(new Direccion(0, 1));
+        // ahora hay un estado anterior y el index debe ser > 0
+        assertTrue(cs.getIndex() > 0);
+        cs.reversionEstado();
+        // comprobar que el arrayLevels en index-1 fue actualizado con el current restaurado
+        assertSame(cs.getCurrent(), cs.getArray()[cs.getIndex() - 1]);
+    }
     @Test
     void reversionEstadoConMalIndiceNoAnade(){
         LevelRecorder.reiniciarDeque();
@@ -130,6 +150,23 @@ class CurrentGameStateTest {
         cs.restart();
         assertEquals(0, cs.getPuntuacionTotal().getTotal());
         assertEquals(0, cs.getCurrent().getPuntuacion().getPuntuacion());
+    }
+
+    @Test
+    void restartConIndiceMayorQueCeroActualizaArrayLevels() {
+        LevelRecorder.reiniciarDeque();
+        CurrentGameState cs = new CurrentGameState();
+        Square[][] capaInf = new Square[3][3];
+        Square[][] capaSup = new Square[3][3];
+        PlayableCharacter pc = new PlayableCharacter(0, 0);
+        Level level = new Level("R2", 3, 3, capaInf, capaSup, new Score(), pc);
+        capaSup[0][0] = pc;
+        cs.setCurrent(level);
+        cs.moverPersonaje(new Direccion(0, 1));
+        cs.moverPersonaje(new Direccion(0, 1));
+        assertTrue(cs.getIndex() > 0);
+        cs.restart();
+        assertSame(cs.getCurrent(), cs.getArray()[cs.getIndex() - 1]);
     }
     @Test
     void restartNoRevierteSiEstaVacio() {
@@ -183,6 +220,52 @@ class CurrentGameStateTest {
     void equalsNoMismaTipoInstancia(){
         CurrentGameState cs1 = new CurrentGameState();
         Level cs2 = new Level();
+        assertNotEquals(cs1, cs2);
+    }
+
+    @Test
+    void equalsConObjetoNuloDevuelveFalso() {
+        CurrentGameState cs = new CurrentGameState();
+        assertNotEquals(cs, null);
+    }
+
+    @Test
+    void equalsConIndexDistintoDevuelveFalso() {
+        CurrentGameState cs1 = new CurrentGameState();
+        CurrentGameState cs2 = new CurrentGameState();
+        cs1.setIndex(1);
+        cs2.setIndex(0);
+        assertNotEquals(cs1, cs2);
+    }
+
+    @Test
+    void equalsConArrayLevelsDistintoDevuelveFalso() {
+        CurrentGameState cs1 = new CurrentGameState();
+        CurrentGameState cs2 = new CurrentGameState();
+        cs1.anadirLevel(new Level());
+        assertNotEquals(cs1, cs2);
+    }
+
+    @Test
+    void equalsConPuntuacionTotalDistintaDevuelveFalso() {
+        CurrentGameState cs1 = new CurrentGameState();
+        CurrentGameState cs2 = new CurrentGameState();
+        cs1.getPuntuacionTotal().setTotal(5);
+        cs2.getPuntuacionTotal().setTotal(0);
+        assertNotEquals(cs1, cs2);
+    }
+
+    @Test
+    void equalsConCurrentDistintoDevuelveFalso() {
+        LevelRecorder.reiniciarDeque();
+        CurrentGameState cs1 = new CurrentGameState();
+        CurrentGameState cs2 = new CurrentGameState();
+        Level l1 = new Level("A", 1, 1, new Square[1][1], new Square[1][1], new Score()
+                , new PlayableCharacter(0,0));
+        Level l2 = new Level("B", 1, 1, new Square[1][1], new Square[1][1], new Score(),
+                new PlayableCharacter(0,0));
+        cs1.setCurrent(l1);
+        cs2.setCurrent(l2);
         assertNotEquals(cs1, cs2);
     }
 
