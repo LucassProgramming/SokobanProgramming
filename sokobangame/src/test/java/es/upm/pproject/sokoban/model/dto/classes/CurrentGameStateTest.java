@@ -136,6 +136,12 @@ class CurrentGameStateTest {
         boolean estado = cs1.equals(cs2);
         assertTrue(estado);
     }
+    @Test
+    void equalsNoMismaTipoInstancia(){
+        CurrentGameState cs1 = new CurrentGameState();
+        Level cs2 = new Level();
+        assertNotEquals(cs1, cs2);
+    }
 
     @Test
     void hashCodeConsistenteConEquals() {
