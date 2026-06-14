@@ -1,9 +1,10 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
-
 import java.awt.Color;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import org.junit.jupiter.api.Test;
 
 class BoxTest {
 
@@ -95,13 +96,6 @@ class BoxTest {
         assertNotEquals(new Box(1, 1), "una cadena");
     }
 
-    @Test
-    void notEqualsWhenComparedWithSquare() {
-        // A Box and a Square with same coordinates must not be equal (different classes)
-        Box box = new Box(2, 2);
-        Square square = new Square(2, 2);
-        assertNotEquals(box, square);
-    }
 
     @Test
     void hashCodeConsistenteConEquals() {

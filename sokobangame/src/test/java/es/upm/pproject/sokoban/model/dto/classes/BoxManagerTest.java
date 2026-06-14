@@ -1,9 +1,17 @@
 package es.upm.pproject.sokoban.model.dto.classes;
 
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
  class BoxManagerTest {
 
@@ -154,17 +162,13 @@ import org.junit.jupiter.api.Test;
         assertEquals(m1.hashCode(), m2.hashCode());
     }
 
-    @Test
-    void equalsConObjetoNuloDevuelveFalso() {
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(strings = "una cadena")
+    void equalsConObjetoNoValidoDevuelveFalso(Object otroObjeto) {
         BoxManager m1 = new BoxManager(level);
-        assertFalse(m1.equals(null));
-    }
 
-    @Test
-    void equalsConDistintaClaseDevuelveFalso() {
-        BoxManager m1 = new BoxManager(level);
-        // comparar con un objeto de otra clase debe devolver false
-        assertFalse(m1.equals("una cadena"));
+        assertNotEquals(m1, otroObjeto);
     }
 
     @Test

@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class LevelTest{
 
@@ -195,36 +197,17 @@ class LevelTest{
         assertEquals(1, level.getPuntuacion().getPuntuacion());
     }
 
-    @Test
-    void equalsConObjetoNuloDevuelveFalso() {
-        Level level = new Level();
-        assertFalse(level.equals(null));
-    }
 
-    @Test
-    void notEqualsConNombreDistinto() {
+    @ParameterizedTest
+    @CsvSource({"A, 1, 1, B, 1, 1", "A, 1, 1, A, 2, 1","A, 1, 1, A, 1, 2" })
+    void notEqualsConDatosBasicosDistintos(String nombre1, int filas1, int columnas1,
+        String nombre2, int filas2, int columnas2){
         Square[][] ci = new Square[1][1];
         Square[][] cs = new Square[1][1];
-        Level l1 = new Level("A", 1, 1, ci, cs, new Score(), null);
-        Level l2 = new Level("B", 1, 1, ci, cs, new Score(), null);
-        assertNotEquals(l1, l2);
-    }
 
-    @Test
-    void notEqualsConFilasDistintas() {
-        Square[][] ci = new Square[1][1];
-        Square[][] cs = new Square[1][1];
-        Level l1 = new Level("A", 1, 1, ci, cs, new Score(), null);
-        Level l2 = new Level("A", 2, 1, ci, cs, new Score(), null);
-        assertNotEquals(l1, l2);
-    }
+        Level l1 = new Level(nombre1, filas1, columnas1, ci, cs, new Score(), null);
+        Level l2 = new Level(nombre2, filas2, columnas2, ci, cs, new Score(), null);
 
-    @Test
-    void notEqualsConColumnasDistintas() {
-        Square[][] ci = new Square[1][1];
-        Square[][] cs = new Square[1][1];
-        Level l1 = new Level("A", 1, 1, ci, cs, new Score(), null);
-        Level l2 = new Level("A", 1, 2, ci, cs, new Score(), null);
         assertNotEquals(l1, l2);
     }
 }

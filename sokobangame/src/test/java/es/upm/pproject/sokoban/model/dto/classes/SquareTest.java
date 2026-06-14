@@ -3,6 +3,9 @@ package es.upm.pproject.sokoban.model.dto.classes;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 
 class SquareTest {
@@ -74,13 +77,10 @@ class SquareTest {
         assertEquals(new Square(3, 4).hashCode(), new Square(3, 4).hashCode());
     }
 
-    @Test
-    void notEqualsConObjetoNulo() {
-        assertNotEquals(new Square(1, 1), null);
-    }
-
-    @Test
-    void notEqualsConObjetoDeOtraClase() {
-        assertNotEquals(new Square(1, 1), "otra clase");
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(strings = "otra clase")
+    void notEqualsConObjetoNoValido(Object otroObjeto){
+        assertNotEquals(new Square(1, 1), otroObjeto);
     }
 }
