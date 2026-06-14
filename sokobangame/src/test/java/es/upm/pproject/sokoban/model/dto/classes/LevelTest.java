@@ -194,4 +194,37 @@ class LevelTest{
         assertSame(pc, cs[0][1]);
         assertEquals(1, level.getPuntuacion().getPuntuacion());
     }
+
+    @Test
+    void equalsConObjetoNuloDevuelveFalso() {
+        Level level = new Level();
+        assertFalse(level.equals(null));
+    }
+
+    @Test
+    void notEqualsConNombreDistinto() {
+        Square[][] ci = new Square[1][1];
+        Square[][] cs = new Square[1][1];
+        Level l1 = new Level("A", 1, 1, ci, cs, new Score(), null);
+        Level l2 = new Level("B", 1, 1, ci, cs, new Score(), null);
+        assertNotEquals(l1, l2);
+    }
+
+    @Test
+    void notEqualsConFilasDistintas() {
+        Square[][] ci = new Square[1][1];
+        Square[][] cs = new Square[1][1];
+        Level l1 = new Level("A", 1, 1, ci, cs, new Score(), null);
+        Level l2 = new Level("A", 2, 1, ci, cs, new Score(), null);
+        assertNotEquals(l1, l2);
+    }
+
+    @Test
+    void notEqualsConColumnasDistintas() {
+        Square[][] ci = new Square[1][1];
+        Square[][] cs = new Square[1][1];
+        Level l1 = new Level("A", 1, 1, ci, cs, new Score(), null);
+        Level l2 = new Level("A", 1, 2, ci, cs, new Score(), null);
+        assertNotEquals(l1, l2);
+    }
 }

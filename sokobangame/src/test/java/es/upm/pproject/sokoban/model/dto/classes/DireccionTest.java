@@ -45,4 +45,10 @@ class DireccionTest {
     void hashCodeConsistenteConEquals() {
         assertEquals(new Direccion(-1, 0).hashCode(), new Direccion(-1, 0).hashCode());
     }
+
+    @Test
+    void notEqualsConObjetoNulo() {
+        Direccion d = new Direccion(1, 1);
+        assertNotEquals(d, null);
+    }
 }

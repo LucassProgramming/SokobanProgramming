@@ -73,4 +73,14 @@ class SquareTest {
     void hashCodeConsistenteConEquals() {
         assertEquals(new Square(3, 4).hashCode(), new Square(3, 4).hashCode());
     }
+
+    @Test
+    void notEqualsConObjetoNulo() {
+        assertNotEquals(new Square(1, 1), null);
+    }
+
+    @Test
+    void notEqualsConObjetoDeOtraClase() {
+        assertNotEquals(new Square(1, 1), "otra clase");
+    }
 }

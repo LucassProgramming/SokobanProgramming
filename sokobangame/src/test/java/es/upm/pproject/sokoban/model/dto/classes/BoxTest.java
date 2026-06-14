@@ -83,6 +83,19 @@ class BoxTest {
     }
 
     @Test
+    void notEqualsConDistintoColor() {
+        Box a = new Box(2, 2);
+        Box b = new Box(2, 2);
+        b.setColor(java.awt.Color.BLUE);
+        assertNotEquals(a, b);
+    }
+
+    @Test
+    void notEqualsConObjetoDeOtraClase() {
+        assertNotEquals(new Box(1, 1), "una cadena");
+    }
+
+    @Test
     void hashCodeConsistenteConEquals() {
         Box a = new Box(5, 5);
         Box b = new Box(5, 5);

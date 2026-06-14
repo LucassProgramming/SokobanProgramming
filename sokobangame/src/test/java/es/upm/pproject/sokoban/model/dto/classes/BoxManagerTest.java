@@ -143,6 +143,7 @@ import org.junit.jupiter.api.Test;
         assertNotEquals(m1, m2);
     }
 
+
     @Test
     void hashCodeConsistenteConEquals() {
         BoxManager m1 = new BoxManager(level);
@@ -151,5 +152,54 @@ import org.junit.jupiter.api.Test;
         m1.setCaja(b);
         m2.setCaja(b);
         assertEquals(m1.hashCode(), m2.hashCode());
+    }
+
+    @Test
+    void equalsConObjetoNuloDevuelveFalso() {
+        BoxManager m1 = new BoxManager(level);
+        assertFalse(m1.equals(null));
+    }
+
+    @Test
+    void equalsConDistintaClaseDevuelveFalso() {
+        BoxManager m1 = new BoxManager(level);
+        // comparar con un objeto de otra clase debe devolver false
+        assertFalse(m1.equals("una cadena"));
+    }
+
+    @Test
+    void equalsConDistintoLevelDevuelveFalso() {
+        // crear otro Level con dimensiones distintas para que no sean iguales
+        Square[][] inf2 = new Square[3][3];
+        Square[][] sup2 = new Square[3][3];
+        Level otroLevel = new Level(inf2, sup2);
+
+        BoxManager m1 = new BoxManager(level);
+        BoxManager m2 = new BoxManager(otroLevel);
+        Box b = new Box(1, 1);
+        m1.setCaja(b);
+        m2.setCaja(b);
+
+        assertNotEquals(m1, m2);
+    }
+
+    @Test
+    void equalsConLevelsDeepEqualDevuelveVerdadero() {
+        // niveles distintos (instancias distintas de arrays) pero con mismo contenido (todo null)
+        Square[][] infA = new Square[4][4];
+        Square[][] supA = new Square[4][4];
+        Square[][] infB = new Square[4][4];
+        Square[][] supB = new Square[4][4];
+
+        Level l1 = new Level(infA, supA);
+        Level l2 = new Level(infB, supB);
+
+        BoxManager m1 = new BoxManager(l1);
+        BoxManager m2 = new BoxManager(l2);
+        Box b = new Box(2, 2);
+        m1.setCaja(b);
+        m2.setCaja(b);
+
+        assertEquals(m1, m2);
     }
 }

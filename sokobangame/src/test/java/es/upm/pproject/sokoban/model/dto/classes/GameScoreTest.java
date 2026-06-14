@@ -133,4 +133,10 @@ class GameScoreTest {
         b.setTotal(99);
         assertEquals(a.hashCode(), b.hashCode());
     }
+
+    @Test
+    void notEqualsConObjetoNulo() {
+        GameScore a = new GameScore();
+        assertNotEquals(a, null);
+    }
 }

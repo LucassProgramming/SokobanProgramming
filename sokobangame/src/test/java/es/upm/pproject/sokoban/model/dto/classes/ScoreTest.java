@@ -101,4 +101,11 @@ class ScoreTest {
         b.setPuntuacion(7);
         assertEquals(a.hashCode(), b.hashCode());
     }
+
+    @Test
+    void notEqualsConObjetoNulo() {
+        Score a = new Score();
+        a.setPuntuacion(1);
+        assertNotEquals(a, null);
+    }
 }
