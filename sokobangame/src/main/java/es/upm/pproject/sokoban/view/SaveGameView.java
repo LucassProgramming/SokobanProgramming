@@ -101,7 +101,7 @@ public class SaveGameView {
 
         stage.setScene(scene);
 
-        stage.setMaximized(true);
+        //Quitamos el stage.setFullScreen porque eso obligaba a tener la pantalla completa sin los iconos de quitar ,maximizar y minimizar. Además con poner setMaximized en App.java ya sirve para que se quede grande toda la aplicación.
 
         stage.show();
     }

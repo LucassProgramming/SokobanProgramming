@@ -93,7 +93,7 @@ public class MainMenuView{
         MusicView.start(getClass().getResource("/music/musica_minecraft.mp3").toExternalForm()); //Pone musica
         stage.show();
 
-        stage.setMaximized(true);
+        //Quitamos el stage.setFullScreen porque eso obligaba a tener la pantalla completa sin los iconos de quitar ,maximizar y minimizar. Además con poner setMaximized en App.java ya sirve para que se quede grande toda la aplicación.
     }
 
 }

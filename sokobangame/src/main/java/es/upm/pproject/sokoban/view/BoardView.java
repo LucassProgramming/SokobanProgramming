@@ -13,14 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 public class BoardView {
-
-    /*Antes teniamos:
      private static final int TILE_SIZE = 64;
-     Las casillas siempre medían 64x64 píxeles.
-     
-     Ahora ponemos esto para poder calcular el tamaño de las casillas según la 
-     resolución de pantalla y el tamaño del nivel para aprovechar mejor el modo pantalla completa. */
-    private final double tileSize;
 
     private final GridPane grid;
     private final Image sueloImg;
@@ -32,35 +25,18 @@ public class BoardView {
     private final Image golemEnGoalImg;
 
     public BoardView(ILevel level) {
-    
-    // Obtenemos con estas dos variables la resolución disponible de la pantalla
-    double screenWidth =
-            javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+        grid = new GridPane();
+        sueloImg = loadImage("/images/suelo.jpg");
+        muroImg = loadImage("/images/muro.jpg");
+        goalImg = loadImage("/images/goal.jpg");
+        cajaImg = loadImage("/images/caja.png");
+        cajaEnGoalImg = loadImage("/images/cajaengoal.png");
+        jugadorImg = loadImage("/images/golemfondodepiedra.png");
+        golemEnGoalImg = loadImage("/images/golemgoal.png");
 
-    double screenHeight =
-            javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
+        buildBoard(level);
+    }
 
-    // Reservar espacio para la barra superior e inferior, sin esto el tablero se pone demasiado grande y tapa los botones
-    screenHeight -= 200; 
-    //Calculamos el tamaño de cada casilla
-    tileSize = Math.min(
-            screenWidth / level.getColumnas(),
-            screenHeight / level.getFilas()
-    );
-
-    grid = new GridPane();
-    grid.setAlignment(javafx.geometry.Pos.CENTER);
-
-    sueloImg = loadImage("/images/suelo.jpg");
-    muroImg = loadImage("/images/muro.jpg");
-    goalImg = loadImage("/images/goal.jpg");
-    cajaImg = loadImage("/images/caja.png");
-    cajaEnGoalImg = loadImage("/images/cajaengoal.png");
-    jugadorImg = loadImage("/images/golemfondodepiedra.png");
-    golemEnGoalImg = loadImage("/images/golemgoal.png");
-
-    buildBoard(level);
-}
 
     public GridPane getRoot() {
         return grid;
@@ -113,8 +89,8 @@ public class BoardView {
 
     private ImageView makeImageView(Image img) {
         ImageView iv = new ImageView(img);
-        iv.setFitWidth(tileSize);
-        iv.setFitHeight(tileSize); //Como hemos cambiado el nombre de la variable lo cambiamos aquí
+        iv.setFitWidth(TILE_SIZE);
+        iv.setFitHeight(TILE_SIZE); 
         iv.setPreserveRatio(false);
         iv.setSmooth(false);
         return iv;

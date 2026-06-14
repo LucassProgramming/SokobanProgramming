@@ -134,10 +134,14 @@ public class MenuController {
                 completedLevels = niveles;
             }
             GameCompleteView gameCompleteView = new GameCompleteView(this, totalScore, levelsCompleted, completedLevels);
-            Scene scene = new Scene(gameCompleteView.getRoot());
+
+            //Añadimos esto porque así mantenemos las dimensiones que tenía la ventana maximizada
+            //Usamos el tamaño de la escena actual y no el del Stage.Ya que el Stage incluye la barra de título y los bordes de la ventana,
+            // mientras que la Scene representa solo el área útil donde se dibuja la interfaz.
+            Scene scene = new Scene(gameCompleteView.getRoot(),stage.getScene().getWidth(),stage.getScene().getHeight());
             stage.setScene(scene);
 
-            stage.setMaximized(true);
+            //Quitamos el stage.setFullScreen porque eso obligaba a tener la pantalla completa sin los iconos de quitar ,maximizar y minimizar. Además con poner setMaximized en App.java ya sirve para que se quede grande toda la aplicación,y salgan dichos botones.  
 
             stage.show();
         }
@@ -152,11 +156,15 @@ public class MenuController {
         root.setTop(gameInfoView.getRoot());
         root.setCenter(boardView.getRoot());
         root.setBottom(mainGameView.getRoot());
-        Scene scene = new Scene(root);
+
+        //Añadimos esto porque así mantenemos las dimensiones que tenía la ventana maximizada
+        //Usamos el tamaño de la escena actual y no el del Stage.Ya que el Stage incluye la barra de título y los bordes de la ventana,
+        // mientras que la Scene representa solo el área útil donde se dibuja la interfaz.
+        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> { gameController.handleKey(e.getCode()); e.consume(); });
         stage.setScene(scene);
 
-        stage.setMaximized(true);
+        //Quitamos el stage.setFullScreen porque eso obligaba a tener la pantalla completa sin los iconos de quitar ,maximizar y minimizar. Además con poner setMaximized en App.java ya sirve para que se quede grande toda la aplicación,y salgan dichos botones.
 
         stage.show();
     }
