@@ -133,7 +133,8 @@ class CurrentGameStateTest {
     void equalsConMismoEstado() {
         CurrentGameState cs1 = new CurrentGameState();
         CurrentGameState cs2 = new CurrentGameState();
-        assertEquals(cs1, cs2);
+        boolean estado = cs1.equals(cs2);
+        assertTrue(estado);
     }
 
     @Test
