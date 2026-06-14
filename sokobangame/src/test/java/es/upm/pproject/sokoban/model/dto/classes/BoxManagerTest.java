@@ -157,7 +157,7 @@ import org.junit.jupiter.api.Test;
     @Test
     void equalsConObjetoNuloDevuelveFalso() {
         BoxManager m1 = new BoxManager(level);
-        assertFalse(m1.equals(null));
+        assertNotEquals(m1,null);
     }
 
     @Test
