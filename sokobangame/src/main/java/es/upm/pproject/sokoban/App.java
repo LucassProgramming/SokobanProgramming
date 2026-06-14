@@ -9,8 +9,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setFullScreenExitHint("");//Quita este mensaje que sale con la pantalla completa: Press ESC to exit full screen
-        stage.setFullScreen(true); /*Con esto la pantalla se abre de primeras con pantalla completa*/
+        stage.setMaximized(true);
         MenuController controller = new MenuController(stage);
         new MainMenuView(stage, controller);
     }

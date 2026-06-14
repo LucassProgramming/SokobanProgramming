@@ -1,5 +1,8 @@
 package es.upm.pproject.sokoban.view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import es.upm.pproject.sokoban.controller.MenuController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,8 +14,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MainMenuView{
 
@@ -92,7 +93,7 @@ public class MainMenuView{
         MusicView.start(getClass().getResource("/music/musica_minecraft.mp3").toExternalForm()); //Pone musica
         stage.show();
 
-        stage.setFullScreen(true);//Para mantener la pantalla completa
+        stage.setMaximized(true);
     }
 
 }

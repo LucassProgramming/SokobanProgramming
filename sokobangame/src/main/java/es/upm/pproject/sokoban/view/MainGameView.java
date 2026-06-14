@@ -57,7 +57,22 @@ public class MainGameView {
             });
          });
 
-        menu.setOnAction(e -> controller.volverAlMenu());
+        menu.setOnAction(e -> {
+            if (!controller.hayPartidaActiva()){
+                controller.volverAlMenu();
+                return;
+            }
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setTitle("Volver al menu");
+            confirm.setHeaderText("Seguro que quieres volver al menu?");
+            confirm.setContentText("Perderas el progreso de la partida actual.");
+            confirm.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+            confirm.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.YES){
+                    controller.volverAlMenu();
+                }
+            });
+        });
         save.setOnAction(e -> new SaveGameView(stage, controller, true));
         mas.setOnAction(e -> MusicView.turnUp());
         menos.setOnAction(e -> MusicView.turnDown());

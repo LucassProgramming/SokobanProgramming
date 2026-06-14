@@ -101,7 +101,7 @@ public class SaveGameView {
 
         stage.setScene(scene);
 
-        stage.setFullScreen(true);//Mantener la pantalla completa
+        stage.setMaximized(true);
 
         stage.show();
     }

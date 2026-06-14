@@ -137,7 +137,7 @@ public class MenuController {
             Scene scene = new Scene(gameCompleteView.getRoot());
             stage.setScene(scene);
 
-            stage.setFullScreen(true);//Mantener pantalla completa
+            stage.setMaximized(true);
 
             stage.show();
         }
@@ -156,7 +156,7 @@ public class MenuController {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> { gameController.handleKey(e.getCode()); e.consume(); });
         stage.setScene(scene);
 
-        stage.setFullScreen(true);        //Mantener la pantalla completa al cambiar de escena
+        stage.setMaximized(true);
 
         stage.show();
     }
