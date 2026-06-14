@@ -90,7 +90,17 @@ class CurrentGameStateTest {
         assertEquals(0, cs.getPuntuacionTotal().getTotal());
         assertEquals(0, cs.getCurrent().getPuntuacion().getPuntuacion());
     }
-
+    @Test
+    void reversionEstadoConMalIndiceNoAnade(){
+        LevelRecorder.reiniciarDeque();
+        CurrentGameState cs1 = new CurrentGameState();
+        cs1.setCurrent(new Level("Buenas", 0, 0, new Square[2][2], new Square[2][2],
+         new Score(), new PlayableCharacter(0, 0)));
+        cs1.setIndex(0);
+        cs1.moverPersonaje(new Direccion(1, 0));
+       assertDoesNotThrow(() -> cs1.reversionEstado()); 
+        
+    }
     @Test
     void reversionEstadoConPilaVaciaNoHaceNada() {
         LevelRecorder.reiniciarDeque();
@@ -121,6 +131,24 @@ class CurrentGameStateTest {
         assertEquals(0, cs.getPuntuacionTotal().getTotal());
         assertEquals(0, cs.getCurrent().getPuntuacion().getPuntuacion());
     }
+    @Test
+    void restartNoRevierteSiEstaVacio() {
+        LevelRecorder.reiniciarDeque();
+        CurrentGameState cs = new CurrentGameState();
+        Square[][] capaInf = new Square[3][3];
+        Square[][] capaSup = new Square[3][3];
+        PlayableCharacter pc = new PlayableCharacter(0, 0);
+        Level level = new Level("L6", 3, 3, capaInf, capaSup, new Score(), pc);
+        capaSup[0][0] = pc;
+        cs.setCurrent(level);
+        cs.moverPersonaje(new Direccion(0, 1));
+        cs.moverPersonaje(new Direccion(0, 1));
+        assertEquals(2, cs.getPuntuacionTotal().getTotal());
+        Level currentAnt = cs.getCurrent();
+        LevelRecorder.setInicio(null);
+        cs.restart();
+        assertSame(currentAnt,cs.getCurrent());
+    }
 
     @Test
     void setIndexActualizaIndice() {
@@ -133,6 +161,21 @@ class CurrentGameStateTest {
     void equalsConMismoEstado() {
         CurrentGameState cs1 = new CurrentGameState();
         CurrentGameState cs2 = new CurrentGameState();
+        boolean estado = cs1.equals(cs2);
+        assertTrue(estado);
+    }
+    @Test
+    void equalsConMismoEstadoNoVacio() {
+        CurrentGameState cs1 = new CurrentGameState();
+        CurrentGameState cs2 = new CurrentGameState();
+        cs1.anadirLevel(new Level());
+        cs2.anadirLevel(new Level());
+        cs1.getPuntuacionTotal().setTotal(1);
+        cs2.getPuntuacionTotal().setTotal(1);
+        cs1.setCurrent(new Level("Buenas", 0, 0, new Square[2][2], new Square[2][2],
+         new Score(), new PlayableCharacter(0, 0)));
+        cs2.setCurrent(new Level("Buenas", 0, 0, new Square[2][2], new Square[2][2],
+         new Score(), new PlayableCharacter(0, 0)));
         boolean estado = cs1.equals(cs2);
         assertTrue(estado);
     }

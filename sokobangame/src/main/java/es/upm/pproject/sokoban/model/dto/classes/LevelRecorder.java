@@ -33,6 +33,7 @@ public class LevelRecorder {
       estadoNivel = new ArrayDeque<>(); //Borro el registro de movimientos anterior
    }
    private static Level clonarLevel(Level level){ //Metodo para clonar un nivel en su totalidad
+      if(level == null) return null;
       Square [][] capaInf = level.getCapaInf(); 
       Square [][] capaSup = level.getCapaSup();
       Square [][] copiaSup = new Square [capaSup.length][]; //Creamos una copia de la capa superior la importante

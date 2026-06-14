@@ -35,7 +35,7 @@ public Level(Square [][] capaInf, Square [][] capaSup){ //Constructor par los te
     this.columnas = 0;
     this.capaInf = capaInf;
     this.capaSup = capaSup;
-    this.puntuacion = null;
+    this.puntuacion = new Score();
 }
 public Level(){ //Constructor par los test de Character
     this.nombre = null;
