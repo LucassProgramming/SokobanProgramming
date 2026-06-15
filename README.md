@@ -30,10 +30,10 @@ mvn javafx:run
 
 | Key | Action |
 |---|---|
-| `W` | Move up |
-| `S` | Move down |
-| `A` | Move left |
-| `D` | Move right |
+| `W` / `↑` | Move up |
+| `S` / `↓` | Move down |
+| `A` / `←` | Move left |
+| `D` / `→` | Move right |
 
 ### Buttons
 
@@ -50,9 +50,10 @@ mvn javafx:run
 
 1. Launch the game and click **New Game** from the main menu.
 2. Use the keyboard to move the golem (character).
-3. Push every box (`#`) onto a goal square (`*`).
+3. Push every box onto a goal square.
 4. When all goals are covered, the level is complete and the next one loads automatically.
 5. The score counts the total number of moves made across all levels.
+6. When all levels are completed, a summary screen shows the total score per level.
 
 ## Files read by the application
 
@@ -152,16 +153,34 @@ On native Linux (not WSL2), only the first line is needed. PulseAudio is typical
 The project follows the **MVC (Model-View-Controller)** pattern:
 
 - **Model** (`model/dto/classes/`) — game state and logic. No JavaFX dependency.
-- **View** (`view/`) — JavaFX scenes and widgets. Only reads from the model, never modifies it directly.
-- **Controller** (`controller/`) — bridges input and model. `MenuController` handles navigation; `GameController` translates key presses into model calls and triggers view updates.
+- **View** (`view/`) — JavaFX scenes and widgets. Each view class uses **composition** (wraps a JavaFX node internally and exposes it via `getRoot()`) instead of extending JavaFX classes directly, keeping the inheritance hierarchy within the 5-level limit.
+- **Controller** (`controller/`) — bridges input and model. `MenuController` handles navigation and scene transitions; `GameController` translates key presses into model calls and triggers view updates.
 
-The game board uses two overlapping grids (`Square[][]`):
+### Board representation
+
+Each `Level` holds two overlapping `Square[][]` grids:
 - `capaInf` — static layer: walls, goal squares, empty floor.
-- `capaSup` — dynamic layer: the player and boxes (null means empty).
+- `capaSup` — dynamic layer: the player and boxes (`null` means empty).
 
-On each move `GameController` calls `CurrentGameState.moverPersonaje()`, which delegates to `CharacterManager` (player movement) and `BoxManager` (box pushing). After each move, `actualizarVistas()` redraws the board.
+### Move flow
 
-Undo history is kept in `LevelRecorder` as a stack of serialized snapshots. Restart reloads the initial snapshot stored when the level was first loaded.
+On each key press, `GameController` calls `CurrentGameState.moverPersonaje()`, which delegates to `CharacterManager` (player movement and bounds checking) and `BoxManager` (box pushing and collision). After each move, `actualizarVistas()` redraws the board and updates the score bar.
+
+### Undo / Restart
+
+`LevelRecorder` holds a static deque of deep-copied level snapshots. Each valid move pushes a snapshot. `undo()` pops the last snapshot; `restart()` reloads the initial snapshot saved when the level was first set.
+
+### Exceptions
+
+Level loading validates the file and throws specific runtime exceptions for each broken invariant:
+
+| Exception | Trigger |
+|---|---|
+| `CajaNotFoundInLevelException` | No box found in the level |
+| `GoalNotFoundInLevelException` | No goal found in the level |
+| `PlayableCharacterNotFoundInLevelException` | No player found in the level |
+| `GoalsAndBoxesArentEqualsException` | Box count ≠ goal count |
+| `LevelDoesntExistException` | Level file not found |
 
 ## Logging
 
@@ -176,6 +195,7 @@ No log files are written to disk. All messages appear in the terminal where `mvn
 
 - Save/load file errors (`SaveSlotManager`)
 - Font loading failure at startup (`MainMenuView`)
+- Game state transitions (`MenuController`)
 
 There is no logging configuration file; `slf4j-simple` uses its defaults (INFO level and above).
 
@@ -184,6 +204,8 @@ There is no logging configuration file; `slf4j-simple` uses its defaults (INFO l
 ```bash
 mvn test
 ```
+
+The test suite contains **196 tests** across **16 test classes**, covering the entire model layer (view and controller classes are excluded from coverage as they require a running JavaFX environment).
 
 After running, the JaCoCo coverage report is available at:
 
@@ -197,6 +219,8 @@ sokobangame/target/site/jacoco/index.html
 mvn verify sonar:sonar -Dsonar.id=YOUR_ID -Dsonar.token=YOUR_TOKEN
 ```
 
+Coverage exclusions (configured in `pom.xml`): `**/view/**`, `**/controller/**`, `App.java`, `SokobanService.java`.
+
 ## Project structure
 
 ```
@@ -204,38 +228,61 @@ sokobangame/
 ├── src/
 │   ├── main/
 │   │   ├── java/es/upm/pproject/sokoban/
-│   │   │   ├── App.java                        ← JavaFX entry point
+│   │   │   ├── App.java                                    ← JavaFX entry point
 │   │   │   ├── controller/
-│   │   │   │   ├── MenuController.java         ← Navigation and game flow
-│   │   │   │   └── GameController.java         ← Keyboard input and move orchestration
-│   │   │   ├── model/dto/classes/
-│   │   │   │   ├── CurrentGameState.java       ← Full game state (serializable)
-│   │   │   │   ├── Level.java                  ← Single level: grid, score, character
-│   │   │   │   ├── LevelRecorder.java          ← Undo/restart history (stack)
-│   │   │   │   ├── LevelFileReader.java        ← Parses level .txt files
-│   │   │   │   ├── SaveSlotManager.java        ← Save/load .dat files
-│   │   │   │   ├── CharacterManager.java       ← Player movement logic
-│   │   │   │   ├── BoxManager.java             ← Box movement and collision
-│   │   │   │   ├── PlayableCharacter.java      ← Player entity
-│   │   │   │   ├── Box.java                    ← Box entity
-│   │   │   │   ├── Goal.java                   ← Goal square entity
-│   │   │   │   ├── Wall.java                   ← Wall entity
-│   │   │   │   ├── Square.java                 ← Base grid cell
-│   │   │   │   ├── Score.java                  ← Per-level move counter
-│   │   │   │   ├── GameScore.java              ← Total score across levels
-│   │   │   │   └── Direccion.java              ← Movement direction (row/col increments)
+│   │   │   │   ├── MenuController.java                     ← Navigation, scene transitions, save/load
+│   │   │   │   └── GameController.java                     ← Keyboard input and move orchestration
+│   │   │   ├── model/
+│   │   │   │   ├── service/
+│   │   │   │   │   └── SokobanService.java                 ← Service interface (placeholder)
+│   │   │   │   ├── dto/
+│   │   │   │   │   ├── classes/
+│   │   │   │   │   │   ├── Square.java                     ← Base grid cell (x, y position)
+│   │   │   │   │   │   ├── Wall.java                       ← Wall entity
+│   │   │   │   │   │   ├── Goal.java                       ← Goal square entity
+│   │   │   │   │   │   ├── Box.java                        ← Box entity (pushable)
+│   │   │   │   │   │   ├── PlayableCharacter.java          ← Player entity
+│   │   │   │   │   │   ├── Direccion.java                  ← Movement direction (row/col increments)
+│   │   │   │   │   │   ├── Score.java                      ← Per-level move counter
+│   │   │   │   │   │   ├── GameScore.java                  ← Total score across levels
+│   │   │   │   │   │   ├── Level.java                      ← Single level: grids, score, character
+│   │   │   │   │   │   ├── CurrentGameState.java           ← Full game state (serializable)
+│   │   │   │   │   │   ├── CharacterManager.java           ← Player movement and bounds logic
+│   │   │   │   │   │   ├── BoxManager.java                 ← Box pushing and collision logic
+│   │   │   │   │   │   ├── LevelRecorder.java              ← Undo/restart history (deque of snapshots)
+│   │   │   │   │   │   ├── LevelFileReader.java            ← Parses level .txt files
+│   │   │   │   │   │   └── SaveSlotManager.java            ← Save/load .dat files
+│   │   │   │   │   ├── interfaces/
+│   │   │   │   │   │   ├── ILevel.java
+│   │   │   │   │   │   ├── ICurrentGameState.java
+│   │   │   │   │   │   ├── IBoxManager.java
+│   │   │   │   │   │   ├── IScore.java
+│   │   │   │   │   │   ├── IGameScore.java
+│   │   │   │   │   │   ├── ISaveSlotManager.java
+│   │   │   │   │   │   └── ILevelRecorder.java
+│   │   │   │   │   └── exceptions/
+│   │   │   │   │       ├── LevelDoesntExistException.java
+│   │   │   │   │       ├── CajaNotFoundInLevelException.java
+│   │   │   │   │       ├── GoalNotFoundInLevelException.java
+│   │   │   │   │       ├── PlayableCharacterNotFoundInLevelException.java
+│   │   │   │   │       ├── GoalsAndBoxesArentEqualsException.java
+│   │   │   │   │       └── CouldntCloneException.java
 │   │   │   └── view/
-│   │   │       ├── MainMenuView.java           ← Main menu screen
-│   │   │       ├── MainGameView.java           ← In-game button bar
-│   │   │       ├── BoardView.java              ← Game grid renderer (GridPane)
-│   │   │       ├── GameInfoView.java           ← Score and level info bar
-│   │   │       ├── SaveGameView.java           ← Save/load slot screen
-│   │   │       └── MusicView.java              ← Music playback controller
+│   │   │       ├── MainMenuView.java                       ← Main menu screen
+│   │   │       ├── MainGameView.java                       ← In-game button bar
+│   │   │       ├── BoardView.java                          ← Game grid renderer
+│   │   │       ├── GameInfoView.java                       ← Score and level info bar
+│   │   │       ├── GameCompleteView.java                   ← World completion screen
+│   │   │       ├── SaveGameView.java                       ← Save/load slot screen
+│   │   │       └── MusicView.java                          ← Music playback controller
 │   │   └── resources/
-│   │       ├── levels/                         ← Level definition files
-│   │       ├── images/                         ← Game sprites
-│   │       ├── music/                          ← Background music
-│   │       └── css/                            ← Stylesheet and font
-│   └── test/                                   ← JUnit 5 tests
+│   │       ├── levels/                                     ← Level_1.txt, Level_2.txt, Level_3.txt
+│   │       ├── images/                                     ← Game sprites (golem, box, wall, goal…)
+│   │       ├── music/                                      ← zelda_song.mp3, musica_minecraft.mp3
+│   │       └── css/                                        ← style.css, Minecraftia-Regular.ttf
+│   └── test/
+│       └── java/es/upm/pproject/sokoban/model/
+│           ├── dto/classes/                                ← 15 test classes (model layer)
+│           └── exceptions/                                 ← ExceptionsTest.java
 └── pom.xml
 ```
