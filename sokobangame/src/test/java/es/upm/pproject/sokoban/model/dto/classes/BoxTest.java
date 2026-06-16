@@ -93,7 +93,7 @@ class BoxTest {
 
     @Test
     void notEqualsConObjetoDeOtraClase() {
-        assertNotEquals(new Box(1, 1), "una cadena");
+        assertNotEquals("una cadena",new Box(1, 1));
     }
 
 

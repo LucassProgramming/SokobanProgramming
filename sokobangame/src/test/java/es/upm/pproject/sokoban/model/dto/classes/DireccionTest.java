@@ -49,6 +49,6 @@ class DireccionTest {
     @Test
     void notEqualsConObjetoNulo() {
         Direccion d = new Direccion(1, 1);
-        assertNotEquals(d, null);
+        assertNotEquals( null,d);
     }
 }

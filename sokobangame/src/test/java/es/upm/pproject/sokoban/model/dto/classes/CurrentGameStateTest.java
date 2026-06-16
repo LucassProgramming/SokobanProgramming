@@ -231,7 +231,7 @@ class CurrentGameStateTest {
     @Test
     void equalsConObjetoNuloDevuelveFalso() {
         CurrentGameState cs = new CurrentGameState();
-        assertNotEquals(cs, null);
+        assertNotEquals( null,cs);
     }
 
     @Test

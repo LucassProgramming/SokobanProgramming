@@ -106,6 +106,6 @@ class ScoreTest {
     void notEqualsConObjetoNulo() {
         Score a = new Score();
         a.setPuntuacion(1);
-        assertNotEquals(a, null);
+        assertNotEquals(null,a);
     }
 }

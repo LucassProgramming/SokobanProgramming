@@ -137,7 +137,7 @@ class GameScoreTest {
     @Test
     void notEqualsConObjetoNulo() {
         GameScore a = new GameScore();
-        assertNotEquals(a, null);
+        assertNotEquals( null,a);
     }
 
     @Test
