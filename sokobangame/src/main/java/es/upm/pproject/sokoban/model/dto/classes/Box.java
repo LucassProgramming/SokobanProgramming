@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.util.Objects;
 
 public class Box extends Square{
-    private Color color;
-    private static int cantidad=0;
+    private Color color; 
+    private static int cantidad=0; //Cantidad de cajas creadas
     public Box(int x, int y){
         super(x,y);
         Box.cantidad++;
-        this.color=Color.PINK;
+        this.color=Color.PINK; //Color estandar rosa
     }
 
     public Color getColor(){
