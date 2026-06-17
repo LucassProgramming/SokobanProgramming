@@ -1,7 +1,7 @@
 maven_build:
   image: maven:3.9.6-eclipse-temurin-17
   script:
-   - mvn -f sokobangame/pom.xml test
+   - mvn test
 
 sonarqube-check:
   image: maven:3.9.6-eclipse-temurin-17
@@ -12,8 +12,7 @@ sonarqube-check:
     key: "${CI_JOB_NAME}"
     paths:
       - .sonar/cache
-  script: 
-    - cd sokobangame
+  script:
     - mvn verify sonar:sonar -Dsonar.projectKey=sokoban-Progra -Dsonar.login=${SONAR_LOGIN} -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.id=${SONAR_ID}
   allow_failure: true
   only:

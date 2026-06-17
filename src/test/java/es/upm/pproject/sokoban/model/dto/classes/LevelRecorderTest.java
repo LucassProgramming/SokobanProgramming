@@ -113,4 +113,62 @@ class LevelRecorderTest {
         assertEquals(level.getCapaSup()[1][1], level.getCharacter());
 
     }
+
+    @Test
+    void getYSetEstadoNivelPermitenSobrescribirDeque() {
+        // Preparamos un deque personalizado y lo establecemos
+        java.util.Deque<Level> pila = new java.util.ArrayDeque<>();
+        Level other = new Level("Otra", 1, 1, new Square[1][1], new Square[1][1], new Score(), new PlayableCharacter(0,0));
+        pila.push(other);
+        LevelRecorder.setEstadoNivel(pila);
+
+        // getEstadoNivel debe devolver exactamente la misma instancia
+        assertSame(pila, LevelRecorder.getEstadoNivel());
+        // undo debe devolver el elemento que pusimos
+        Level popped = LevelRecorder.undo();
+        assertNotNull(popped);
+        assertEquals("Otra", popped.getNombre());
+    }
+
+    @Test
+    void restartDevuelveNullSiInicioEsNullYLimpiaDeque() {
+        // guardamos un estado para que haya algo en la pila
+        LevelRecorder.save(level);
+        // forzamos inicio a null
+        LevelRecorder.setInicio(null);
+
+        Level r = LevelRecorder.restart();
+        assertNull(r);
+
+        // restart debe haber reiniciado la pila internamente
+        assertNull(LevelRecorder.undo());
+    }
+
+    @Test
+    void setInicioHaceCopiaProfundaDeLevel() {
+        // Modificamos el nivel original tras setInicio y comprobamos que inicio no cambia
+        LevelRecorder.setInicio(level);
+        Level inicio = LevelRecorder.getInicio();
+        assertNotNull(inicio);
+        assertNotSame(level, inicio);
+        // modificar la capa superior del original no debe alterar la del inicio (clon profundo)
+        level.getCapaSup()[0][0] = new Wall(0,0);
+        // Si la clonación fue profunda, inicio.capaSup[0][0] debe seguir siendo null o PlayableCharacter
+        boolean different = inicio.getCapaSup()[0][0] != level.getCapaSup()[0][0];
+        assertTrue(different);
+    }
+
+    @Test
+    void saveMultipleYUndoSiguenOrdenLIFO() {
+        Level a = new Level("A",1,1,new Square[1][1], new Square[1][1], new Score(), new PlayableCharacter(0,0));
+        Level b = new Level("B",1,1,new Square[1][1], new Square[1][1], new Score(), new PlayableCharacter(0,0));
+        LevelRecorder.reiniciarDeque();
+        LevelRecorder.save(a);
+        LevelRecorder.save(b);
+
+        Level firstUndo = LevelRecorder.undo();
+        assertEquals("B", firstUndo.getNombre());
+        Level secondUndo = LevelRecorder.undo();
+        assertEquals("A", secondUndo.getNombre());
+    }
 }

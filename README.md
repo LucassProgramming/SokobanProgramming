@@ -59,7 +59,7 @@ mvn javafx:run
 
 ### Level files
 
-- **Location:** `sokobangame/src/main/resources/levels/`
+- **Location:** `src/main/resources/levels/`
 - **Naming:** `Level_1.txt`, `Level_2.txt`, `Level_3.txt`, …
 - **Loaded at startup.** All files matching the pattern are loaded in order; loading stops at the first missing number.
 
@@ -123,7 +123,7 @@ Save files are created or overwritten each time the player saves. They can be de
 
 ## Adding new levels
 
-1. Create a new text file in `sokobangame/src/main/resources/levels/`.
+1. Create a new text file in `src/main/resources/levels/`.
 2. Name it `Level_N.txt` where N follows the last existing number.
 3. Follow the format described above.
 4. The level will be loaded automatically the next time the game starts.
@@ -210,7 +210,7 @@ The test suite contains **196 tests** across **16 test classes**, covering the e
 After running, the JaCoCo coverage report is available at:
 
 ```
-sokobangame/target/site/jacoco/index.html
+target/site/jacoco/index.html
 ```
 
 ## SonarQube analysis
@@ -224,7 +224,6 @@ Coverage exclusions (configured in `pom.xml`): `**/view/**`, `**/controller/**`,
 ## Project structure
 
 ```
-sokobangame/
 ├── src/
 │   ├── main/
 │   │   ├── java/es/upm/pproject/sokoban/
