@@ -30,8 +30,8 @@ public class BoardView {
         int cols = level.getColumnas();
         int rows = level.getFilas();
         // Fijar el tamaño total del GridPane, para que el layout pueda centrarlo ya que sabe su tamaño.
-        grid.setPrefSize(cols * TILE_SIZE, rows * TILE_SIZE);
-        grid.setMaxSize(cols * TILE_SIZE, rows * TILE_SIZE);
+        grid.setPrefSize(cols * ((double) TILE_SIZE), rows * ((double) TILE_SIZE));
+        grid.setMaxSize(cols * ((double) TILE_SIZE), rows * ((double) TILE_SIZE));
         sueloImg = loadImage("/images/suelo.jpg");
         muroImg = loadImage("/images/muro.jpg");
         goalImg = loadImage("/images/goal.jpg");
