@@ -24,7 +24,7 @@ public class MusicView{
             mediaPlayer.play();
         } catch (RuntimeException e) {
             mediaPlayer = null;
-            LOGGER.log(Level.WARNING, "No se pudo iniciar la musica", e);
+            LOGGER.warning("No se pudo iniciar la musica");
         }
     }
 
