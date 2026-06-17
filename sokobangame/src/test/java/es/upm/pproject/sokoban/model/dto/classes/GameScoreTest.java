@@ -139,9 +139,10 @@ class GameScoreTest {
         GameScore a = new GameScore();
         assertNotEquals( null,a);
     }
-    @Test
+     @Test
     void notEqualsConDistintaClase() {
-        assertFalse(new GameScore().equals("una cadena"));
+        boolean cond = new GameScore().equals("una cadena");
+        assertFalse(cond);
     }
     @Test
     void equalsMismaInstancia(){

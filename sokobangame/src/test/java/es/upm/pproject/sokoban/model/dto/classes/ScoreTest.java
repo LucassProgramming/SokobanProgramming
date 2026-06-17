@@ -94,7 +94,8 @@ class ScoreTest {
     }
     @Test
     void notEqualsConDistintaClase() {
-        assertFalse(new Score().equals("una cadena"));
+        boolean cond = new Score().equals("una cadena");
+        assertFalse(cond);
     }
     @Test
     void equalsMismaInstancia(){
