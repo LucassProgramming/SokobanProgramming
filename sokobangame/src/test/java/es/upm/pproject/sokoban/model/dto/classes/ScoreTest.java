@@ -97,6 +97,10 @@ class ScoreTest {
         Score a = new Score();
         assertNotEquals("una cadena", a);
     }
+    @Test
+    void equalsMismaInstancia(){
+        assertEquals(new Score(), new Score());
+    }
 
     @Test
     void hashCodeConsistenteConEquals() {

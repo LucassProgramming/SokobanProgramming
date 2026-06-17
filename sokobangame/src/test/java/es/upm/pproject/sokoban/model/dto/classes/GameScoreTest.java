@@ -144,6 +144,10 @@ class GameScoreTest {
         GameScore a = new GameScore();
         assertNotEquals( "una cadena",a);
     }
+    @Test
+    void equalsMismaInstancia(){
+        assertEquals(new GameScore(), new GameScore());
+    }
 
     @Test
     void totalScoresConPuntuacionNulaDevuelveCero() {

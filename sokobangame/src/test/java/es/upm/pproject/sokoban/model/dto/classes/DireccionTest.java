@@ -55,4 +55,8 @@ class DireccionTest {
         Direccion d = new Direccion(1, 1);
         assertNotEquals( null,d);
     }
+    @Test
+    void equalsMismaInstancia(){
+        assertEquals(new Direccion(0, 0), new Direccion(0, 0));
+    }
 }
