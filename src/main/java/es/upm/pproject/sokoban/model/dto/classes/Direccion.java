@@ -20,7 +20,8 @@ public class Direccion { //Clase provisional para la direccion que devolvera el 
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Direccion direccion)) return false;
+        if (!(o instanceof Direccion)) return false;
+        Direccion direccion = (Direccion) o;
         return incX == direccion.incX && incY == direccion.incY;
     }
 

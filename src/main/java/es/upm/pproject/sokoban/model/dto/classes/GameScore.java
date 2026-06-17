@@ -38,7 +38,8 @@ public class GameScore implements IGameScore, Serializable{
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof GameScore gameScore)) return false;
+        if (!(o instanceof GameScore)) return false;
+        GameScore gameScore = (GameScore) o;
         return total == gameScore.total;
     }
 

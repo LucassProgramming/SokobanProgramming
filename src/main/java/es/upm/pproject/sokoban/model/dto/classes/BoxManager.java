@@ -43,7 +43,8 @@ public class BoxManager implements IBoxManager{
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof BoxManager that)) return false;
+        if (!(o instanceof BoxManager)) return false;
+        BoxManager that = (BoxManager) o;
         return Objects.equals(level, that.level) && Objects.equals(caja, that.caja);
     }
 

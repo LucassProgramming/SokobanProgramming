@@ -95,7 +95,8 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof CurrentGameState that)) return false;
+        if (!(o instanceof CurrentGameState)) return false;
+        CurrentGameState that = (CurrentGameState) o;
         return index == that.index && Objects.deepEquals(arrayLevels, that.arrayLevels) && Objects.equals(puntuacionTotal, that.puntuacionTotal) && Objects.equals(current, that.current);
     }
 

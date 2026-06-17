@@ -22,7 +22,8 @@ public class CharacterManager { //Clase para controlar el movimiento del persona
         Square casillaSup = capaSup[coorX + incX][coorY + incY]; //Obtener posicion futura en la capa superior
         if(casillaInf instanceof Wall){ 
             //Si es un muro termina sin moverse
-        } else if(casillaSup instanceof Box caja){
+        } else if(casillaSup instanceof Box){
+           Box caja = (Box) casillaSup;
           LevelRecorder.save(level); //Guardo el estado anterior cuando ya se que se va ha mover el personaje
            caja.setX(coorX + incX); //Les pongo otras coordenadas como contramedida de restart o 
            // undo para que no se queden las que tenian antes de ello

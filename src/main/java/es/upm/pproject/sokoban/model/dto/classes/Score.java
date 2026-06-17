@@ -29,7 +29,8 @@ public class Score implements IScore, Serializable {
     }
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Score score)) return false;
+        if (!(o instanceof Score)) return false;
+        Score score = (Score) o;
         return puntuacion == score.puntuacion;
     }
 

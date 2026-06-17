@@ -26,7 +26,8 @@ public class Square implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Square square)) return false;
+        if (!(o instanceof Square)) return false;
+        Square square = (Square) o;
         return x == square.x && y == square.y;
     }
 

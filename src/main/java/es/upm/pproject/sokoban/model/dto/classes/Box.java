@@ -24,7 +24,8 @@ public class Box extends Square{
     }
     @Override
     public boolean equals(Object object){
-        if (!(object instanceof Box acomparar)) return false;
+        if (!(object instanceof Box)) return false;
+        Box acomparar = (Box) object;
         return super.equals(acomparar) && acomparar.color.equals(this.color);
     }
     @Override

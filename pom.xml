@@ -13,8 +13,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.release>11</maven.compiler.release>
     <sonar.qualitygate.wait>false</sonar.qualitygate.wait>
 
     <sonar.host.url>https://costa.ls.fi.upm.es/sonar</sonar.host.url>
@@ -41,17 +40,17 @@
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>21.0.1</version>
+      <version>17.0.10</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>21.0.1</version>
+      <version>17.0.10</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-media</artifactId>
-      <version>21</version>
+      <version>17.0.10</version>
     </dependency>
 
   </dependencies>
@@ -80,7 +79,7 @@
           <mainClass>es.upm.pproject.sokoban.App</mainClass>
           <jvmArgs>
             <jvmArg>--module-path</jvmArg>
-            <jvmArg>${settings.localRepository}/org/openjfx/javafx-base/21.0.1/javafx-base-21.0.1-linux.jar:${settings.localRepository}/org/openjfx/javafx-controls/21.0.1/javafx-controls-21.0.1-linux.jar:${settings.localRepository}/org/openjfx/javafx-graphics/21.0.1/javafx-graphics-21.0.1-linux.jar:${settings.localRepository}/org/openjfx/javafx-fxml/21.0.1/javafx-fxml-21.0.1-linux.jar</jvmArg>
+            <jvmArg>${settings.localRepository}/org/openjfx/javafx-base/17.0.10/javafx-base-17.0.10-linux.jar:${settings.localRepository}/org/openjfx/javafx-controls/17.0.10/javafx-controls-17.0.10-linux.jar:${settings.localRepository}/org/openjfx/javafx-graphics/17.0.10/javafx-graphics-17.0.10-linux.jar:${settings.localRepository}/org/openjfx/javafx-fxml/17.0.10/javafx-fxml-17.0.10-linux.jar</jvmArg>
             <jvmArg>--add-modules</jvmArg>
             <jvmArg>javafx.controls,javafx.fxml</jvmArg>
           </jvmArgs>
