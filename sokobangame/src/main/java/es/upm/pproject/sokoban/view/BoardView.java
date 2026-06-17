@@ -13,7 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 public class BoardView {
-     private static final int TILE_SIZE = 64;
+    private static final int TILE_SIZE = 88;//Hacemos más grande el TILE_SIZE para que el tablero se vea más grande
 
     private final GridPane grid;
     private final Image sueloImg;
@@ -26,6 +26,12 @@ public class BoardView {
 
     public BoardView(ILevel level) {
         grid = new GridPane();
+
+        int cols = level.getColumnas();
+        int rows = level.getFilas();
+        // Fijar el tamaño total del GridPane, para que el layout pueda centrarlo ya que sabe su tamaño.
+        grid.setPrefSize(cols * TILE_SIZE, rows * TILE_SIZE);
+        grid.setMaxSize(cols * TILE_SIZE, rows * TILE_SIZE);
         sueloImg = loadImage("/images/suelo.jpg");
         muroImg = loadImage("/images/muro.jpg");
         goalImg = loadImage("/images/goal.jpg");
