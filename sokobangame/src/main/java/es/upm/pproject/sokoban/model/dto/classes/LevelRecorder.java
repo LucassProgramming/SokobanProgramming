@@ -24,6 +24,16 @@ public class LevelRecorder {
    public static void setInicio(Level level){
        inicio = clonarLevel(level); //Clono el nivel para que no haga referencia a la misma direccion de memoria
    }
+   public static Level getInicio(){
+      return inicio;
+   }
+   public static Deque<Level> getEstadoNivel(){
+      return estadoNivel;
+   }
+   public static void setEstadoNivel(Deque<Level> estados){
+      estadoNivel = estados;
+   }
+
    public static Level restart(){
       Level incio = clonarLevel(inicio); //Clono el nivel para que no haga referencia a la misma direccion de memoria
       reiniciarDeque(); //Borro el registro de movimientos anterior luego del restart
