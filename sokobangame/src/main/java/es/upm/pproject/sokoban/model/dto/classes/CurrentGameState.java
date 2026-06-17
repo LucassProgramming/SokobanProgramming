@@ -2,6 +2,7 @@ package es.upm.pproject.sokoban.model.dto.classes;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.Objects;
 
 import es.upm.pproject.sokoban.model.dto.interfaces.ICurrentGameState;
@@ -11,6 +12,8 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     private GameScore puntuacionTotal;
     private int index = 0;
     private Level current;
+    private Deque<Level> copiaEstado;
+    private Level copiaAntCurrent;
 
     public CurrentGameState(){
         arrayLevels = new Level[99];
@@ -23,6 +26,18 @@ public class CurrentGameState implements ICurrentGameState, Serializable {
     public void anadirLevel(Level level){ //Añade un nivel al array
        arrayLevels[index] = level;
        index++;
+    }
+    public void setCopiaAntCurrent(Level level){
+        copiaAntCurrent = level;
+    }
+    public Level getCopiaAntCurrent(){
+        return copiaAntCurrent;
+    }
+    public void setCopiaEstado(Deque<Level> levels){
+        copiaEstado = levels;
+    }
+    public Deque<Level> getCopiaEstado(){
+        return copiaEstado;
     }
     @Override
     public Level getCurrent() {  //Obtiene el nivel actual

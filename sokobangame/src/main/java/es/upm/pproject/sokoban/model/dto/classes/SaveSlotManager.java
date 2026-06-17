@@ -26,6 +26,9 @@ public class SaveSlotManager implements ISaveSlotManager{
         // Abre o crea si no existe el archivo
         try (FileOutputStream archivo = new FileOutputStream(nombreArchivo);
         ObjectOutputStream salida = new ObjectOutputStream(archivo)) {
+          //Le ponemos su pila de estado
+        estado.setCopiaEstado(LevelRecorder.getEstadoNivel());
+        estado.setCopiaAntCurrent(LevelRecorder.getInicio());
         // Escribe el objeto en el archivo
         salida.writeObject(estado);
         } catch (FileNotFoundException e) {
@@ -43,6 +46,8 @@ public class SaveSlotManager implements ISaveSlotManager{
         // Convierte los bytes en un objeto
         ObjectInputStream entrada = new ObjectInputStream(archivo)){
             estado = (CurrentGameState) entrada.readObject();
+            LevelRecorder.setEstadoNivel(estado.getCopiaEstado());
+            LevelRecorder.setInicio(estado.getCopiaAntCurrent());
         } catch (FileNotFoundException e) {
           logger.info(e.getMessage());
         }
