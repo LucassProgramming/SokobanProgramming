@@ -74,6 +74,7 @@ public class MenuController {
             }
 
             Level level = estadoActual.getCurrent();
+            partidaEnCurso = true;
             GameInfoView gameInfoView = new GameInfoView(level.getNombre(), estadoActual.getIndex(),
              level.getPuntuacion().getPuntuacion(), estadoActual.getPuntuacionTotal().getTotal());
 
