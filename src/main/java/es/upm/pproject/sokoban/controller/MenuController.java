@@ -15,6 +15,8 @@ import es.upm.pproject.sokoban.view.GameCompleteView;
 import es.upm.pproject.sokoban.view.GameInfoView;
 import es.upm.pproject.sokoban.view.MainGameView;
 import es.upm.pproject.sokoban.view.MainMenuView;
+import es.upm.pproject.sokoban.view.MusicView;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -56,7 +58,7 @@ public class MenuController {
                 return;
             }
             if (estadoActual.getArray() == null || estadoActual.getCurrent() == null) {
-                logger.info("Estado de partida inválido en slot {}", slot);
+                logger.info("Estado de partida invÃ¡lido en slot {}", slot);
                 return;
             }
 
@@ -95,7 +97,7 @@ public class MenuController {
         }
     }
     /*
-     * Vuelve al menú principal y marca que no hay partida en curso
+     * Vuelve al menÃº principal y marca que no hay partida en curso
      */
     public void volverAlMenu(){
         partidaEnCurso = false;
@@ -104,7 +106,7 @@ public class MenuController {
     }
     /*
     * Comprueba si existe una partida guardad en el slot indicado
-    * Se utiliza en SaveGameView para mostrar visualmente qué slots están ocupados
+    * Se utiliza en SaveGameView para mostrar visualmente quÃ© slots estÃ¡n ocupados
     */
     public boolean existeSlot(int slot){
         return saveSlotManager.existeSlot(slot);
@@ -136,19 +138,20 @@ public class MenuController {
             }
             GameCompleteView gameCompleteView = new GameCompleteView(this, totalScore, levelsCompleted, completedLevels);
 
-            //Añadimos esto porque así mantenemos las dimensiones que tenía la ventana maximizada
-            //Usamos el tamaño de la escena actual y no el del Stage.Ya que el Stage incluye la barra de título y los bordes de la ventana,
-            // mientras que la Scene representa solo el área útil donde se dibuja la interfaz.
+            //AÃ±adimos esto porque asÃ­ mantenemos las dimensiones que tenÃ­a la ventana maximizada
+            //Usamos el tamaÃ±o de la escena actual y no el del Stage.Ya que el Stage incluye la barra de tÃ­tulo y los bordes de la ventana,
+            // mientras que la Scene representa solo el Ã¡rea Ãºtil donde se dibuja la interfaz.
             Scene scene = new Scene(gameCompleteView.getRoot(),stage.getScene().getWidth(),stage.getScene().getHeight());
             stage.setScene(scene);
 
-            //Quitamos el stage.setFullScreen porque eso obligaba a tener la pantalla completa sin los iconos de quitar ,maximizar y minimizar. Además con poner setMaximized en App.java ya sirve para que se quede grande toda la aplicación,y salgan dichos botones.  
+            //Quitamos el stage.setFullScreen porque eso obligaba a tener la pantalla completa sin los iconos de quitar ,maximizar y minimizar. AdemÃ¡s con poner setMaximized en App.java ya sirve para que se quede grande toda la aplicaciÃ³n,y salgan dichos botones.  
 
             stage.show();
         }
     }
     public void cerrarApp(){
-        stage.close();
+        MusicView.dispose();
+        Platform.exit();
     }
 
     private void mostrarEscenaJuego(GameInfoView gameInfoView, BoardView boardView, GameController gameController) {
@@ -158,14 +161,14 @@ public class MenuController {
         root.setCenter(boardView.getRoot());
         root.setBottom(mainGameView.getRoot());
 
-        //Añadimos esto porque así mantenemos las dimensiones que tenía la ventana maximizada
-        //Usamos el tamaño de la escena actual y no el del Stage.Ya que el Stage incluye la barra de título y los bordes de la ventana,
-        // mientras que la Scene representa solo el área útil donde se dibuja la interfaz.
+        //AÃ±adimos esto porque asÃ­ mantenemos las dimensiones que tenÃ­a la ventana maximizada
+        //Usamos el tamaÃ±o de la escena actual y no el del Stage.Ya que el Stage incluye la barra de tÃ­tulo y los bordes de la ventana,
+        // mientras que la Scene representa solo el Ã¡rea Ãºtil donde se dibuja la interfaz.
         Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> { gameController.handleKey(e.getCode()); e.consume(); });
         stage.setScene(scene);
 
-        //Quitamos el stage.setFullScreen porque eso obligaba a tener la pantalla completa sin los iconos de quitar ,maximizar y minimizar. Además con poner setMaximized en App.java ya sirve para que se quede grande toda la aplicación,y salgan dichos botones.
+        //Quitamos el stage.setFullScreen porque eso obligaba a tener la pantalla completa sin los iconos de quitar ,maximizar y minimizar. AdemÃ¡s con poner setMaximized en App.java ya sirve para que se quede grande toda la aplicaciÃ³n,y salgan dichos botones.
 
         stage.show();
     }

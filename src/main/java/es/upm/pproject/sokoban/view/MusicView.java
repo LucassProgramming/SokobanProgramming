@@ -1,6 +1,5 @@
 package es.upm.pproject.sokoban.view;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.scene.media.Media;
@@ -30,6 +29,14 @@ public class MusicView{
 
     public static void stop(){
         if(mediaPlayer!=null) mediaPlayer.pause();
+    }
+
+    public static void dispose(){
+        if(mediaPlayer!=null){
+            mediaPlayer.stop();
+            mediaPlayer.dispose();
+            mediaPlayer = null;
+        }
     }
 
     public static void turnUp(){
