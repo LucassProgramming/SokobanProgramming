@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 class CurrentGameStateTest {
 
@@ -26,6 +28,7 @@ class CurrentGameStateTest {
         assertEquals(1, cs.getIndex());
         assertSame(level, cs.getArray()[0]);
     }
+
 
     @Test
     void setCurrentSetsCurrentAndRegistersInicio() {
@@ -351,5 +354,24 @@ class CurrentGameStateTest {
         LevelRecorder.reiniciarDeque();
         cs2.setCurrent(l2);
         assertEquals(cs1, cs2);
+    }
+
+    @Test
+    void setYGetCopiaEstadoFuncionan() {
+        CurrentGameState cs = new CurrentGameState();
+        Deque<Level> pila = new ArrayDeque<>();
+        Level l = new Level("C1", 1, 1, new Square[1][1], new Square[1][1], new Score(), new PlayableCharacter(0,0));
+        pila.push(l);
+        cs.setCopiaEstado(pila);
+        assertSame(pila, cs.getCopiaEstado());
+        assertSame(l, cs.getCopiaEstado().peek());
+    }
+
+    @Test
+    void setYGetCopiaAntCurrentFuncionan() {
+        CurrentGameState cs = new CurrentGameState();
+        Level l = new Level("C2", 2, 2, new Square[2][2], new Square[2][2], new Score(), new PlayableCharacter(0,0));
+        cs.setCopiaAntCurrent(l);
+        assertSame(l, cs.getCopiaAntCurrent());
     }
 }
