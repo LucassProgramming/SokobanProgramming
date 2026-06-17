@@ -15,8 +15,7 @@ Classic Sokoban puzzle game built with Java and JavaFX. Push all the boxes onto 
 
 - Java 11 or higher
 - Maven 3.6+
-- JavaFX 21 (downloaded automatically via Maven)
-- **Linux only:** GStreamer + PulseAudio for music (see [Linux audio setup](#linux-audio-setup))
+- JavaFX 17 (downloaded automatically via Maven)
 
 ## How to run
 
@@ -40,9 +39,9 @@ mvn javafx:run
 | Button | Action |
 |---|---|
 | **Undo** | Undo the last move |
-| **Restart** | Restart the current level from the beginning |
+| **Restart** | Restart the current level from the beginning (shows confirmation dialog) |
 | **Save** | Open the save/load screen |
-| **Menú** | Return to the main menu |
+| **Menú** | Return to the main menu (shows confirmation dialog if a game is in progress) |
 | **Audio +** | Increase music volume |
 | **Audio -** | Decrease music volume |
 
@@ -54,6 +53,23 @@ mvn javafx:run
 4. When all goals are covered, the level is complete and the next one loads automatically.
 5. The score counts the total number of moves made across all levels.
 6. When all levels are completed, a summary screen shows the total score per level.
+7. Closing the window ends the application cleanly (music is stopped and the JVM exits).
+
+## Music
+
+Music is implemented using `javafx-media` (GStreamer on Linux). The game handles missing audio support gracefully — if the required system libraries are not available, the game runs silently without any crash or error visible to the player.
+
+### Music on the course VM (Ubuntu 24.04, Java 11)
+
+The course VM likely does not have GStreamer MP3 plugins installed, so music will not play. The rest of the game is fully functional.
+
+To enable music on Ubuntu 24.04, the following packages must be installed:
+
+```bash
+sudo apt install gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-libav
+```
+
+For full music support including the Minecraft-style tracks bundled in the game, **Java 17 or higher** combined with JavaFX 21 is the recommended environment. On Java 11 + JavaFX 17, music works if GStreamer is properly installed, but this combination has not been validated on the course VM.
 
 ## Files read by the application
 
@@ -136,18 +152,6 @@ Save files are created or overwritten each time the player saves. They can be de
 
 To load a game from the main menu, click **Load Game** and select a slot.
 
-## Linux audio setup
-
-On Linux (including WSL2 with WSLg), the following packages are required for music playback:
-
-```bash
-sudo apt install libavformat58 pulseaudio
-echo 'export PULSE_SERVER=unix:/mnt/wslg/PulseServer' >> ~/.bashrc
-source ~/.bashrc
-```
-
-On native Linux (not WSL2), only the first line is needed. PulseAudio is typically already running.
-
 ## Architecture
 
 The project follows the **MVC (Model-View-Controller)** pattern:
@@ -170,6 +174,10 @@ On each key press, `GameController` calls `CurrentGameState.moverPersonaje()`, w
 
 `LevelRecorder` holds a static deque of deep-copied level snapshots. Each valid move pushes a snapshot. `undo()` pops the last snapshot; `restart()` reloads the initial snapshot saved when the level was first set.
 
+### Application lifecycle
+
+`App.java` registers a close-request handler on the JavaFX `Stage`. When the window is closed (or the **Exit** / **Menú** button is used), `MenuController.cerrarApp()` is called, which disposes the media player, calls `Platform.exit()`, and then `System.exit(0)` to ensure no background threads keep the JVM alive.
+
 ### Exceptions
 
 Level loading validates the file and throws specific runtime exceptions for each broken invariant:
@@ -189,12 +197,13 @@ The application uses two logging frameworks:
 | Framework | Used in | Output |
 |---|---|---|
 | SLF4J (`slf4j-simple`) | `SaveSlotManager`, `MenuController`, `LevelFileReader` | `stderr` (console) |
-| `java.util.logging` | `MainMenuView` | `stderr` (console) |
+| `java.util.logging` | `MainMenuView`, `MusicView` | `stderr` (console) |
 
 No log files are written to disk. All messages appear in the terminal where `mvn javafx:run` was launched. The current log messages cover:
 
 - Save/load file errors (`SaveSlotManager`)
 - Font loading failure at startup (`MainMenuView`)
+- Music initialization failure (`MusicView`)
 - Game state transitions (`MenuController`)
 
 There is no logging configuration file; `slf4j-simple` uses its defaults (INFO level and above).
@@ -205,7 +214,7 @@ There is no logging configuration file; `slf4j-simple` uses its defaults (INFO l
 mvn test
 ```
 
-The test suite contains **196 tests** across **16 test classes**, covering the entire model layer (view and controller classes are excluded from coverage as they require a running JavaFX environment).
+The test suite contains **207 tests** across **16 test classes**, covering the entire model layer (view and controller classes are excluded from coverage as they require a running JavaFX environment).
 
 After running, the JaCoCo coverage report is available at:
 
