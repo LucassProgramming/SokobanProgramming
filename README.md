@@ -13,7 +13,7 @@ Classic Sokoban puzzle game built with Java and JavaFX. Push all the boxes onto 
 
 ## Requirements
 
-- Java 17 or higher
+- Java 11 or higher
 - Maven 3.6+
 - JavaFX 21 (downloaded automatically via Maven)
 - **Linux only:** GStreamer + PulseAudio for music (see [Linux audio setup](#linux-audio-setup))
