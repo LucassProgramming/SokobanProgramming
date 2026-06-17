@@ -152,6 +152,7 @@ public class MenuController {
     public void cerrarApp(){
         MusicView.dispose();
         Platform.exit();
+        System.exit(0);
     }
 
     private void mostrarEscenaJuego(GameInfoView gameInfoView, BoardView boardView, GameController gameController) {
