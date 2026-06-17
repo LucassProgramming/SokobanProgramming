@@ -40,6 +40,10 @@ class DireccionTest {
     void notEqualsConDistintaY() {
         assertNotEquals(new Direccion(0, 1), new Direccion(0, 0));
     }
+     @Test
+    void notEqualsConDistintaClase() {
+        assertNotEquals("una cadena", new Direccion(0, 0));
+    }
 
     @Test
     void hashCodeConsistenteConEquals() {

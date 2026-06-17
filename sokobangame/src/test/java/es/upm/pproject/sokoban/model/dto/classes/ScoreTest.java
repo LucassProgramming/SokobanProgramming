@@ -92,6 +92,11 @@ class ScoreTest {
         b.setPuntuacion(2);
         assertNotEquals(a, b);
     }
+    @Test
+    void notEqualsConDistintaClase() {
+        Score a = new Score();
+        assertNotEquals("una cadena", a);
+    }
 
     @Test
     void hashCodeConsistenteConEquals() {
