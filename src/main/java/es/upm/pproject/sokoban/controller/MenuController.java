@@ -58,7 +58,7 @@ public class MenuController {
                 return;
             }
             if (estadoActual.getArray() == null || estadoActual.getCurrent() == null) {
-                logger.info("Estado de partida invÃ¡lido en slot {}", slot);
+                logger.info("Estado de partida invalido en slot {}", slot);
                 return;
             }
 
@@ -97,7 +97,7 @@ public class MenuController {
         }
     }
     /*
-     * Vuelve al menÃº principal y marca que no hay partida en curso
+     * Vuelve al menu principal y marca que no hay partida en curso
      */
     public void volverAlMenu(){
         partidaEnCurso = false;
@@ -105,8 +105,8 @@ public class MenuController {
         new MainMenuView(stage, this);
     }
     /*
-    * Comprueba si existe una partida guardad en el slot indicado
-    * Se utiliza en SaveGameView para mostrar visualmente quÃ© slots estÃ¡n ocupados
+    * Comprueba si existe una partida guardada en el slot indicado
+    * Se utiliza en SaveGameView para mostrar visualmente que los slots estan ocupados
     */
     public boolean existeSlot(int slot){
         return saveSlotManager.existeSlot(slot);
@@ -138,9 +138,9 @@ public class MenuController {
             }
             GameCompleteView gameCompleteView = new GameCompleteView(this, totalScore, levelsCompleted, completedLevels);
 
-            //AÃ±adimos esto porque asÃ­ mantenemos las dimensiones que tenÃ­a la ventana maximizada
-            //Usamos el tamaÃ±o de la escena actual y no el del Stage.Ya que el Stage incluye la barra de tÃ­tulo y los bordes de la ventana,
-            // mientras que la Scene representa solo el Ã¡rea Ãºtil donde se dibuja la interfaz.
+            //Añadimos esto porque asi­ mantenemos las dimensiones que tenia la ventana maximizada
+            //Usamos el tamanho de la escena actual y no el del Stage.Ya que el Stage incluye la barra de titulo y los bordes de la ventana,
+            // mientras que la Scene representa solo el area util donde se dibuja la interfaz.
             Scene scene = new Scene(gameCompleteView.getRoot(),stage.getScene().getWidth(),stage.getScene().getHeight());
             stage.setScene(scene);
 
@@ -152,6 +152,7 @@ public class MenuController {
     public void cerrarApp(){
         MusicView.dispose();
         Platform.exit();
+        System.exit(0);
     }
 
     private void mostrarEscenaJuego(GameInfoView gameInfoView, BoardView boardView, GameController gameController) {
@@ -161,14 +162,14 @@ public class MenuController {
         root.setCenter(boardView.getRoot());
         root.setBottom(mainGameView.getRoot());
 
-        //AÃ±adimos esto porque asÃ­ mantenemos las dimensiones que tenÃ­a la ventana maximizada
-        //Usamos el tamaÃ±o de la escena actual y no el del Stage.Ya que el Stage incluye la barra de tÃ­tulo y los bordes de la ventana,
-        // mientras que la Scene representa solo el Ã¡rea Ãºtil donde se dibuja la interfaz.
+        //Anhadimos esto porque asi­ mantenemos las dimensiones que teni­a la ventana maximizada
+        //Usamos el tamanho de la escena actual y no el del Stage.Ya que el Stage incluye la barra de titulo y los bordes de la ventana,
+        // mientras que la Scene representa solo el area util donde se dibuja la interfaz.
         Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> { gameController.handleKey(e.getCode()); e.consume(); });
         stage.setScene(scene);
 
-        //Quitamos el stage.setFullScreen porque eso obligaba a tener la pantalla completa sin los iconos de quitar ,maximizar y minimizar. AdemÃ¡s con poner setMaximized en App.java ya sirve para que se quede grande toda la aplicaciÃ³n,y salgan dichos botones.
+        //Quitamos el stage.setFullScreen porque eso obligaba a tener la pantalla completa sin los iconos de quitar ,maximizar y minimizar. Ademas con poner setMaximized en App.java ya sirve para que se quede grande toda la aplicacion,y salgan dichos botones.
 
         stage.show();
     }
