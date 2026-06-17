@@ -42,7 +42,7 @@ class DireccionTest {
     }
      @Test
     void notEqualsConDistintaClase() {
-        assertNotEquals("una cadena", new Direccion(0, 0));
+        assertFalse(new Direccion(0, 0).equals("una cadena"));
     }
 
     @Test
@@ -57,6 +57,7 @@ class DireccionTest {
     }
     @Test
     void equalsMismaInstancia(){
-        assertEquals(new Direccion(0, 0), new Direccion(0, 0));
+        Direccion a = new Direccion(0, 0);
+        assertTrue( a.equals(new Direccion(0, 0)));
     }
 }
