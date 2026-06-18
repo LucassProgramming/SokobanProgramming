@@ -179,10 +179,14 @@ public class MenuController {
 
         if(estadoActual.getIndex() < niveles.size()){
         Level level = estadoActual.getCurrent();
+        int nivelesCompletados = estadoActual.getIndex();// Número de niveles completados hasta ahora
+        int totalNiveles = niveles.size();// Total de niveles existentes en el juego
 
         LevelCompletedView view =
             new LevelCompletedView(
                 level.getPuntuacion().getPuntuacion(),
+                nivelesCompletados,
+                totalNiveles,
                 this
             );
 
