@@ -12,11 +12,6 @@ import javafx.geometry.Insets;
 public class LevelCompletedView {
 
     private VBox root;
-    private final String TEXTO_BLANCO = "-fx-text-fill: white;";
-    private final String FUENTE_16 =  "-fx-font-size: 16px;";
-    private final String PADDING = "-fx-padding: 10 20 10 20;";
-    private final String BACKGROUND_RADIO =  "-fx-background-radius: 8;";
-    private final String CURSOR = "-fx-cursor: hand;";
 
     public LevelCompletedView(int levelScore,int nivelesCompletados,int totalNiveles, MenuController menuController) {
 
@@ -38,30 +33,35 @@ public class LevelCompletedView {
         Button btnRestart = new Button("Reiniciar Nivel");
         Button btnMenu = new Button("Volver al menú");
         //Estilos de los botones
+         String textoColor = "-fx-text-fill: white;";
+         String fuente16 =  "-fx-font-size: 16px;";
+         String padding = "-fx-padding: 10 20 10 20;";
+         String backgroundRadio =  "-fx-background-radius: 8;";
+         String cursor = "-fx-cursor: hand;";
         String estiloBotonPrincipal =
                 "-fx-background-color: #27ae60;" +
-                TEXTO_BLANCO +
-                FUENTE_16 +
+                textoColor +
+                fuente16 +
                 "-fx-font-weight: bold;" +
-                PADDING +
-                BACKGROUND_RADIO +
-                CURSOR;
+                padding +
+                backgroundRadio +
+                cursor;
 
         String estiloBotonSecundario =
                 "-fx-background-color: #34495e;" +
-                TEXTO_BLANCO +
-                FUENTE_16 +
-                PADDING +
-                BACKGROUND_RADIO +
-                CURSOR;
+                textoColor +
+                fuente16 +
+                padding +
+                backgroundRadio +
+                cursor;
 
         String estiloBotonPeligro =
                 "-fx-background-color: #c0392b;" +
-                TEXTO_BLANCO +
-                FUENTE_16 +
-                PADDING +
-                BACKGROUND_RADIO +
-                CURSOR;
+                textoColor +
+                fuente16 +
+                padding +
+                backgroundRadio +
+                cursor;
 
         btnSigLevel.setStyle(estiloBotonPrincipal);
         btnRestart.setStyle(estiloBotonSecundario);
