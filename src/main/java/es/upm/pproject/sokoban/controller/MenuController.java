@@ -13,6 +13,7 @@ import es.upm.pproject.sokoban.model.dto.classes.SaveSlotManager;
 import es.upm.pproject.sokoban.view.BoardView;
 import es.upm.pproject.sokoban.view.GameCompleteView;
 import es.upm.pproject.sokoban.view.GameInfoView;
+import es.upm.pproject.sokoban.view.LevelCompletedView;
 import es.upm.pproject.sokoban.view.MainGameView;
 import es.upm.pproject.sokoban.view.MainMenuView;
 import es.upm.pproject.sokoban.view.MusicView;
@@ -173,4 +174,43 @@ public class MenuController {
 
         stage.show();
     }
+    //Muestra la pantalla intermedia entre niveles
+    public void mostrarNivelCompletado() {
+
+        if(estadoActual.getIndex() < niveles.size()){
+        Level level = estadoActual.getCurrent();
+
+        LevelCompletedView view =
+            new LevelCompletedView(
+                level.getPuntuacion().getPuntuacion(),
+                this
+            );
+
+        Scene scene = new Scene(
+            view.getRoot(),
+            stage.getScene().getWidth(),
+            stage.getScene().getHeight()
+        );
+
+        stage.setScene(scene);
+        stage.show();
+        }else{
+        siguienteNivel();
+        }
+    }
+    //Habilita la posibilidad de reiniciar los niveles en la pantalla intermedia entre niveles
+    public void reiniciarNivelActual() { 
+        if (estadoActual == null) return;
+        estadoActual.restart();
+        Level level = estadoActual.getCurrent();
+        int index = estadoActual.getIndex();
+        GameInfoView gameInfoView = new GameInfoView(level.getNombre(), index + 1,
+                level.getPuntuacion().getPuntuacion(),
+                estadoActual.getPuntuacionTotal().getTotal());
+        BoardView boardView = new BoardView(level);
+        GameController gameController = new GameController(estadoActual, boardView, gameInfoView, index + 1, this);
+        mostrarEscenaJuego(gameInfoView, boardView, gameController);
+    }
+
+    
 }

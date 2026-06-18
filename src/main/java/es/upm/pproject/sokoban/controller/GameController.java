@@ -35,7 +35,7 @@ public class GameController {
         // Refresca la pantalla con el nuevo estado del nivel
         actualizarVistas();
         if(estado.getCurrent().estaCompletado()){
-            menuController.siguienteNivel();
+            menuController.mostrarNivelCompletado(); //Muestra la pantalla intermedia entre niveles
         }
     }
 
