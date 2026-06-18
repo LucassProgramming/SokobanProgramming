@@ -12,6 +12,11 @@ import javafx.geometry.Insets;
 public class LevelCompletedView {
 
     private VBox root;
+    private final String TEXTO_BLANCO = "-fx-text-fill: white;";
+    private final String FUENTE_16 =  "-fx-font-size: 16px;";
+    private final String PADDING = "-fx-padding: 10 20 10 20;";
+    private final String BACKGROUND_RADIO =  "-fx-background-radius: 8;";
+    private final String CURSOR = "-fx-cursor: hand;";
 
     public LevelCompletedView(int levelScore,int nivelesCompletados,int totalNiveles, MenuController menuController) {
 
@@ -35,28 +40,28 @@ public class LevelCompletedView {
         //Estilos de los botones
         String estiloBotonPrincipal =
                 "-fx-background-color: #27ae60;" +
-                "-fx-text-fill: white;" +
-                "-fx-font-size: 16px;" +
+                TEXTO_BLANCO +
+                FUENTE_16 +
                 "-fx-font-weight: bold;" +
-                "-fx-padding: 10 20 10 20;" +
-                "-fx-background-radius: 8;" +
-                "-fx-cursor: hand;";
+                PADDING +
+                BACKGROUND_RADIO +
+                CURSOR;
 
         String estiloBotonSecundario =
                 "-fx-background-color: #34495e;" +
-                "-fx-text-fill: white;" +
-                "-fx-font-size: 16px;" +
-                "-fx-padding: 10 20 10 20;" +
-                "-fx-background-radius: 8;" +
-                "-fx-cursor: hand;";
+                TEXTO_BLANCO +
+                FUENTE_16 +
+                PADDING +
+                BACKGROUND_RADIO +
+                CURSOR;
 
         String estiloBotonPeligro =
                 "-fx-background-color: #c0392b;" +
-                "-fx-text-fill: white;" +
-                "-fx-font-size: 16px;" +
-                "-fx-padding: 10 20 10 20;" +
-                "-fx-background-radius: 8;" +
-                "-fx-cursor: hand;";
+                TEXTO_BLANCO +
+                FUENTE_16 +
+                PADDING +
+                BACKGROUND_RADIO +
+                CURSOR;
 
         btnSigLevel.setStyle(estiloBotonPrincipal);
         btnRestart.setStyle(estiloBotonSecundario);
