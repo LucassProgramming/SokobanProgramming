@@ -50,10 +50,27 @@ mvn javafx:run
 1. Launch the game and click **New Game** from the main menu.
 2. Use the keyboard to move the golem (character).
 3. Push every box onto a goal square.
-4. When all goals are covered, the level is complete and the next one loads automatically.
+4. When all goals are covered, the level is complete and an **inter-level screen** (`¡NIVEL COMPLETADO!`) appears showing the level's score and your overall progress (`Niveles completados: X/Y`). From there you choose to continue to the next level, restart the level you just finished, or return to the main menu — the next level no longer loads automatically.
 5. The score counts the total number of moves made across all levels.
-6. When all levels are completed, a summary screen shows the total score per level.
+6. When the last level is completed, a final summary screen shows the total score per level.
 7. Closing the window ends the application cleanly (music is stopped and the JVM exits).
+
+## Inter-level screen
+
+When a level is solved, the game pauses on an intermediate screen (`¡NIVEL COMPLETADO!`) before moving on. It reports:
+
+- **Level score** — the number of moves used to solve the level just finished.
+- **Progress** — `Niveles completados: X/Y`, where `X` is the number of levels cleared so far and `Y` the total number of levels in the game.
+
+From this screen the player chooses what to do next:
+
+| Button | Action |
+|---|---|
+| **Siguiente Nivel** | Load the next level. If it was the last one, the final completion summary is shown instead. |
+| **Reiniciar Nivel** | Restart the level just completed from its initial state (asks for confirmation). |
+| **Volver al menú** | Return to the main menu (asks for confirmation if a game is in progress). |
+
+When the **last** level is completed this screen is skipped, and the final completion summary (total score plus a per-level breakdown) is shown directly.
 
 ## Music
 
@@ -174,6 +191,16 @@ On each key press, `GameController` calls `CurrentGameState.moverPersonaje()`, w
 
 `LevelRecorder` holds a static deque of deep-copied level snapshots. Each valid move pushes a snapshot. `undo()` pops the last snapshot; `restart()` reloads the initial snapshot saved when the level was first set.
 
+### Level completion flow
+
+After each move, `GameController` checks `Level.estaCompletado()`. When the level is solved it calls `MenuController.mostrarNivelCompletado()`, which builds a `LevelCompletedView` (the inter-level screen) showing the level score and `Niveles completados: X/Y`. Its buttons map to controller methods:
+
+- **Siguiente Nivel** → `siguienteNivel()` — advances `index`, loads the next level, or shows `GameCompleteView` when no levels remain.
+- **Reiniciar Nivel** → `reiniciarNivelActual()` — rebuilds the current level scene from its initial snapshot (`CurrentGameState.restart()`).
+- **Volver al menú** → `volverAlMenu()`.
+
+If the completed level was the last one, `mostrarNivelCompletado()` skips the inter-level screen and goes straight to the final `GameCompleteView` summary.
+
 ### Application lifecycle
 
 `App.java` registers a close-request handler on the JavaFX `Stage`. When the window is closed (or the **Exit** / **Menú** button is used), `MenuController.cerrarApp()` is called, which disposes the media player, calls `Platform.exit()`, and then `System.exit(0)` to ensure no background threads keep the JVM alive.
@@ -280,7 +307,8 @@ Coverage exclusions (configured in `pom.xml`): `**/view/**`, `**/controller/**`,
 │   │   │       ├── MainGameView.java                       ← In-game button bar
 │   │   │       ├── BoardView.java                          ← Game grid renderer
 │   │   │       ├── GameInfoView.java                       ← Score and level info bar
-│   │   │       ├── GameCompleteView.java                   ← World completion screen
+│   │   │       ├── LevelCompletedView.java                 ← Inter-level screen (next / restart / menu)
+│   │   │       ├── GameCompleteView.java                   ← Final completion summary (per-level scores)
 │   │   │       ├── SaveGameView.java                       ← Save/load slot screen
 │   │   │       └── MusicView.java                          ← Music playback controller
 │   │   └── resources/
