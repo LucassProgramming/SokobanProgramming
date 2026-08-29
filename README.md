@@ -1,31 +1,83 @@
 # Sokoban
 
-Classic Sokoban puzzle game built with Java and JavaFX. Push all the boxes onto the goal squares to complete each level.
+Desktop implementation of the classic **Sokoban puzzle game**, developed with **Java and JavaFX** as a collaborative academic project for the **Programming Project** course at **Universidad Politécnica de Madrid (UPM)**.
 
-## Authors
+The project was originally developed using UPM's institutional **GitLab** and later migrated to GitHub while preserving the original commit history, authors and development timeline.
 
-| Name | Registration number |
-|---|---|
-| Jiaxu He | 230226 |
-| Lucas Daniel Benítez Maidana | 230223 |
-| Denis Andrei Cosor Strimbeanu | 230069 |
-| Mateo Cuñarro Alfonsín | 230245 |
+## Tech Stack
+
+- **Java**
+- **JavaFX**
+- **Maven**
+- **JUnit 5**
+- **JaCoCo**
+- **SonarQube**
+- **Git**
+- **GitLab CI/CD**
+
+## Key Features
+
+- Multiple Sokoban levels loaded dynamically from external files
+- Graphical user interface built with JavaFX
+- Player movement and box collision logic
+- Undo and level restart functionality
+- Level progression and completion screens
+- Per-level and total score tracking
+- Three persistent save slots
+- Save/load system using Java serialization
+- Background music support
+- Level validation and custom exception handling
+- Automated unit testing
+- Code coverage analysis with JaCoCo
+- Static code quality analysis with SonarQube
+- Continuous Integration using GitLab CI
+
+---
+
+## Academic Context
+
+This project was developed by a team of four students as part of the **Programming Project** course at **Universidad Politécnica de Madrid (UPM)**.
+
+Development was carried out collaboratively through the university's institutional GitLab environment, using Git for version control and GitLab CI for Continuous Integration.
+
+The repository was later migrated to GitHub while preserving the original commits, authors, dates, branches and development history.
+
+## Team
+
+- Jiaxu He
+- Lucas Daniel Benítez Maidana
+- Denis Andrei Cosor Strimbeanu
+- Mateo Cuñarro Alfonsín
+
+---
 
 ## Requirements
 
 - Java 11 or higher
 - Maven 3.6+
-- JavaFX 17 (downloaded automatically via Maven)
+- JavaFX 17 — downloaded automatically through Maven
 
-## How to run
+## Running the Application
+
+Clone the repository and run:
 
 ```bash
 mvn javafx:run
 ```
 
-## Controls
+---
 
-### Keyboard
+## How to Play
+
+1. Launch the application.
+2. Select **New Game** from the main menu.
+3. Move the player around the board.
+4. Push every box onto a goal square.
+5. Complete the level using as few moves as possible.
+6. Continue to the next level from the completion screen.
+7. Complete all available levels to reach the final summary.
+
+### Keyboard Controls
 
 | Key | Action |
 |---|---|
@@ -34,291 +86,526 @@ mvn javafx:run
 | `A` / `←` | Move left |
 | `D` / `→` | Move right |
 
-### Buttons
+### Interface Controls
 
 | Button | Action |
 |---|---|
-| **Undo** | Undo the last move |
-| **Restart** | Restart the current level from the beginning (shows confirmation dialog) |
+| **Undo** | Undo the previous move |
+| **Restart** | Restart the current level |
 | **Save** | Open the save/load screen |
-| **Menú** | Return to the main menu (shows confirmation dialog if a game is in progress) |
+| **Menú** | Return to the main menu |
 | **Audio +** | Increase music volume |
 | **Audio -** | Decrease music volume |
 
-## How to play
+---
 
-1. Launch the game and click **New Game** from the main menu.
-2. Use the keyboard to move the golem (character).
-3. Push every box onto a goal square.
-4. When all goals are covered, the level is complete and an **inter-level screen** (`¡NIVEL COMPLETADO!`) appears showing the level's score and your overall progress (`Niveles completados: X/Y`). From there you choose to continue to the next level, restart the level you just finished, or return to the main menu — the next level no longer loads automatically.
-5. The score counts the total number of moves made across all levels.
-6. When the last level is completed, a final summary screen shows the total score per level.
-7. Closing the window ends the application cleanly (music is stopped and the JVM exits).
+## Software Architecture
 
-## Inter-level screen
+The application follows the **Model-View-Controller (MVC)** architectural pattern.
 
-When a level is solved, the game pauses on an intermediate screen (`¡NIVEL COMPLETADO!`) before moving on. It reports:
+```text
+                ┌──────────────┐
+                │     View     │
+                │    JavaFX    │
+                └──────┬───────┘
+                       │
+                       ▼
+                ┌──────────────┐
+                │  Controller  │
+                └──────┬───────┘
+                       │
+                       ▼
+                ┌──────────────┐
+                │    Model     │
+                │  Game Logic  │
+                └──────────────┘
+```
 
-- **Level score** — the number of moves used to solve the level just finished.
-- **Progress** — `Niveles completados: X/Y`, where `X` is the number of levels cleared so far and `Y` the total number of levels in the game.
+### Model
 
-From this screen the player chooses what to do next:
+The model contains the game state and core game logic and has no dependency on JavaFX.
 
-| Button | Action |
+Its main responsibilities include:
+
+- Player movement
+- Box movement and collisions
+- Level representation
+- Score management
+- Undo and restart history
+- Save/load functionality
+- Level parsing and validation
+
+### View
+
+The graphical interface is implemented using **JavaFX**.
+
+The main views include:
+
+- `MainMenuView`
+- `MainGameView`
+- `BoardView`
+- `GameInfoView`
+- `LevelCompletedView`
+- `GameCompleteView`
+- `SaveGameView`
+- `MusicView`
+
+Composition is preferred over directly extending JavaFX classes. Each view encapsulates its corresponding JavaFX node and exposes it through `getRoot()`.
+
+### Controller
+
+Controllers coordinate the interaction between the graphical interface and the model.
+
+The main controllers are:
+
+- `MenuController` — navigation, scene transitions and save/load operations
+- `GameController` — keyboard input, game actions and view updates
+
+---
+
+## Board Representation
+
+Each `Level` contains two overlapping `Square[][]` grids.
+
+### Static Layer
+
+```text
+capaInf
+```
+
+Contains:
+
+- Walls
+- Goal squares
+- Empty floor
+
+### Dynamic Layer
+
+```text
+capaSup
+```
+
+Contains:
+
+- Player
+- Boxes
+
+A `null` value represents an empty dynamic cell.
+
+This separation allows static board elements and movable entities to be managed independently.
+
+---
+
+## Movement System
+
+Player actions follow this flow:
+
+```text
+Keyboard input
+      │
+      ▼
+GameController
+      │
+      ▼
+CurrentGameState.moverPersonaje()
+      │
+      ├── CharacterManager
+      │
+      └── BoxManager
+      │
+      ▼
+Updated model
+      │
+      ▼
+View refresh
+```
+
+`CharacterManager` handles player movement and boundary checking.
+
+`BoxManager` handles:
+
+- Box pushing
+- Collision detection
+- Destination validation
+
+After every valid move, the board and score interface are refreshed.
+
+---
+
+## Undo and Restart
+
+The application implements an undo system through `LevelRecorder`.
+
+A deque stores deep copies of previous level states.
+
+```text
+Move
+ │
+ ▼
+Store level snapshot
+ │
+ ▼
+Apply movement
+```
+
+### Undo
+
+Restores the previous stored level state.
+
+### Restart
+
+Restores the initial snapshot created when the level was loaded.
+
+---
+
+## Level Completion
+
+After every move, the application checks whether every box has been placed on a goal square.
+
+When a level is completed, an intermediate screen displays:
+
+- Score for the completed level
+- Number of completed levels
+- Total number of levels
+
+The player can then choose:
+
+| Option | Action |
 |---|---|
-| **Siguiente Nivel** | Load the next level. If it was the last one, the final completion summary is shown instead. |
-| **Reiniciar Nivel** | Restart the level just completed from its initial state (asks for confirmation). |
-| **Volver al menú** | Return to the main menu (asks for confirmation if a game is in progress). |
+| **Siguiente Nivel** | Continue to the next level |
+| **Reiniciar Nivel** | Replay the completed level |
+| **Volver al menú** | Return to the main menu |
 
-When the **last** level is completed this screen is skipped, and the final completion summary (total score plus a per-level breakdown) is shown directly.
+After completing the final level, the application displays a summary with the total and per-level scores.
 
-## Music
+---
 
-Music is implemented using `javafx-media` (GStreamer on Linux). The game handles missing audio support gracefully — if the required system libraries are not available, the game runs silently without any crash or error visible to the player.
+## Saving and Loading
 
-### Music on the course VM (Ubuntu 24.04, Java 11)
+The game provides three persistent save slots.
 
-The course VM likely does not have GStreamer MP3 plugins installed, so music will not play. The rest of the game is fully functional.
+Save files are stored in the project root:
 
-To enable music on Ubuntu 24.04, the following packages must be installed:
-
-```bash
-sudo apt install gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-libav
+```text
+slot1.dat
+slot2.dat
+slot3.dat
 ```
 
-For full music support including the Minecraft-style tracks bundled in the game, **Java 17 or higher** combined with JavaFX 21 is the recommended environment. On Java 11 + JavaFX 17, music works if GStreamer is properly installed, but this combination has not been validated on the course VM.
+The complete game state is persisted using Java serialization.
 
-## Files read by the application
+A save file contains:
 
-### Level files
+- Current level
+- Loaded levels
+- Current score
+- Level scores
+- Move history
+- Complete game state
 
-- **Location:** `src/main/resources/levels/`
-- **Naming:** `Level_1.txt`, `Level_2.txt`, `Level_3.txt`, …
-- **Loaded at startup.** All files matching the pattern are loaded in order; loading stops at the first missing number.
+### Saving
 
-**Format:**
+1. Click **Save**
+2. Select one of the three slots
+3. Select **SAVE GAME**
 
+### Loading
+
+1. Open the save/load screen
+2. Select an occupied slot
+3. Select **LOAD GAME**
+
+---
+
+## Level System
+
+Levels are stored in:
+
+```text
+src/main/resources/levels/
 ```
-Nivel 1          ← Level name (line 1)
-8 8              ← Number of rows and columns (line 2)
-++++             ← Grid rows, one per line
-+  +
+
+Files follow the naming convention:
+
+```text
+Level_1.txt
+Level_2.txt
+Level_3.txt
+...
+```
+
+The application loads them sequentially at startup.
+
+### Level Format
+
+Example:
+
+```text
+Nivel 1
+8 8
+++++++++
++      +
 +  +++++
 +      +
 ++W*+# +
-+   +  +
++      +
 +   ++++
-+++++
+++++++++
 ```
 
-**Cell symbols:**
+### Symbols
 
 | Symbol | Meaning |
 |---|---|
-| `+` | Wall (impassable) |
+| `+` | Wall |
 | ` ` | Empty floor |
-| `*` | Goal square |
+| `*` | Goal |
 | `#` | Box |
-| `W` | Starting position of the player |
+| `W` | Player starting position |
 
-**Rules for a valid level file:**
-- Exactly one `W` (player).
-- At least one `#` (box) and one `*` (goal).
-- Number of boxes must equal number of goals.
-- Rows may be shorter than the declared column count; missing cells are treated as empty floor.
+### Validation Rules
 
-### Save files
+A valid level must contain:
 
-- **Location:** Project root directory (same folder as `pom.xml`).
-- **Names:** `slot1.dat`, `slot2.dat`, `slot3.dat`
-- **Format:** Java binary serialization of the full game state (`CurrentGameState`). Not human-readable.
-- The save file stores the complete game state: current level, all levels loaded, score, and move history.
+- Exactly one player
+- At least one box
+- At least one goal
+- The same number of boxes and goals
 
-### Image and audio assets
+Invalid level files trigger specific application exceptions.
 
-All assets are bundled inside the JAR and are not meant to be modified by the user.
+---
 
-| Path | Contents |
-|---|---|
-| `resources/images/` | Sprites: golem, boxes, walls, goals, backgrounds |
-| `resources/music/` | Background music tracks (`.mp3`) |
-| `resources/css/` | UI stylesheet and custom font |
+## Exception Handling
 
-## Files written by the application
-
-| File | When created | Contents |
-|---|---|---|
-| `slot1.dat` | When saving to slot 1 | Serialized game state |
-| `slot2.dat` | When saving to slot 2 | Serialized game state |
-| `slot3.dat` | When saving to slot 3 | Serialized game state |
-
-Save files are created or overwritten each time the player saves. They can be deleted manually to clear a slot.
-
-## Adding new levels
-
-1. Create a new text file in `src/main/resources/levels/`.
-2. Name it `Level_N.txt` where N follows the last existing number.
-3. Follow the format described above.
-4. The level will be loaded automatically the next time the game starts.
-
-## Saving and loading a game
-
-1. During a game, click **Save**.
-2. Select one of the three available slots (a chest icon marks occupied slots).
-3. Click **SAVE GAME** to save, or **LOAD GAME** to restore a previously saved state.
-
-To load a game from the main menu, click **Load Game** and select a slot.
-
-## Architecture
-
-The project follows the **MVC (Model-View-Controller)** pattern:
-
-- **Model** (`model/dto/classes/`) — game state and logic. No JavaFX dependency.
-- **View** (`view/`) — JavaFX scenes and widgets. Each view class uses **composition** (wraps a JavaFX node internally and exposes it via `getRoot()`) instead of extending JavaFX classes directly, keeping the inheritance hierarchy within the 5-level limit.
-- **Controller** (`controller/`) — bridges input and model. `MenuController` handles navigation and scene transitions; `GameController` translates key presses into model calls and triggers view updates.
-
-### Board representation
-
-Each `Level` holds two overlapping `Square[][]` grids:
-- `capaInf` — static layer: walls, goal squares, empty floor.
-- `capaSup` — dynamic layer: the player and boxes (`null` means empty).
-
-### Move flow
-
-On each key press, `GameController` calls `CurrentGameState.moverPersonaje()`, which delegates to `CharacterManager` (player movement and bounds checking) and `BoxManager` (box pushing and collision). After each move, `actualizarVistas()` redraws the board and updates the score bar.
-
-### Undo / Restart
-
-`LevelRecorder` holds a static deque of deep-copied level snapshots. Each valid move pushes a snapshot. `undo()` pops the last snapshot; `restart()` reloads the initial snapshot saved when the level was first set.
-
-### Level completion flow
-
-After each move, `GameController` checks `Level.estaCompletado()`. When the level is solved it calls `MenuController.mostrarNivelCompletado()`, which builds a `LevelCompletedView` (the inter-level screen) showing the level score and `Niveles completados: X/Y`. Its buttons map to controller methods:
-
-- **Siguiente Nivel** → `siguienteNivel()` — advances `index`, loads the next level, or shows `GameCompleteView` when no levels remain.
-- **Reiniciar Nivel** → `reiniciarNivelActual()` — rebuilds the current level scene from its initial snapshot (`CurrentGameState.restart()`).
-- **Volver al menú** → `volverAlMenu()`.
-
-If the completed level was the last one, `mostrarNivelCompletado()` skips the inter-level screen and goes straight to the final `GameCompleteView` summary.
-
-### Application lifecycle
-
-`App.java` registers a close-request handler on the JavaFX `Stage`. When the window is closed (or the **Exit** / **Menú** button is used), `MenuController.cerrarApp()` is called, which disposes the media player, calls `Platform.exit()`, and then `System.exit(0)` to ensure no background threads keep the JVM alive.
-
-### Exceptions
-
-Level loading validates the file and throws specific runtime exceptions for each broken invariant:
+The level loader validates input files and throws specific exceptions when an invariant is violated.
 
 | Exception | Trigger |
 |---|---|
-| `CajaNotFoundInLevelException` | No box found in the level |
-| `GoalNotFoundInLevelException` | No goal found in the level |
-| `PlayableCharacterNotFoundInLevelException` | No player found in the level |
-| `GoalsAndBoxesArentEqualsException` | Box count ≠ goal count |
-| `LevelDoesntExistException` | Level file not found |
+| `CajaNotFoundInLevelException` | No box exists |
+| `GoalNotFoundInLevelException` | No goal exists |
+| `PlayableCharacterNotFoundInLevelException` | No player exists |
+| `GoalsAndBoxesArentEqualsException` | Number of boxes differs from number of goals |
+| `LevelDoesntExistException` | Requested level file does not exist |
 
-## Logging
+---
 
-The application uses two logging frameworks:
+## Testing
 
-| Framework | Used in | Output |
-|---|---|---|
-| SLF4J (`slf4j-simple`) | `SaveSlotManager`, `MenuController`, `LevelFileReader` | `stderr` (console) |
-| `java.util.logging` | `MainMenuView`, `MusicView` | `stderr` (console) |
-
-No log files are written to disk. All messages appear in the terminal where `mvn javafx:run` was launched. The current log messages cover:
-
-- Save/load file errors (`SaveSlotManager`)
-- Font loading failure at startup (`MainMenuView`)
-- Music initialization failure (`MusicView`)
-- Game state transitions (`MenuController`)
-
-There is no logging configuration file; `slf4j-simple` uses its defaults (INFO level and above).
-
-## Running tests
+Run the automated test suite with:
 
 ```bash
 mvn test
 ```
 
-The test suite contains **207 tests** across **16 test classes**, covering the entire model layer (view and controller classes are excluded from coverage as they require a running JavaFX environment).
+The project contains:
 
-After running, the JaCoCo coverage report is available at:
+**207 automated tests across 16 test classes**
 
-```
+The test suite focuses primarily on the model layer, covering areas such as:
+
+- Player movement
+- Box movement
+- Collision handling
+- Score management
+- Level loading
+- Game state management
+- Undo and restart functionality
+- Exceptions
+- Save/load behavior
+
+View and controller classes are excluded from coverage because they require an active JavaFX environment.
+
+---
+
+## Code Coverage
+
+The project uses **JaCoCo** to measure test coverage.
+
+After running the tests, the HTML coverage report is generated at:
+
+```text
 target/site/jacoco/index.html
 ```
 
-## SonarQube analysis
+Coverage exclusions configured in `pom.xml` include:
+
+```text
+**/view/**
+**/controller/**
+App.java
+SokobanService.java
+```
+
+---
+
+## Continuous Integration
+
+The original development workflow used **GitLab CI/CD** through the institutional GitLab instance of Universidad Politécnica de Madrid.
+
+The pipeline automated the software verification process:
+
+```text
+Push / Commit
+      │
+      ▼
+GitLab CI
+      │
+      ├── Maven build
+      ├── Automated tests
+      └── Code quality analysis
+```
+
+The original CI configuration is preserved in:
+
+```text
+.gitlab-ci.yml
+```
+
+The file remains in this GitHub repository as part of the original project and development history.
+
+---
+
+## SonarQube
+
+Static code analysis was performed using **SonarQube** together with Maven and JaCoCo.
+
+Example execution:
 
 ```bash
-mvn verify sonar:sonar -Dsonar.id=YOUR_ID -Dsonar.token=YOUR_TOKEN
+mvn verify sonar:sonar \
+  -Dsonar.id=YOUR_ID \
+  -Dsonar.token=YOUR_TOKEN
 ```
 
-Coverage exclusions (configured in `pom.xml`): `**/view/**`, `**/controller/**`, `App.java`, `SokobanService.java`.
+SonarQube was used to analyse aspects such as:
 
-## Project structure
+- Code quality
+- Maintainability
+- Technical debt
+- Test coverage
 
+---
+
+## Logging
+
+The application uses:
+
+- **SLF4J (`slf4j-simple`)**
+- **java.util.logging**
+
+Logging covers:
+
+- Save/load failures
+- Font loading issues
+- Audio initialization failures
+- Game state transitions
+
+Logs are written to the console. No log files are persisted to disk.
+
+---
+
+## Music
+
+Background music is implemented using JavaFX Media.
+
+The application handles environments without multimedia support gracefully. If the required audio libraries are unavailable, the game continues running without music.
+
+On Linux, JavaFX Media relies on GStreamer.
+
+For Ubuntu-based systems, the required packages can be installed with:
+
+```bash
+sudo apt install \
+  gstreamer1.0-plugins-base \
+  gstreamer1.0-plugins-good \
+  gstreamer1.0-plugins-ugly \
+  gstreamer1.0-libav
 ```
-├── src/
-│   ├── main/
-│   │   ├── java/es/upm/pproject/sokoban/
-│   │   │   ├── App.java                                    ← JavaFX entry point
-│   │   │   ├── controller/
-│   │   │   │   ├── MenuController.java                     ← Navigation, scene transitions, save/load
-│   │   │   │   └── GameController.java                     ← Keyboard input and move orchestration
-│   │   │   ├── model/
-│   │   │   │   ├── service/
-│   │   │   │   │   └── SokobanService.java                 ← Service interface (placeholder)
-│   │   │   │   ├── dto/
-│   │   │   │   │   ├── classes/
-│   │   │   │   │   │   ├── Square.java                     ← Base grid cell (x, y position)
-│   │   │   │   │   │   ├── Wall.java                       ← Wall entity
-│   │   │   │   │   │   ├── Goal.java                       ← Goal square entity
-│   │   │   │   │   │   ├── Box.java                        ← Box entity (pushable)
-│   │   │   │   │   │   ├── PlayableCharacter.java          ← Player entity
-│   │   │   │   │   │   ├── Direccion.java                  ← Movement direction (row/col increments)
-│   │   │   │   │   │   ├── Score.java                      ← Per-level move counter
-│   │   │   │   │   │   ├── GameScore.java                  ← Total score across levels
-│   │   │   │   │   │   ├── Level.java                      ← Single level: grids, score, character
-│   │   │   │   │   │   ├── CurrentGameState.java           ← Full game state (serializable)
-│   │   │   │   │   │   ├── CharacterManager.java           ← Player movement and bounds logic
-│   │   │   │   │   │   ├── BoxManager.java                 ← Box pushing and collision logic
-│   │   │   │   │   │   ├── LevelRecorder.java              ← Undo/restart history (deque of snapshots)
-│   │   │   │   │   │   ├── LevelFileReader.java            ← Parses level .txt files
-│   │   │   │   │   │   └── SaveSlotManager.java            ← Save/load .dat files
-│   │   │   │   │   ├── interfaces/
-│   │   │   │   │   │   ├── ILevel.java
-│   │   │   │   │   │   ├── ICurrentGameState.java
-│   │   │   │   │   │   ├── IBoxManager.java
-│   │   │   │   │   │   ├── IScore.java
-│   │   │   │   │   │   ├── IGameScore.java
-│   │   │   │   │   │   ├── ISaveSlotManager.java
-│   │   │   │   │   │   └── ILevelRecorder.java
-│   │   │   │   │   └── exceptions/
-│   │   │   │   │       ├── LevelDoesntExistException.java
-│   │   │   │   │       ├── CajaNotFoundInLevelException.java
-│   │   │   │   │       ├── GoalNotFoundInLevelException.java
-│   │   │   │   │       ├── PlayableCharacterNotFoundInLevelException.java
-│   │   │   │   │       ├── GoalsAndBoxesArentEqualsException.java
-│   │   │   │   │       └── CouldntCloneException.java
-│   │   │   └── view/
-│   │   │       ├── MainMenuView.java                       ← Main menu screen
-│   │   │       ├── MainGameView.java                       ← In-game button bar
-│   │   │       ├── BoardView.java                          ← Game grid renderer
-│   │   │       ├── GameInfoView.java                       ← Score and level info bar
-│   │   │       ├── LevelCompletedView.java                 ← Inter-level screen (next / restart / menu)
-│   │   │       ├── GameCompleteView.java                   ← Final completion summary (per-level scores)
-│   │   │       ├── SaveGameView.java                       ← Save/load slot screen
-│   │   │       └── MusicView.java                          ← Music playback controller
-│   │   └── resources/
-│   │       ├── levels/                                     ← Level_1.txt, Level_2.txt, Level_3.txt
-│   │       ├── images/                                     ← Game sprites (golem, box, wall, goal…)
-│   │       ├── music/                                      ← zelda_song.mp3, musica_minecraft.mp3
-│   │       └── css/                                        ← style.css, Minecraftia-Regular.ttf
-│   └── test/
-│       └── java/es/upm/pproject/sokoban/model/
-│           ├── dto/classes/                                ← 15 test classes (model layer)
-│           └── exceptions/                                 ← ExceptionsTest.java
-└── pom.xml
+
+Java 17 or higher is recommended for better JavaFX Media compatibility.
+
+---
+
+## Project Structure
+
+```text
+src/
+├── main/
+│   ├── java/es/upm/pproject/sokoban/
+│   │   ├── App.java
+│   │   │
+│   │   ├── controller/
+│   │   │   ├── MenuController.java
+│   │   │   └── GameController.java
+│   │   │
+│   │   ├── model/
+│   │   │   ├── service/
+│   │   │   │   └── SokobanService.java
+│   │   │   │
+│   │   │   └── dto/
+│   │   │       ├── classes/
+│   │   │       │   ├── Square.java
+│   │   │       │   ├── Wall.java
+│   │   │       │   ├── Goal.java
+│   │   │       │   ├── Box.java
+│   │   │       │   ├── PlayableCharacter.java
+│   │   │       │   ├── Direccion.java
+│   │   │       │   ├── Score.java
+│   │   │       │   ├── GameScore.java
+│   │   │       │   ├── Level.java
+│   │   │       │   ├── CurrentGameState.java
+│   │   │       │   ├── CharacterManager.java
+│   │   │       │   ├── BoxManager.java
+│   │   │       │   ├── LevelRecorder.java
+│   │   │       │   ├── LevelFileReader.java
+│   │   │       │   └── SaveSlotManager.java
+│   │   │       │
+│   │   │       ├── interfaces/
+│   │   │       │   ├── ILevel.java
+│   │   │       │   ├── ICurrentGameState.java
+│   │   │       │   ├── IBoxManager.java
+│   │   │       │   ├── IScore.java
+│   │   │       │   ├── IGameScore.java
+│   │   │       │   ├── ISaveSlotManager.java
+│   │   │       │   └── ILevelRecorder.java
+│   │   │       │
+│   │   │       └── exceptions/
+│   │   │           ├── LevelDoesntExistException.java
+│   │   │           ├── CajaNotFoundInLevelException.java
+│   │   │           ├── GoalNotFoundInLevelException.java
+│   │   │           ├── PlayableCharacterNotFoundInLevelException.java
+│   │   │           ├── GoalsAndBoxesArentEqualsException.java
+│   │   │           └── CouldntCloneException.java
+│   │   │
+│   │   └── view/
+│   │       ├── MainMenuView.java
+│   │       ├── MainGameView.java
+│   │       ├── BoardView.java
+│   │       ├── GameInfoView.java
+│   │       ├── LevelCompletedView.java
+│   │       ├── GameCompleteView.java
+│   │       ├── SaveGameView.java
+│   │       └── MusicView.java
+│   │
+│   └── resources/
+│       ├── levels/
+│       ├── images/
+│       ├── music/
+│       └── css/
+│
+└── test/
+    └── java/es/upm/pproject/sokoban/model/
+        ├── dto/classes/
+        └── exceptions/
+
+pom.xml
 ```
+
+---
+
+## Repository History
+
+This repository preserves the original collaborative development history from the institutional GitLab environment used during the course.
+
+The commit history reflects the contributions of the different team members throughout the development of the project.
