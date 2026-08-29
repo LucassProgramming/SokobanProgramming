@@ -13,7 +13,7 @@ The project was originally developed using UPM's institutional **GitLab** and la
 - **JaCoCo**
 - **SonarQube**
 - **Git**
-- **GitLab CI/CD**
+- **GitLab CI**
 
 ## Key Features
 
@@ -441,20 +441,31 @@ SokobanService.java
 
 ## Continuous Integration
 
-The original development workflow used **GitLab CI/CD** through the institutional GitLab instance of Universidad Politécnica de Madrid.
+The project used **GitLab CI** during its original development on the institutional GitLab instance of **Universidad Politécnica de Madrid (UPM)**.
 
-The pipeline automated the software verification process:
+The pipeline contained two main jobs.
 
-```text
-Push / Commit
-      │
-      ▼
-GitLab CI
-      │
-      ├── Maven build
-      ├── Automated tests
-      └── Code quality analysis
+### Maven Build & Tests
+
+The first job executed the Maven test lifecycle inside a `maven:3.6.3-jdk-11` container:
+
+```bash
+mvn test
 ```
+
+This automated the compilation and execution of the project's JUnit test suite. **JaCoCo** was integrated into the Maven test lifecycle to generate code coverage data.
+
+### SonarQube Analysis
+
+A second job performed static code analysis with **SonarQube** on the `main` branch:
+
+```bash
+mvn verify sonar:sonar
+```
+
+The SonarQube connection and authentication values were provided through **GitLab CI environment variables**, keeping credentials outside the repository.
+
+The SonarQube job was configured with `allow_failure: true`, meaning that an analysis failure did not cause the entire pipeline to fail.
 
 The original CI configuration is preserved in:
 
@@ -462,30 +473,36 @@ The original CI configuration is preserved in:
 .gitlab-ci.yml
 ```
 
-The file remains in this GitHub repository as part of the original project and development history.
-
----
+Although the project has been migrated to GitHub, this file remains in the repository as part of the original academic project's development history.
 
 ## SonarQube
 
-Static code analysis was performed using **SonarQube** together with Maven and JaCoCo.
+Static code analysis was performed using **SonarQube**, integrated with Maven and the GitLab CI pipeline.
 
-Example execution:
+The analysis was executed on the `main` branch using:
 
 ```bash
-mvn verify sonar:sonar \
-  -Dsonar.id=YOUR_ID \
-  -Dsonar.token=YOUR_TOKEN
+mvn verify sonar:sonar
 ```
 
-SonarQube was used to analyse aspects such as:
+SonarQube configuration and authentication were supplied through GitLab CI environment variables such as:
+
+```text
+SONAR_LOGIN
+SONAR_HOST_URL
+SONAR_ID
+```
+
+This avoided storing authentication credentials directly in the pipeline configuration.
+
+SonarQube was used together with **JaCoCo** to analyse aspects such as:
 
 - Code quality
 - Maintainability
 - Technical debt
 - Test coverage
 
----
+The SonarQube analysis was configured as an allowed-to-fail CI job and therefore did not block the rest of the pipeline if the analysis failed.
 
 ## Logging
 
